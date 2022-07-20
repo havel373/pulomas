@@ -1,0 +1,64 @@
+CRM Pulmas Office Park
+
+
+User :
+1. Super Admin
+2. User Marketing
+3. User Keuangan
+4. User Teknik
+5. User Tenant
+
+Menu yang dibuat Superadmin :
+1. kelola gedung
+2. kelola lantai
+3. kelola ruang
+4. kelola user marketing
+5. kelola User teknik
+6. kelola user keuangan
+7. kelola tenant
+8. kelola grade tenant 
+9. additional service
+10. overtime
+11. kelola rekening
+
+
+tenant :
+-liat billing
+-kelola sewa (mengajukan sewa, perpanjang sewa, pengajuan henti sewa)
+-melakukan pembayaran
+
+user marketing 
+-membuat kontrak penyewaan (crud)
+-kelola data tenant (CRUD)
+-melihat data standmeter
+-kelola laporan (mendownload dalam bentuk pdf)
+
+user teknik
+-kelola standmeter
+-kelola tarif
+-kelola daya tenant
+
+user keuangan
+-melihat billing
+-melakukan approval pembayaran
+-kelola laporan ((mendownload dalam bentuk pdf)
+
+Akun (syarat : ga bole nambah apapun yang tertera diaplikasi cuman bisa melihat saja) :
+1.Tenant
+email : anwar.rifaldi50@gmail.com
+pass : 123456
+
+2. Marketing 
+email : aditest@pulomasjaya.co.id
+pass : 123456
+
+3. Teknik
+email : staftest@pulomasjaya.co.id
+pass : 123456
+
+4. Superadmin
+https://pmjsmart.pulomasjaya.co.id/login 
+(buka link diatas terlebih dahulu) kemudian setelah masuk pilih crm pop
+
+Email : pmjtesting@pulomasjaya.co.id
+Pass :  Pulomas2410
