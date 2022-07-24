@@ -1,3 +1,4 @@
+
 <?php
 
 use App\Http\Controllers\AuthController;
@@ -50,7 +51,7 @@ Route::prefix('auth')->name('auth.')->group(function(){
 });
 
 Route::get('/', function () {
-    return redirect()->route('dashboard');
+    return redirect()->route('auth.index');
 });
 
 Route::get('/dashboard', [WebController::class,'dashboard'])->name('dashboard');
