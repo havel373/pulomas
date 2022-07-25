@@ -1,72 +1,74 @@
 let page;
-function main_content(cont){
+
+function main_content(cont) {
     $('#content_list').hide();
     $('#content_input').hide();
     $('#content_detail').hide();
     $('#' + cont).show();
 }
-$(document).ready(function(){
-    $(document).on('click', '.page-link', function(event){
-        event.preventDefault(); 
+$(document).ready(function () {
+    $(document).on('click', '.page-link', function (event) {
+        event.preventDefault();
         var page = $(this).attr('href').split('page=')[1];
         fetch_data(page);
     });
 
-    function fetch_data(page)
-    {
+    function fetch_data(page) {
         $.ajax({
-        url:"?page="+page,
-        success:function(data){
-            $('#list_result').html(data);
-        }
+            url: "?page=" + page,
+            success: function (data) {
+                $('#list_result').html(data);
+            }
         });
     }
 });
-$(window).on('hashchange', function(){
+$(window).on('hashchange', function () {
     if (window.location.hash) {
         page = window.location.hash.replace('#', '');
         if (page == Number.NaN || page <= 0) {
             return false;
-        }else{
+        } else {
             load_list(page);
         }
     }
 });
 
-function load_list(page){
-    $.get('?page=' + page, $('#content_filter').serialize(), function(result){
+function load_list(page) {
+    $.get('?page=' + page, $('#content_filter').serialize(), function (result) {
         $('#list_result').html(result);
         main_content('content_list');
     }, "html");
 }
-function load_input(url){
-    $.get(url, {}, function(result) {
+
+function load_input(url) {
+    $.get(url, {}, function (result) {
         $('#content_input').html(result);
         main_content('content_input');
     }, "html");
 }
-function add_cart(tombol, form, url, title, product){
+
+function add_cart(tombol, form, url, title, product) {
     $(tombol).submit(function () {
         return false;
     });
-    let data = $(form).serialize()+"&product="+ product;
+    let data = $(form).serialize() + "&product=" + product;
     $(tombol).prop("disabled", true);
     $.ajax({
         type: 'POST',
         url: url,
         data: data,
         dataType: 'json',
-        beforeSend: function() {
-            
+        beforeSend: function () {
+
         },
         success: function (response) {
-            if (response.alert=="success") {
+            if (response.alert == "success") {
                 success_toastr(response.message);
                 $(form)[0].reset();
                 setTimeout(function () {
                     $(tombol).prop("disabled", false);
-                        $(tombol).html(title);
-                        load_list(1);
+                    $(tombol).html(title);
+                    load_list(1);
                 }, 2000);
             } else {
                 error_toastr(response.message);
@@ -78,7 +80,8 @@ function add_cart(tombol, form, url, title, product){
         },
     });
 }
-function handle_confirm(url){
+
+function handle_confirm(url) {
     $.confirm({
         animationSpeed: 1000,
         animation: 'zoom',
@@ -95,16 +98,16 @@ function handle_confirm(url){
         buttons: {
             Yes: {
                 btnClass: 'btn-red any-other-class',
-                action: function(){
+                action: function () {
                     $.ajax({
-                        type:"PATCH",
+                        type: "PATCH",
                         url: url,
                         dataType: "json",
-                        success:function(response){
+                        success: function (response) {
                             if (response.alert == "success") {
                                 success_toastr(response.message);
                                 load_list(1);
-                            }else{
+                            } else {
                                 error_toastr(response.message);
                                 load_list(1);
                             }
@@ -119,7 +122,8 @@ function handle_confirm(url){
         }
     });
 }
-function handle_delete(url){
+
+function handle_delete(url) {
     $.confirm({
         animationSpeed: 1000,
         animation: 'zoom',
@@ -136,17 +140,17 @@ function handle_delete(url){
         buttons: {
             Yes: {
                 btnClass: 'btn-red any-other-class',
-                action: function(){
+                action: function () {
                     $.ajax({
-                        type:"DELETE",
+                        type: "DELETE",
                         url: url,
                         dataType: "json",
-                        success:function(response){
+                        success: function (response) {
                             if (response.alert == "success") {
                                 success_toastr(response.message);
                                 load_list(1);
                                 load_cart(localStorage.getItem("route_cart"));
-                            }else{
+                            } else {
                                 error_toastr(response.message);
                                 load_list(1);
                             }
@@ -162,30 +166,29 @@ function handle_delete(url){
     });
 }
 
-function handle_save(tombol, form, url, method, title){
+function handle_save(tombol, form, url, method, title) {
     $(tombol).submit(function () {
         return false;
     });
     let data = $(form).serialize();
-    $(tombol).prop("disabled", true);
-    $(tombol).html("Please wait");
     $.ajax({
         type: method,
         url: url,
         data: data,
         dataType: 'json',
-        beforeSend: function() {
-            
+        beforeSend: function () {
+            $(tombol).prop("disabled", true);
+            $(tombol).html("Please wait");
         },
         success: function (response) {
-            if (response.alert=="success") {
+            if (response.alert == "success") {
                 success_toastr(response.message);
                 $(form)[0].reset();
                 setTimeout(function () {
                     $(tombol).prop("disabled", false);
-                        $(tombol).html(title);
-                        main_content('content_list');
-                        load_list(1);
+                    $(tombol).html(title);
+                    main_content('content_list');
+                    load_list(1);
                 }, 2000);
             } else {
                 error_toastr(response.message);
@@ -198,7 +201,7 @@ function handle_save(tombol, form, url, method, title){
     });
 }
 
-function handle_upload(tombol,form,url,method, title){
+function handle_upload(tombol, form, url, method, title) {
     $(document).one('submit', form, function (e) {
         let data = new FormData(this);
         data.append('_method', method);
@@ -214,15 +217,15 @@ function handle_upload(tombol,form,url,method, title){
             resetForm: true,
             processData: false,
             dataType: 'json',
-            beforeSend: function() {
-            
+            beforeSend: function () {
+
             },
             success: function (response) {
-                if (response.alert=="success") {
+                if (response.alert == "success") {
                     success_toastr(response.message);
                     $(form)[0].reset();
                     setTimeout(function () {
-                        if(response.redirect){
+                        if (response.redirect) {
                             location.href = response.redirect;
                         }
                         $(tombol).prop("disabled", false);

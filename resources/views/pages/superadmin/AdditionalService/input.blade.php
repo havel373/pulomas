@@ -4,7 +4,6 @@
             <div class="card">
                 <div class="card-body">
                     <h4 class="header-title">Create Additional Service</h4>
-                    
                     <ul class="nav nav-tabs nav-bordered mb-3">
                     </ul> <!-- end nav-->
                     <div class="tab-content">
