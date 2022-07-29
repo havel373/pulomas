@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('tenants', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
+            $table->string('nama_instansi');
             $table->string('nomor_hp_instansi')->unique();
             $table->string('nama_penanggungjawab');
             $table->string('nomor_hp_penanggungjawab')->unique();

@@ -16,10 +16,9 @@ class BillingController extends Controller
      */
     public function index(Request $request)
     {
-        if($request->ajax() ) {
-            $collection = Billing::
+        if ($request->ajax()) {
+            $collection = Billing::paginate(10);
             // where('id_tenant',Auth::user()->tenant->id)->
-            paginate(10);
             return view('pages.tenant.billing.list', compact('collection'));
         }
         return view('pages.tenant.billing.main');

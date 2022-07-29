@@ -9,5 +9,10 @@ class GradeTenant extends Model
 {
     use HasFactory;
 
-    public $table ='grade_tenants';
+    public $table = 'grade_tenants';
+
+    protected $fillable = [
+        'kode',
+        'nilai',
+    ];
 }

@@ -16,7 +16,7 @@ class SewaController extends Controller
      */
     public function index(Request $request)
     {
-        if($request->ajax() ) {
+        if ($request->ajax()) {
             $collection = Sewa::paginate(10);
             return view('pages.tenant.sewa.list', compact('collection'));
         }
@@ -31,7 +31,7 @@ class SewaController extends Controller
     public function create()
     {
         $gedungs = Gedung::get();
-        return view('pages.tenant.sewa.input',['data' => new Sewa, 'gedungs' => $gedungs]);
+        return view('pages.tenant.sewa.input', ['data' => new Sewa, 'gedungs' => $gedungs]);
     }
 
     /**

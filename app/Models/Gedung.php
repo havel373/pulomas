@@ -8,9 +8,16 @@ use Illuminate\Database\Eloquent\Model;
 class Gedung extends Model
 {
     use HasFactory;
-    public $table="gedung";
+    public $table = "gedung";
 
-    public function aset(){
-        return $this->belongsTo(Aset::class, 'id','id_aset');
+    public function aset()
+    {
+        return $this->belongsTo(Aset::class, 'id_aset');
     }
+
+    public function lantai()
+    {
+        return $this->hasMany(Lantai::class, 'id_gedung');
+    }
+    protected $fillable = ['id_aset', 'nama_gedung'];
 }

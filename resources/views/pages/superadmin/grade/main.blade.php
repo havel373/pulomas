@@ -28,7 +28,8 @@
                                 <ul class="nav nav-tabs nav-bordered mb-3">
                                     <li class="nav-item">
                                         <!-- <button type="button" href="/superadmin" class="btn btn-primary">+ Create Gedung</button> -->
-                                        <a href="javascript:;" onclick="load_input('{{route('grade.create')}}');" class="btn btn-primary">+ Create Grade</a>
+                                        <a href="javascript:;" onclick="load_input('{{ route('grade.create') }}');"
+                                            class="btn btn-primary">+ Create Grade</a>
                                     </li>
                                 </ul> <!-- end nav-->
 

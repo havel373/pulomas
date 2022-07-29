@@ -3,7 +3,7 @@
         <div class="content-page">
             <!-- Start Content-->
             <div class="container-fluid">
-                                
+
                 <!-- start page title -->
                 <div class="row">
                     <div class="col-12">
@@ -18,9 +18,9 @@
                             <h4 class="page-title">Data Lantai</h4>
                         </div>
                     </div>
-                </div> <!-- end page title --> 
-    
-    
+                </div> <!-- end page title -->
+
+
                 <div class="row">
                     <div class="col-12">
                         <div class="card">
@@ -28,22 +28,25 @@
                                 <ul class="nav nav-tabs nav-bordered mb-3">
                                     <li class="nav-item">
                                         <!-- <button type="button" href="/superadmin" class="btn btn-primary">+ Create Gedung</button> -->
-                                        <a href="javascript:;" onclick="load_input('{{route('lantai.create')}}');" class="btn btn-primary">+ Create Lantai</a>
+                                        <a href="javascript:;" onclick="load_input('{{ route('lantai.create') }}');"
+                                            class="btn btn-primary">+ Create Lantai</a>
                                     </li>
                                 </ul> <!-- end nav-->
                                 <form id="form_filter" class="mb-3">
                                     <div class="row">
                                         <div class="col-md-3">
-                                            <input type="text" name="keywords" id="" class="form-control"  placeholder="Cari data Lantai">
+                                            <input type="text" name="keywords" id="" class="form-control"
+                                                placeholder="Cari data Lantai">
                                         </div>
                                         <div class="col-md-2">
-                                            <button type="button" onclick="" class="btn btn-primary"><i class="uil-search" aria-hidden="true"></i></button>
+                                            <button type="button" onclick="" class="btn btn-primary"><i
+                                                    class="uil-search" aria-hidden="true"></i></button>
                                         </div>
                                     </div>
                                 </form>
                                 <div class="tab-content">
                                     <div class="tab-pane show active" id="basic-datatable-preview">
-                                       <div id="list_result"></div>
+                                        <div id="list_result"></div>
                                     </div> <!-- end preview-->
 
 

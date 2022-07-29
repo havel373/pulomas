@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\Superadmin;
 
-use App\Http\Controllers\Controller;
 use App\Models\Tenant;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Validator;
 
 class UserTenantController extends Controller
 {
@@ -15,7 +16,7 @@ class UserTenantController extends Controller
      */
     public function index(Request $request)
     {
-        if($request->ajax() ) {
+        if ($request->ajax()) {
             $collection = Tenant::paginate(10);
             return view('pages.superadmin.tenant.list', compact('collection'));
         }
@@ -40,7 +41,21 @@ class UserTenantController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'nama' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'required|string|min:8',
+            'status_pegawai' => 'required',
+            'nomor_hp' => 'required|numeric|unique:tenants',
+            'status' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'alert' => 'error',
+                'message' => $validator->errors()->first()
+            ]);
+        }
     }
 
     /**
@@ -51,7 +66,7 @@ class UserTenantController extends Controller
      */
     public function show(Tenant $tenant)
     {
-        //
+        return view('pages.superadmin.tenant.show', compact('tenant'));
     }
 
     /**

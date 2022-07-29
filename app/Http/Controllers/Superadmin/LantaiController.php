@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\Superadmin;
 
-use App\Http\Controllers\Controller;
 use App\Models\Gedung;
 use App\Models\Lantai;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Validator;
 
 class LantaiController extends Controller
 {
@@ -16,7 +17,7 @@ class LantaiController extends Controller
      */
     public function index(Request $request)
     {
-        if($request->ajax() ) {
+        if ($request->ajax()) {
             $collection = Lantai::paginate(10);
             return view('pages.superadmin.lantai.list', compact('collection'));
         }
@@ -42,7 +43,27 @@ class LantaiController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'id_gedung' => 'required|integer',
+            'nama_lantai' => 'required|string|max:255',
+            'harga_sewa' => 'required|integer',
+            'service_charge' => 'required|integer',
+            'service_charge_listrik_sendiri' => 'required|integer',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'alert' => 'error',
+                'message' => $validator->errors()->first()
+            ]);
+        }
+
+        Lantai::create($request->all());
+
+        return response()->json([
+            'alert' => 'success',
+            'message' => 'Data berhasil ditambahkan'
+        ]);
     }
 
     /**
@@ -63,7 +84,8 @@ class LantaiController extends Controller
      */
     public function edit(Lantai $lantai)
     {
-        //
+        $gedungs = Gedung::get();
+        return view('pages.superadmin.lantai.input', ['data' => $lantai, 'gedungs' => $gedungs]);
     }
 
     /**
@@ -75,7 +97,27 @@ class LantaiController extends Controller
      */
     public function update(Request $request, Lantai $lantai)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'id_gedung' => 'required|integer',
+            'nama_lantai' => 'required|string|max:255',
+            'harga_sewa' => 'required|integer',
+            'service_charge' => 'required|integer',
+            'service_charge_listrik_sendiri' => 'required|integer',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'alert' => 'error',
+                'message' => $validator->errors()->first()
+            ]);
+        }
+
+        $lantai->update($request->all());
+
+        return response()->json([
+            'alert' => 'success',
+            'message' => 'Data berhasil diubah'
+        ]);
     }
 
     /**
@@ -86,6 +128,11 @@ class LantaiController extends Controller
      */
     public function destroy(Lantai $lantai)
     {
-        //
+        $lantai->delete();
+
+        return response()->json([
+            'alert' => 'success',
+            'message' => 'Data berhasil dihapus'
+        ]);
     }
 }

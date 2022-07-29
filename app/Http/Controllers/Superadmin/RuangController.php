@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Superadmin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Gedung;
+use App\Models\Lantai;
 use App\Models\Ruang;
 use Illuminate\Http\Request;
 
@@ -16,7 +17,7 @@ class RuangController extends Controller
      */
     public function index(Request $request)
     {
-        if($request->ajax() ) {
+        if ($request->ajax()) {
             $collection = Ruang::paginate(10);
             return view('pages.superadmin.ruang.list', compact('collection'));
         }
@@ -88,5 +89,11 @@ class RuangController extends Controller
     public function destroy(Ruang $ruang)
     {
         //
+    }
+
+    public function getLantai(Gedung $gedung)
+    {
+        $lantai = $gedung->lantai;
+        return response()->json($lantai);
     }
 }

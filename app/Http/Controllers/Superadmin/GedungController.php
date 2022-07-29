@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Aset;
 use App\Models\Gedung;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class GedungController extends Controller
 {
@@ -16,7 +17,7 @@ class GedungController extends Controller
      */
     public function index(Request $request)
     {
-        if($request->ajax() ) {
+        if ($request->ajax()) {
             $collection = Gedung::paginate(10);
             return view('pages.superadmin.gedung.list', compact('collection'));
         }
@@ -42,7 +43,24 @@ class GedungController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'id_aset' => 'required|integer',
+            'nama_gedung' => 'required|string|max:255',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'alert' => 'error',
+                'message' => $validator->errors()->first()
+            ]);
+        }
+
+        Gedung::create($request->all());
+
+        return response()->json([
+            'alert' => 'success',
+            'message' => 'Data berhasil ditambahkan'
+        ]);
     }
 
     /**
@@ -87,6 +105,16 @@ class GedungController extends Controller
      */
     public function destroy(Gedung $gedung)
     {
-        //
+        $gedung->delete();
+
+        return response()->json([
+            'alert' => 'success',
+            'message' => 'Data berhasil dihapus'
+        ]);
+    }
+
+    public function getAsset(Aset $asset)
+    {
+        return response()->json($asset);
     }
 }

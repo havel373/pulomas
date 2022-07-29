@@ -44,22 +44,24 @@ use App\Http\Controllers\WebController;
 // use App\Models\Lantai;
 // use App\Models\Gedung;
 
-Route::prefix('auth')->name('auth.')->group(function(){
+Route::prefix('auth')->name('auth.')->group(function () {
     Route::get('', [AuthController::class, 'index'])->name('index');
-    Route::post('login',[AuthController::class, 'do_login'])->name('login');
-    Route::get('logout',[AuthController::class, 'do_logout'])->name('logout');
+    Route::post('login', [AuthController::class, 'do_login'])->name('login');
+    Route::get('logout', [AuthController::class, 'do_logout'])->name('logout');
 });
 
 Route::get('/', function () {
     return redirect()->route('auth.index');
 });
 
-Route::get('/dashboard', [WebController::class,'dashboard'])->name('dashboard');
+Route::get('/dashboard', [WebController::class, 'dashboard'])->name('dashboard');
 
-Route::get('/superadmin',function(){
-    return view ('superadmin.index');
-
+Route::get('/superadmin', function () {
+    return view('superadmin.index');
 });
+
+Route::get('asset/{asset}', [GedungController::class, 'getAsset'])->name('asset.get');
+Route::get('ruang/{gedung}/getLantai', [RuangController::class, 'getLantai'])->name('lantai.get');
 
 Route::resource('/gedung', GedungController::class);
 Route::resource('/lantai', LantaiController::class);
@@ -89,54 +91,44 @@ Route::resource('/standmeter', StandmeterController::class);
 Route::resource('/tarif-listrik', TarifListrikController::class);
 Route::resource('/teknik-data-tenant', TeknikDataTenantController::class);
 
-Route::get('/kelolausermarketing',function(){
-    return view ('superadmin.kelolausermarketing');
-
+Route::get('/kelolausermarketing', function () {
+    return view('superadmin.kelolausermarketing');
 });
 
-Route::get('/kelolauserteknik',function(){
-    return view ('superadmin.kelolauserteknik');
-
+Route::get('/kelolauserteknik', function () {
+    return view('superadmin.kelolauserteknik');
 });
 
-Route::get('/kelolauserkeuangan',function(){
-    return view ('superadmin.kelolauserkeuangan');
-
+Route::get('/kelolauserkeuangan', function () {
+    return view('superadmin.kelolauserkeuangan');
 });
 
-Route::get('/create-userteknik',function(){
-    return view ('superadmin.create-userteknik');
-
+Route::get('/create-userteknik', function () {
+    return view('superadmin.create-userteknik');
 });
 
-Route::get('/create-usermarketing',function(){
-    return view ('superadmin.create-usermarketing');
-
+Route::get('/create-usermarketing', function () {
+    return view('superadmin.create-usermarketing');
 });
 
-Route::get('/create-kelolagedung',function(){
-    return view ('superadmin.create-kelolagedung');
-
+Route::get('/create-kelolagedung', function () {
+    return view('superadmin.create-kelolagedung');
 });
 
-Route::get('/create-userkeuangan',function(){
-    return view ('superadmin.create-userkeuangan');
-
+Route::get('/create-userkeuangan', function () {
+    return view('superadmin.create-userkeuangan');
 });
 
-Route::get('/edit-userteknik',function(){
-    return view ('superadmin.edit-userteknik');
-
+Route::get('/edit-userteknik', function () {
+    return view('superadmin.edit-userteknik');
 });
 
-Route::get('/edit-usermarketing',function(){
-    return view ('superadmin.edit-usermarketing');
-
+Route::get('/edit-usermarketing', function () {
+    return view('superadmin.edit-usermarketing');
 });
 
-Route::get('/edit-userkeuangan',function(){
-    return view ('superadmin.edit-userkeuangan');
-
+Route::get('/edit-userkeuangan', function () {
+    return view('superadmin.edit-userkeuangan');
 });
 
 // Route::get('/edit-kelolalantai',function(){
@@ -147,8 +139,6 @@ Route::get('/edit-userkeuangan',function(){
 // Route::get('/kelolalantai', function () {
 //     return view('superadmin.kelolalantai');
 // });
-
-
 
 /* GRADE TENANT */
 /* View Grade Tenant */

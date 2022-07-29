@@ -47,39 +47,6 @@ function load_input(url) {
     }, "html");
 }
 
-function add_cart(tombol, form, url, title, product) {
-    $(tombol).submit(function () {
-        return false;
-    });
-    let data = $(form).serialize() + "&product=" + product;
-    $(tombol).prop("disabled", true);
-    $.ajax({
-        type: 'POST',
-        url: url,
-        data: data,
-        dataType: 'json',
-        beforeSend: function () {
-
-        },
-        success: function (response) {
-            if (response.alert == "success") {
-                success_toastr(response.message);
-                $(form)[0].reset();
-                setTimeout(function () {
-                    $(tombol).prop("disabled", false);
-                    $(tombol).html(title);
-                    load_list(1);
-                }, 2000);
-            } else {
-                error_toastr(response.message);
-                setTimeout(function () {
-                    $(tombol).prop("disabled", false);
-                    $(tombol).html(title);
-                }, 2000);
-            }
-        },
-    });
-}
 
 function handle_confirm(url) {
     $.confirm({

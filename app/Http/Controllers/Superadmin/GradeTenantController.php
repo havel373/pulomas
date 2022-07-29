@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Superadmin;
 use App\Http\Controllers\Controller;
 use App\Models\GradeTenant;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class GradeTenantController extends Controller
 {
@@ -15,7 +16,7 @@ class GradeTenantController extends Controller
      */
     public function index(Request $request)
     {
-        if($request->ajax() ) {
+        if ($request->ajax()) {
             $collection = GradeTenant::paginate(10);
             return view('pages.superadmin.grade.list', compact('collection'));
         }
@@ -40,7 +41,24 @@ class GradeTenantController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'kode' => 'required|string|max:255',
+            'nilai' => 'required|numeric',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'alert' => 'error',
+                'message' => $validator->errors()->first()
+            ]);
+        }
+
+        GradeTenant::create($request->all());
+
+        return response()->json([
+            'alert' => 'success',
+            'message' => 'Data berhasil ditambahkan',
+        ]);
     }
 
     /**
@@ -60,9 +78,9 @@ class GradeTenantController extends Controller
      * @param  \App\Models\GradeTenant  $gradeTenant
      * @return \Illuminate\Http\Response
      */
-    public function edit(GradeTenant $gradeTenant)
+    public function edit(GradeTenant $grade)
     {
-        //
+        return view('pages.superadmin.grade.input', ['data' => $grade]);
     }
 
     /**
@@ -72,9 +90,26 @@ class GradeTenantController extends Controller
      * @param  \App\Models\GradeTenant  $gradeTenant
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, GradeTenant $gradeTenant)
+    public function update(Request $request, GradeTenant $grade)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'kode' => 'required|string|max:255',
+            'nilai' => 'required|numeric',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'alert' => 'error',
+                'message' => $validator->errors()->first()
+            ]);
+        }
+
+        $grade->update($request->all());
+
+        return response()->json([
+            'alert' => 'success',
+            'message' => 'Data berhasil diubah',
+        ]);
     }
 
     /**
@@ -83,8 +118,13 @@ class GradeTenantController extends Controller
      * @param  \App\Models\GradeTenant  $gradeTenant
      * @return \Illuminate\Http\Response
      */
-    public function destroy(GradeTenant $gradeTenant)
+    public function destroy(GradeTenant $grade)
     {
-        //
+        $grade->delete();
+
+        return response()->json([
+            'alert' => 'success',
+            'message' => 'Data berhasil dihapus',
+        ]);
     }
 }
