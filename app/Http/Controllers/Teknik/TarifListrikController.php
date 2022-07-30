@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Teknik;
 use App\Http\Controllers\Controller;
 use App\Models\Tarif;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class TarifListrikController extends Controller
 {
@@ -15,7 +16,7 @@ class TarifListrikController extends Controller
      */
     public function index(Request $request)
     {
-        if($request->ajax() ) {
+        if ($request->ajax()) {
             $collection = Tarif::paginate(10);
             return view('pages.teknik.tarif.list', compact('collection'));
         }
@@ -40,7 +41,28 @@ class TarifListrikController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'jenis_tarif' => 'required',
+            'daya' => 'required',
+            'tarif' => 'required',
+            'tarif_dasar' => 'required',
+            'bpju' => 'required',
+            'kwh_minimum' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'alert' => 'error',
+                'message' => $validator->errors()->first()
+            ]);
+        }
+
+        Tarif::create($request->all());
+
+        return response()->json([
+            'alert' => 'success',
+            'message' => 'Data berhasil ditambahkan'
+        ]);
     }
 
     /**
@@ -62,7 +84,7 @@ class TarifListrikController extends Controller
      */
     public function edit(Tarif $tarif)
     {
-        //
+        return view('pages.teknik.tarif.input', ['data' => $tarif]);
     }
 
     /**
@@ -74,7 +96,28 @@ class TarifListrikController extends Controller
      */
     public function update(Request $request, Tarif $tarif)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'jenis_tarif' => 'required',
+            'daya' => 'required',
+            'tarif' => 'required',
+            'tarif_dasar' => 'required',
+            'bpju' => 'required',
+            'kwh_minimum' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'alert' => 'error',
+                'message' => $validator->errors()->first()
+            ]);
+        }
+
+        $tarif->update($request->all());
+
+        return response()->json([
+            'alert' => 'success',
+            'message' => 'Data berhasil diubah'
+        ]);
     }
 
     /**
@@ -85,6 +128,11 @@ class TarifListrikController extends Controller
      */
     public function destroy(Tarif $tarif)
     {
-        //
+        $tarif->delete();
+
+        return response()->json([
+            'alert' => 'success',
+            'message' => 'Data berhasil dihapus'
+        ]);
     }
 }
