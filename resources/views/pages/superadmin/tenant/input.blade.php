@@ -49,7 +49,7 @@
                                 <div class="col-md mb-3">
                                     <label class="form-label" for="validationTooltip01">Industri <small
                                             class="text-danger"><i>*Required</i></small></label>
-                                    <input type="text" name="industri">
+                                    <input type="text" class="form-control" name="industri">
                                 </div>
                                 <div class="col-md mb-3">
                                     <label class="form-label" for="validationTooltip01">Status Tenant<small
