@@ -120,6 +120,46 @@ class LantaiController extends Controller
         ]);
     }
 
+    public function get_list(Request $request){
+        $result = Lantai::where('id_gedung','=',$request->id)->get();
+        $list="<option value=''>Pilih Lantai</option>";
+        if($result->all() == []){
+            $list.="<option value=''>Tidak ada lantai ditemukan</option>";
+        }else{
+            foreach($result as $row){
+                    $list.="<option value='$row->id'>$row->nama_lantai - Rp " . number_format($row->harga_sewa) . " m2/Bulan</option>";
+            }
+        }
+        echo $list;
+    }
+   
+    public function get_service_charge(Request $request){
+        $result = Lantai::where('id','=',$request->id)->get();
+        $service_charge = "";
+            foreach($result as $row){
+                    $service_charge = '(Rp '.$row->service_charge.')';
+            }
+        echo $service_charge;
+    }
+    
+    public function get_service_charge_sendiri(Request $request){
+        $result = Lantai::where('id','=',$request->id)->get();
+        $service_charge_listrik_sendiri = "";
+            foreach($result as $row){
+                    $service_charge_listrik_sendiri = '(Rp '.$row->service_charge_listrik_sendiri.')';
+            }
+        echo $service_charge_listrik_sendiri;
+    }
+    
+    public function get_harga(Request $request){
+        $result = Lantai::where('id','=',$request->id)->get();
+        $harga = "";
+            foreach($result as $row){
+                $harga = $row->harga_sewa;
+            }
+        echo $harga;
+    }
+
     /**
      * Remove the specified resource from storage.
      *

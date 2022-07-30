@@ -65,6 +65,10 @@ Route::get('ruang/{gedung}/getLantai', [RuangController::class, 'getLantai'])->n
 
 Route::resource('/gedung', GedungController::class);
 Route::resource('/lantai', LantaiController::class);
+Route::post('lantai/get_list', [LantaiController::class, 'get_list'])->name('lantai.get_list');
+Route::post('lantai/get_service_charge', [LantaiController::class, 'get_service_charge'])->name('lantai.get_service_charge');
+Route::post('lantai/get_service_charge_sendiri', [LantaiController::class, 'get_service_charge_sendiri'])->name('lantai.get_service_charge_sendiri');
+Route::post('lantai/get_harga', [LantaiController::class, 'get_harga'])->name('lantai.get_harga');
 Route::resource('/ruang', RuangController::class);
 Route::resource('/marketing', UserMarketingController::class);
 Route::resource('/teknik', UserTeknikController::class);
