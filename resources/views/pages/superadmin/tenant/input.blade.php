@@ -58,17 +58,11 @@
                                         <option value="pegawai pnj">Pegawai PMJ</option>
                                         <option value="bukan pegawai pnj">Bukan Pegawai PMJ</option>
                                     </select>
-                                    <div class="invalid-tooltip">
-                                        *required
-                                    </div>
                                 </div>
                                 <div class="col-md mb-3">
                                     <label class="form-label" for="validationTooltip01">Alamat Penanggungjawab<small
                                             class="text-danger"><i>*Required</i></small></label>
-                                    <textarea name="" id="" class="form-control"></textarea>
-                                    <div class="invalid-tooltip">
-                                        *required
-                                    </div>
+                                    <textarea name="alamat_penanggungjawab" class="form-control">{{ $data->alamat_penanggungjawab }}</textarea>
                                 </div>
                                 <a href="javascript:;" onclick="load_list(1);" class="btn btn-info">Cancel</a>
                                 <button class="btn btn-primary" onclick="handle_save('');">Submit</button>

@@ -58,7 +58,7 @@ class UserSeeder extends Seeder
                 'updated_at' => date('Y-m-d H:i:s'),
             ],
         );
-        foreach ($data as $d){
+        foreach ($data as $d) {
             User::create([
                 'nama' => $d['nama'],
                 'email' => $d['email'],
