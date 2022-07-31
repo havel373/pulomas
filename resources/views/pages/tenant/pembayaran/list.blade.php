@@ -11,27 +11,26 @@
     </thead>
     <tbody>
         @forelse($collection as $i => $data)
-        <tr>
-            <td>{{$collection->firstItem() + $i}}</td>
-            <td>{{$data->tanggal_request}}</td>
-            <td>{{$data->nominal}}</td>
-            <td>{{$data->keterangan}}</td>
-            <td>{{$data->status}}</td>
-            <td>{{$data->bukti_pembayaran}}</td>
-            {{-- <td class="table-action text-center"> --}}
+            <tr>
+                <td>{{ $collection->firstItem() + $i }}</td>
+                <td>{{ $data->tanggal_request }}</td>
+                <td>{{ $data->nominal }}</td>
+                <td>{{ $data->keterangan }}</td>
+                <td>{{ $data->status }}</td>
+                <td>{{ $data->bukti_pembayaran }}</td>
+                {{-- <td class="table-action text-center"> --}}
                 {{-- <a href="javascript:;" onclick="load_input('{{route('ruang.edit', $data->id)}}');" class="action-icon">
                     <i class="dripicons-document-edit"></i>
                 </a>
                 <a href="javascript: void(0);" onclick="handle_delete('{{route('ruang.destroy', $data->id)}}')" class="action-icon">
                     <i class="mdi mdi-delete"></i>
                 </a> --}}
-            {{-- </td> --}}
-        </tr>
-
+                {{-- </td> --}}
+            </tr>
         @empty
-        <tr>
-            <td colspan="9" align="center">Data Kosong</td>
-        </tr>
+            <tr>
+                <td colspan="9" align="center">Data Kosong</td>
+            </tr>
         @endforelse
     </tbody>
 </table>

@@ -49,9 +49,6 @@
                                         <select class="form-control" name="lantai" id="lantai">
                                             <option value="">Pilih Lantai</option>
                                         </select>
-                                        <div class="invalid-tooltip">
-                                            *required
-                                        </div>
                                     </div>
                                     <div class="col-md-6 mb-3">
                                         <label class="form-label" for="validationTooltip02">Ruang<small
@@ -59,9 +56,6 @@
                                         <select class="form-control" name="ruang" id="ruang">
                                             <option value="">Pilih Ruang</option>
                                         </select>
-                                        <div class="invalid-tooltip">
-                                            *required
-                                        </div>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -71,9 +65,6 @@
                                         <select class="form-control" name="jangka" id="jangka">
                                             <option value=""></option>
                                         </select>
-                                        <div class="invalid-tooltip">
-                                            *required
-                                        </div>
                                     </div>
                                     <div class="col-md-6 mb-3">
                                         <label class="form-label">Luas (m<sup>2</sup>)<small
@@ -130,7 +121,7 @@
                                                 <a class="custom-accordion-title d-block pt-2 pb-2 text-primary"
                                                     data-bs-toggle="collapse" href="#collapseOne"
                                                     aria-expanded="true" aria-controls="collapseOne">
-                                                    Additional Service v
+                                                    Additional Service
                                                 </a>
                                             </h5>
                                         </div>
@@ -270,7 +261,6 @@
                                 <a href="javascript:;" onclick="load_list(1);" class="btn btn-info mt-3">Cancel</a>
                                 <button class="btn btn-primary mt-3" onclick="handle_save('');">Submit</button>
                             </form>
-
                         </div>
                     </div> <!-- end preview-->
                 </div> <!-- end tab-content-->

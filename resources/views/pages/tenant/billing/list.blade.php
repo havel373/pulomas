@@ -32,7 +32,6 @@
                 </a> --}}
                 </td>
             </tr>
-
         @empty
             <tr>
                 <td colspan="9" align="center">Data Kosong</td>

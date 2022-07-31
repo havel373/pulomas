@@ -28,7 +28,9 @@
                                 <ul class="nav nav-tabs nav-bordered mb-3">
                                     <li class="nav-item">
                                         <!-- <button type="button" href="/superadmin" class="btn btn-primary">+ Create Gedung</button> -->
-                                        <a href="javascript:;" onclick="load_input('{{route('data-tenant.create')}}');" class="btn btn-primary">+ Create Tenant</a>
+                                        <a href="javascript:;"
+                                            onclick="load_input('{{ route('data-tenant.create') }}');"
+                                            class="btn btn-primary">+ Create Tenant</a>
                                     </li>
                                 </ul> <!-- end nav-->
 
