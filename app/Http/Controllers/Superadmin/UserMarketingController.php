@@ -60,7 +60,7 @@ class UserMarketingController extends Controller
         }
 
         User::create([
-            'name' => $request->nama_marketing,
+            'nama' => $request->nama,
             'email' => $request->email,
             'password' => bcrypt($request->password),
             'role' => 'marketing',

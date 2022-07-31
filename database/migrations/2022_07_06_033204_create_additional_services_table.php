@@ -19,10 +19,10 @@ return new class extends Migration
             $table->unsignedBigInteger('pic');
             $table->string('satuan');
             $table->string('harga');
-            $table->enum('jangka',['langsung','berjangka']);
-            $table->enum('jenis_pembayaran',['debit','kredit']);
+            $table->enum('jangka', ['langsung', 'berjangka']);
+            $table->enum('jenis_pembayaran', ['debit', 'kredit']);
             $table->string('foto');
-            $table->longtext('Deskripsi');
+            $table->longtext('deskripsi');
             $table->foreign('pic')->references('id')->on('users');
             $table->timestamps();
         });

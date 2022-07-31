@@ -18,7 +18,7 @@ class MarketingSeeder extends Seeder
         $data = array(
             [
                 'user_id' => 5,
-                'status_pegawai' => "pegawai pnj",
+                'status_pegawai' => "pegawai pmj",
                 'nomor_hp' => '087888781238',
                 'status' => 'aktiv',
                 'created_by' => 1,
@@ -26,8 +26,7 @@ class MarketingSeeder extends Seeder
                 'updated_at' => date('Y-m-d H:i:s'),
             ],
         );
-        foreach
-         ($data as $d){
+        foreach ($data as $d) {
             Marketing::create([
                 'user_id' => $d['user_id'],
                 'status_pegawai' => $d['status_pegawai'],

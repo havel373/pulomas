@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\Superadmin;
 
-use App\Http\Controllers\Controller;
-use App\Models\AdditionalService;
-use App\Models\Marketing;
 use App\Models\Teknik;
+use App\Models\Marketing;
 use Illuminate\Http\Request;
+use App\Models\AdditionalService;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Validator;
 
 class AdditionalServiceController extends Controller
 {
@@ -17,7 +18,7 @@ class AdditionalServiceController extends Controller
      */
     public function index(Request $request)
     {
-        if($request->ajax() ) {
+        if ($request->ajax()) {
             $collection = AdditionalService::paginate(10);
             return view('pages.superadmin.AdditionalService.list', compact('collection'));
         }
@@ -44,7 +45,44 @@ class AdditionalServiceController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'nama' => 'required|string|max:255',
+            'pic' => 'required',
+            'satuan' => 'required',
+            'harga' => 'required',
+            'jangka' => 'required',
+            'jenis_pembayaran' => 'required',
+            'foto' => 'required',
+            'deskripsi' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'alert' => 'error',
+                'message' => $validator->errors()->first()
+            ]);
+        }
+
+        $file = $request->file('foto');
+        $nama_file = time() . "_" . $file->getClientOriginalName();
+        $tujuan_upload = 'data_file';
+        $file->move($tujuan_upload, $nama_file);
+        $data = [
+            'nama' => $request->nama,
+            'pic' => $request->pic,
+            'satuan' => $request->satuan,
+            'harga' => $request->harga,
+            'jangka' => $request->jangka,
+            'jenis_pembayaran' => $request->jenis_pembayaran,
+            'foto' => $nama_file,
+            'deskripsi' => $request->deskripsi,
+        ];
+        AdditionalService::create($data);
+
+        return response()->json([
+            'alert' => 'success',
+            'message' => 'Data berhasil ditambahkan'
+        ]);
     }
 
     /**
@@ -53,7 +91,7 @@ class AdditionalServiceController extends Controller
      * @param  \App\Models\AdditionalService  $additionalServices
      * @return \Illuminate\Http\Response
      */
-    public function show(AdditionalService $additionalService)
+    public function show(AdditionalService $additional_service)
     {
         //
     }
@@ -64,9 +102,11 @@ class AdditionalServiceController extends Controller
      * @param  \App\Models\AdditionalService  $additionalServices
      * @return \Illuminate\Http\Response
      */
-    public function edit(AdditionalService $additionalService)
+    public function edit(AdditionalService $additional_service)
     {
-        //
+        $marketings = Marketing::get();
+        $tekniks = Teknik::get();
+        return view('pages.superadmin.AdditionalService.edit', ['data' => $additional_service, 'marketings' => $marketings, 'tekniks' => $tekniks]);
     }
 
     /**
@@ -76,9 +116,46 @@ class AdditionalServiceController extends Controller
      * @param  \App\Models\AdditionalService  $additionalServices
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, AdditionalService $additionalService)
+    public function update(Request $request, AdditionalService $additional_service)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'nama' => 'required|string|max:255',
+            'pic' => 'required',
+            'satuan' => 'required',
+            'harga' => 'required',
+            'jangka' => 'required',
+            'jenis_pembayaran' => 'required',
+            'foto' => 'required',
+            'deskripsi' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'alert' => 'error',
+                'message' => $validator->errors()->first()
+            ]);
+        }
+
+        $file = $request->file('foto');
+        $nama_file = time() . "_" . $file->getClientOriginalName();
+        $tujuan_upload = 'data_file';
+        $file->move($tujuan_upload, $nama_file);
+        $data = [
+            'nama' => $request->nama,
+            'pic' => $request->pic,
+            'satuan' => $request->satuan,
+            'harga' => $request->harga,
+            'jangka' => $request->jangka,
+            'jenis_pembayaran' => $request->jenis_pembayaran,
+            'foto' => $nama_file,
+            'deskripsi' => $request->deskripsi,
+        ];
+        $additional_service->update($data);
+
+        return response()->json([
+            'alert' => 'success',
+            'message' => 'Data berhasil diubah'
+        ]);
     }
 
     /**
@@ -87,8 +164,12 @@ class AdditionalServiceController extends Controller
      * @param  \App\Models\AdditionalService  $additionalServices
      * @return \Illuminate\Http\Response
      */
-    public function destroy(AdditionalService $additionalService)
+    public function destroy(AdditionalService $additional_service)
     {
-        //
+        $additional_service->delete();
+        return response()->json([
+            'alert' => 'success',
+            'message' => 'Data berhasil dihapus'
+        ]);
     }
 }

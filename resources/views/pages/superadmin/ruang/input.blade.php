@@ -22,9 +22,6 @@
                                                     {{ $gedung->nama_gedung }}
                                             @endforeach
                                         </select>
-                                        <div class="invalid-tooltip">
-                                            *required
-                                        </div>
                                     </div>
                                     <div class="col-md-6 mb-3">
                                         <label class="form-label" for="validationTooltip01">Pilih Lantai<small
@@ -32,9 +29,6 @@
                                         <select class="form-control" name="id_lantai" id="id_lantai">
                                             <option value="">Pilih Gedung Lebih Dulu</option>
                                         </select>
-                                        <div class="invalid-tooltip">
-                                            *required
-                                        </div>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -43,18 +37,12 @@
                                                 class="text-danger"><i>*Required</i></small></label>
                                         <input type="text" class="form-control" id="validationTooltip02"
                                             placeholder="" name="kode_ruang" value="{{ $data->kode_ruang }}" required>
-                                        <div class="invalid-tooltip">
-                                            *required
-                                        </div>
                                     </div>
                                     <div class="col-md-6 mb-3">
                                         <label class="form-label" for="validationTooltip02">Nama Ruang<small
                                                 class="text-danger"><i>*Required</i></small></label>
                                         <input type="text" class="form-control" id="validationTooltip02"
                                             placeholder="" name="nama_ruang" value="{{ $data->nama_ruang }}" required>
-                                        <div class="invalid-tooltip">
-                                            *required
-                                        </div>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -68,9 +56,6 @@
                                                 {{ $data->lantai == 'tidak aktiv' ? 'selected' : '' }}>
                                                 Tidak Aktiv</option>
                                         </select>
-                                        <div class="invalid-tooltip">
-                                            *required
-                                        </div>
                                     </div>
                                     <div class="col-md-6 mb-3">
                                         <label class="form-label">Luas (m<sup>2</sup>)<small
@@ -110,8 +95,9 @@
                                                 class="text-danger"><i>*Required</i></small></label>
                                         <div class="input-group" id="input-group1">
                                             <span class="input-group-text">Rp</span>
-                                            <input type="text" class="form-control" name="overtime_dibawah_4jam" id="overtime_dibawah_4jam"
-                                                value="{{ $data->overtime_dibawah_4jam }}" required>
+                                            <input type="text" class="form-control" name="overtime_dibawah_4jam"
+                                                id="overtime_dibawah_4jam" value="{{ $data->overtime_dibawah_4jam }}"
+                                                required>
                                         </div>
                                     </div>
                                     <div class="col-md-6 mb-3">
@@ -121,7 +107,8 @@
                                             <span class="input-group-text">Rp</span>
                                             <input type="text" class="form-control"
                                                 name="total_overtime_dibawah_4jam"
-                                                value="{{ $data->total_overtime_dibawah_4jam }}" readonly id="total_overtime_dibawah_4jam">
+                                                value="{{ $data->total_overtime_dibawah_4jam }}" readonly
+                                                id="total_overtime_dibawah_4jam">
                                             <span class="input-group-text">Jam / m<sup>2</sup></span>
                                         </div>
                                     </div>
@@ -132,8 +119,9 @@
                                                 class="text-danger"><i>*Required</i></small></label>
                                         <div class="input-group" id="input-group1">
                                             <span class="input-group-text">Rp</span>
-                                            <input type="text" class="form-control" name="overtime_diatas_4jam" id="overtime_diatas_4jam"
-                                                value="{{ $data->overtime_diatas_4jam }}" required>
+                                            <input type="text" class="form-control" name="overtime_diatas_4jam"
+                                                id="overtime_diatas_4jam" value="{{ $data->overtime_diatas_4jam }}"
+                                                required>
                                         </div>
                                     </div>
                                     <div class="col-md-6 mb-3">
@@ -143,7 +131,8 @@
                                             <span class="input-group-text">Rp</span>
                                             <input type="text" class="form-control"
                                                 name="total_overtime_diatas_4jam"
-                                                value="{{ $data->total_overtime_diatas_4jam }}" readonly id="total_overtime_diatas_4jam">
+                                                value="{{ $data->total_overtime_diatas_4jam }}" readonly
+                                                id="total_overtime_diatas_4jam">
                                             <span class="input-group-text">Jam / m<sup>2</sup></span>
                                         </div>
                                     </div>
@@ -151,14 +140,15 @@
                                 <div class="row">
                                     <div class="col-md-6 mb-3" id="form-dinamic">
                                         @if ($data->id)
-                                            @foreach ($data->fasilitas as $fasilitas)
+                                            @foreach ($data->fasilitas as $key => $value)
                                                 <label class="form-label">Fasilitas
                                                     <small class="text-danger">
                                                         <i>*Required</i>
                                                     </small>
                                                 </label>
-                                                <div class="input-group" id="input-group1">
-                                                    <input type="text" class="form-control" name="fasilitas[]"
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control"
+                                                        name="fasilitas[{{ $key }}]"
                                                         value="{{ $data->fasilitas }}">
                                                     <button type="button" id="tambah_form"
                                                         class="btn btn-primary btn-add-fasilitas">
@@ -172,8 +162,8 @@
                                                     <i>*Required</i>
                                                 </small>
                                             </label>
-                                            <div class="input-group" id="input-group1">
-                                                <input type="text" class="form-control" name="fasilitas[]">
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" name="fasilitas[0]">
                                                 <button type="button" id="tambah_form"
                                                     class="btn btn-primary btn-add-fasilitas">
                                                     <i class="uil-plus" style="color:white;"></i>
@@ -183,29 +173,31 @@
                                     </div>
                                     <div class="col-md-6 mb-3">
                                         <label class="form-label">Tarif Service Charge
-                                            <label id="service_charge">(Rp 0)</label> 
+                                            <label id="service_charge">(Rp 0)</label>
                                             <small class="text-danger">
                                                 <i>*Required</i>
                                             </small>
                                         </label>
                                         <div class="input-group" id="input-group1">
                                             <span class="input-group-text">Rp</span>
-                                            <input type="text" class="form-control" name="service_charge" id="service_charge_input"
-                                                value="{{ $data->service_charge }}" readonly>
+                                            <input type="text" class="form-control" name="service_charge"
+                                                id="service_charge_input" value="{{ $data->service_charge }}"
+                                                readonly>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-6 mb-3">
                                         <label class="form-label">Tarif Service Charge Sendiri
-                                            <label id="service_charge_sendiri">(Rp 0)</label> 
+                                            <label id="service_charge_sendiri">(Rp 0)</label>
                                             <small class="text-danger">
                                                 <i>*Required</i>
                                             </small>
                                         </label>
                                         <div class="input-group" id="input-group1">
                                             <span class="input-group-text">Rp</span>
-                                            <input type="text" class="form-control" name="service_charge_sendiri" id="service_charge_sendiri_input"
+                                            <input type="text" class="form-control" name="service_charge_sendiri"
+                                                id="service_charge_sendiri_input"
                                                 value="{{ $data->service_charge_sendiri }}" readonly>
                                         </div>
                                     </div>
@@ -320,7 +312,6 @@
 </div>
 <script>
     $(document).ready(function() {
-
         number_only('luas');
         number_only('harga');
         number_only('harga_hari');
@@ -330,37 +321,46 @@
         number_only('total_overtime_diatas_4jam')
         number_only('service_charge_input');
         number_only('service_charge_sendiri_input');
-        $("#id_gedung").change(function(){
+        $("#id_gedung").change(function() {
             $.ajax({
                 type: "POST",
-                url: "{{route('lantai.get_list')}}",
-                data: {id : $("#id_gedung").val()},
-                success: function(response){
+                url: "{{ route('lantai.get_list') }}",
+                data: {
+                    id: $("#id_gedung").val()
+                },
+                success: function(response) {
                     $("#id_lantai").html(response);
-                    $("#id_lantai").change(function(){
+                    $("#id_lantai").change(function() {
                         $.ajax({
                             type: "POST",
-                            url: "{{route('lantai.get_service_charge')}}",
-                            data: {id : $("#id_lantai").val()},
-                            success: function(response){
+                            url: "{{ route('lantai.get_service_charge') }}",
+                            data: {
+                                id: $("#id_lantai").val()
+                            },
+                            success: function(response) {
                                 $("#service_charge").html(response);
                                 $.ajax({
-                                    success: function(response){
+                                    success: function(
+                                        response) {
                                         $('#luas').val(1);
                                     }
                                 });
                             }
                         });
                     });
-                    $("#id_lantai").change(function(){
+                    $("#id_lantai").change(function() {
                         $.ajax({
                             type: "POST",
-                            url: "{{route('lantai.get_service_charge_sendiri')}}",
-                            data: {id : $("#id_lantai").val()},
-                            success: function(response){
-                                $("#service_charge_sendiri").html(response);
+                            url: "{{ route('lantai.get_service_charge_sendiri') }}",
+                            data: {
+                                id: $("#id_lantai").val()
+                            },
+                            success: function(response) {
+                                $("#service_charge_sendiri").html(
+                                    response);
                                 $.ajax({
-                                    success: function(response){
+                                    success: function(
+                                        response) {
                                         $('#luas').val(1);
                                     }
                                 });
@@ -368,75 +368,244 @@
                         });
                     });
 
-                    $('#luas').keydown(function(){
+                    $('#luas').keydown(function() {
                         $.ajax({
                             type: "POST",
-                            url: "{{route('lantai.get_harga')}}",
-                            data: {id : $("#id_lantai").val()},
-                            success: function(response){
-                                $("#service_charge_input").val( $("#service_charge").text().replace(/\D/g, "") * $("#luas").val());
-                                $("#service_charge_sendiri_input").val( $("#service_charge_sendiri").text().replace(/\D/g, "") * $("#luas").val());
+                            url: "{{ route('lantai.get_harga') }}",
+                            data: {
+                                id: $("#id_lantai").val()
+                            },
+                            success: function(response) {
+                                $("#service_charge_input").val($(
+                                        "#service_charge").text()
+                                    .replace(/\D/g, "") * $("#luas")
+                                    .val());
+                                $("#service_charge_sendiri_input").val(
+                                    $("#service_charge_sendiri")
+                                    .text().replace(/\D/g, "") * $(
+                                        "#luas").val());
                                 let harga = response;
-                                $('#harga').val($("#luas").val() * harga);
+                                $('#harga').val($("#luas").val() *
+                                    harga);
                                 $.ajax({
-                                    success: function(response){
-                                        $('#1bulan').html( $('#harga').val());
-                                        $('#2bulan').html( $('#harga').val() * 2);
-                                        $('#3bulan').html( $('#harga').val() * 3);
-                                        $('#4bulan').html( $('#harga').val() * 4);
-                                        $('#5bulan').html( $('#harga').val() * 5);
-                                        $('#6bulan').html( $('#harga').val() * 6);
-                                        $('#7bulan').html( $('#harga').val() * 7);
-                                        $('#8bulan').html( $('#harga').val() * 8);
-                                        $('#9bulan').html( $('#harga').val() * 9);
-                                        $('#10bulan').html( $('#harga').val() * 10);
-                                        $('#11bulan').html( $('#harga').val() * 11);
-                                        $('#tahun').html( $('#harga').val() * 12);
+                                    success: function(
+                                        response) {
+                                        $('#1bulan').html($(
+                                            '#harga'
+                                        ).val());
+                                        $('#2bulan').html($(
+                                                '#harga'
+                                            )
+                                            .val() * 2);
+                                        $('#3bulan').html($(
+                                                '#harga'
+                                            )
+                                            .val() * 3);
+                                        $('#4bulan').html($(
+                                                '#harga'
+                                            )
+                                            .val() * 4);
+                                        $('#5bulan').html($(
+                                                '#harga'
+                                            )
+                                            .val() * 5);
+                                        $('#6bulan').html($(
+                                                '#harga'
+                                            )
+                                            .val() * 6);
+                                        $('#7bulan').html($(
+                                                '#harga'
+                                            )
+                                            .val() * 7);
+                                        $('#8bulan').html($(
+                                                '#harga'
+                                            )
+                                            .val() * 8);
+                                        $('#9bulan').html($(
+                                                '#harga'
+                                            )
+                                            .val() * 9);
+                                        $('#10bulan').html(
+                                            $('#harga')
+                                            .val() * 10);
+                                        $('#11bulan').html(
+                                            $('#harga')
+                                            .val() * 11);
+                                        $('#tahun').html($(
+                                                '#harga'
+                                            )
+                                            .val() * 12);
                                     }
                                 });
-                                $('#harga').change(function(){
+                                $('#harga').change(function() {
                                     $.ajax({
-                                        success: function(response){
-                                            $('#1bulan').html( $('#harga').val());
-                                            $('#2bulan').html( $('#harga').val() * 2);
-                                            $('#3bulan').html( $('#harga').val() * 3);
-                                            $('#4bulan').html( $('#harga').val() * 4);
-                                            $('#5bulan').html( $('#harga').val() * 5);
-                                            $('#6bulan').html( $('#harga').val() * 6);
-                                            $('#7bulan').html( $('#harga').val() * 7);
-                                            $('#8bulan').html( $('#harga').val() * 8);
-                                            $('#9bulan').html( $('#harga').val() * 9);
-                                            $('#10bulan').html( $('#harga').val() * 10);
-                                            $('#11bulan').html( $('#harga').val() * 11);
-                                            $('#tahun').html( $('#harga').val() * 12);
+                                        success: function(
+                                            response
+                                        ) {
+                                            $('#1bulan')
+                                                .html(
+                                                    $(
+                                                        '#harga'
+                                                    )
+                                                    .val()
+                                                );
+                                            $('#2bulan')
+                                                .html(
+                                                    $(
+                                                        '#harga'
+                                                    )
+                                                    .val() *
+                                                    2
+                                                );
+                                            $('#3bulan')
+                                                .html(
+                                                    $(
+                                                        '#harga'
+                                                    )
+                                                    .val() *
+                                                    3
+                                                );
+                                            $('#4bulan')
+                                                .html(
+                                                    $(
+                                                        '#harga'
+                                                    )
+                                                    .val() *
+                                                    4
+                                                );
+                                            $('#5bulan')
+                                                .html(
+                                                    $(
+                                                        '#harga'
+                                                    )
+                                                    .val() *
+                                                    5
+                                                );
+                                            $('#6bulan')
+                                                .html(
+                                                    $(
+                                                        '#harga'
+                                                    )
+                                                    .val() *
+                                                    6
+                                                );
+                                            $('#7bulan')
+                                                .html(
+                                                    $(
+                                                        '#harga'
+                                                    )
+                                                    .val() *
+                                                    7
+                                                );
+                                            $('#8bulan')
+                                                .html(
+                                                    $(
+                                                        '#harga'
+                                                    )
+                                                    .val() *
+                                                    8
+                                                );
+                                            $('#9bulan')
+                                                .html(
+                                                    $(
+                                                        '#harga'
+                                                    )
+                                                    .val() *
+                                                    9
+                                                );
+                                            $('#10bulan')
+                                                .html(
+                                                    $(
+                                                        '#harga'
+                                                    )
+                                                    .val() *
+                                                    10
+                                                );
+                                            $('#11bulan')
+                                                .html(
+                                                    $(
+                                                        '#harga'
+                                                    )
+                                                    .val() *
+                                                    11
+                                                );
+                                            $('#tahun')
+                                                .html(
+                                                    $(
+                                                        '#harga'
+                                                    )
+                                                    .val() *
+                                                    12
+                                                );
                                         }
                                     });
                                 });
-                                $('#overtime_dibawah_4jam').keydown(function(){
-                                    $.ajax({
-                                        success: function(response){
-                                            $("#total_overtime_dibawah_4jam").val( $("#overtime_dibawah_4jam").val() * $('#luas').val() );
-                                            $('#minggu').html($("#harga_hari").val() * 7);
-                                        }
+                                $('#overtime_dibawah_4jam').keydown(
+                                    function() {
+                                        $.ajax({
+                                            success: function(
+                                                response
+                                            ) {
+                                                $("#total_overtime_dibawah_4jam")
+                                                    .val(
+                                                        $(
+                                                            "#overtime_dibawah_4jam"
+                                                        )
+                                                        .val() *
+                                                        $(
+                                                            '#luas'
+                                                        )
+                                                        .val()
+                                                    );
+                                                $('#minggu')
+                                                    .html(
+                                                        $(
+                                                            "#harga_hari"
+                                                        )
+                                                        .val() *
+                                                        7
+                                                    );
+                                            }
+                                        });
                                     });
-                                });
-                                $('#overtime_diatas_4jam').keydown(function(){
-                                    $.ajax({
-                                        success: function(response){
-                                            $("#total_overtime_diatas_4jam").val( $("#overtime_diatas_4jam").val() * $('#luas').val() );
-                                            $('#minggu').html($("#harga_hari").val() * 7);
-                                        }
+                                $('#overtime_diatas_4jam').keydown(
+                                    function() {
+                                        $.ajax({
+                                            success: function(
+                                                response
+                                            ) {
+                                                $("#total_overtime_diatas_4jam")
+                                                    .val(
+                                                        $(
+                                                            "#overtime_diatas_4jam"
+                                                        )
+                                                        .val() *
+                                                        $(
+                                                            '#luas'
+                                                        )
+                                                        .val()
+                                                    );
+                                                $('#minggu')
+                                                    .html(
+                                                        $(
+                                                            "#harga_hari"
+                                                        )
+                                                        .val() *
+                                                        7
+                                                    );
+                                            }
+                                        });
                                     });
-                                });
                             }
                         });
                     });
 
-                    $('#harga_hari').keydown(function(){
+                    $('#harga_hari').keydown(function() {
                         $.ajax({
-                            success: function(response){
+                            success: function(response) {
                                 $("#hari").html($("#harga_hari").val());
-                                $('#minggu').html($("#harga_hari").val() * 7);
+                                $('#minggu').html($("#harga_hari")
+                                    .val() * 7);
                             }
                         });
                     });
@@ -449,28 +618,27 @@
         $('#tambah_form').click(function() {
             ++i;
             $('#form-dinamic').append(
-                '<label class="form-label">Fasilitas' +
-                '<small class="text-danger">' +
-                '<i>*Required</i>' +
-                '</small>' +
-                '</label>' +
-                '<div class="input-group" id="input-group1">' +
-                '<input type="text" class="form-control" name="fasilitas[]">' +
+                '<div class="input-group mt-2" id="input-group1">' +
+                '<input type="text" class="form-control" name="fasilitas[' + i + ']">' +
+                '<button type="button" class="btn btn-danger" id="remove"><i class="uil-trash" style="color:white;"></i></button>' +
                 '<button type="button" id="tambah_form" class="btn btn-primary btn-add-fasilitas">' +
                 '<i class="uil-plus" style="color:white;"></i>' +
                 '</button>' +
                 '</div>'
             )
         });
-
-            @if($data->id_gedung != null)
-                $('#id_gedung').val({{ $data->id_gedung }});
-                setTimeout(function() {
-                    $('#id_gedung').trigger('change');
-                    setTimeout(function() {
-                        $('#id_lantai').val({{ $data->id_lantai }});
-                    }, 1000);
-                }, 1000);
-            @endif
+        $('#form-dinamic').on('click', '#remove', function() {
+            $(this).parent().remove();
         });
+
+        @if ($data->id_gedung != null)
+            $('#id_gedung').val({{ $data->id_gedung }});
+            setTimeout(function() {
+                $('#id_gedung').trigger('change');
+                setTimeout(function() {
+                    $('#id_lantai').val({{ $data->id_lantai }});
+                }, 1000);
+            }, 1000);
+        @endif
+    });
 </script>

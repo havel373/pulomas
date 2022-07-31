@@ -16,9 +16,9 @@ return new class extends Migration
         Schema::create('keuangan', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
-            $table->enum('status_pegawai',['pegawai pnj','bukan pegawai pnj']);
+            $table->enum('status_pegawai', ['pegawai pmj', 'bukan pegawai pmj']);
             $table->string('nomor_hp')->unique();
-            $table->enum('status',['aktiv','tidak aktiv']);
+            $table->enum('status', ['aktiv', 'tidak aktiv']);
             $table->unsignedBigInteger('created_by');
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('created_by')->references('id')->on('users');

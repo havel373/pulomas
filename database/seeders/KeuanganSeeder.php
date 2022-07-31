@@ -18,7 +18,7 @@ class KeuanganSeeder extends Seeder
         $data = array(
             [
                 'user_id' => 4,
-                'status_pegawai' => "pegawai pnj",
+                'status_pegawai' => "pegawai pmj",
                 'nomor_hp' => '087888781238',
                 'status' => 'aktiv',
                 'created_by' => 1,
@@ -26,8 +26,7 @@ class KeuanganSeeder extends Seeder
                 'updated_at' => date('Y-m-d H:i:s'),
             ],
         );
-        foreach
-         ($data as $d){
+        foreach ($data as $d) {
             Keuangan::create([
                 'user_id' => $d['user_id'],
                 'status_pegawai' => $d['status_pegawai'],

@@ -43,13 +43,12 @@ class UserTenantController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'nama' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8',
             'nama_instansi' => 'required|string|max:255',
-            'nomor_hp_instansi' => 'required|number|unique:tenants',
+            'nomor_hp_instansi' => 'required|numeric|unique:tenants',
             'nama_penanggungjawab' => 'required|string|max:255',
-            'nomor_hp_penanggungjawab' => 'required|number|unique:tenants',
+            'nomor_hp_penanggungjawab' => 'required|numeric|unique:tenants',
             'industri.*' => 'required|string|max:255',
             'status_tenant.*' => 'required',
             'alamat_penanggungjawab' => 'required'
@@ -63,7 +62,7 @@ class UserTenantController extends Controller
         }
 
         User::create([
-            'nama' => $request->nama,
+            'nama' => '',
             'email' => $request->email,
             'password' => bcrypt($request->password),
             'role' => 'tenant'
