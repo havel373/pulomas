@@ -20,7 +20,7 @@
             <td>{{$data->admin->nama}}</td>
             <td>{{$data->status}}</td>
             <td class="table-action text-center">
-                <a href="javascript:;" onclick="load_input('{{route('teknik.edit', $data->id)}}');" class="action-icon">
+                <a href="javascript:;" onclick="load_input('{{route('keuangan.edit', $data->id)}}');" class="action-icon">
                     <i class="dripicons-document-edit"></i>
                 </a>
             </td>

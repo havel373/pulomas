@@ -18,9 +18,17 @@
                 <td>{{ $data->nomor_hp_instansi }}</td>
                 <td>{{ $data->nama_penanggungjawab }}</td>
                 <td class="table-action text-center">
-                    <a href="javascript:;" onclick="load_input('{{ route('teknik.edit', $data->id) }}');"
-                        class="action-icon">
+                    <a href="javascript:;" onclick="load_input('{{ route('tenant.edit', $data->id) }}');"
+                        class="action-icon btn">
                         <i class="dripicons-document-edit"></i>
+                    </a>
+                    <a href="javascript:;" onclick="load_input('{{ route('tenant.show', $data->id) }}');"
+                        class="action-icon">
+                        <i class="dripicons-preview"></i>
+                    <a href="javascript:;" onclick="handle_delete('{{ route('tenant.destroy', $data->id) }}');"
+                        class="action-icon">
+                        <i class="dripicons-trash"></i>
+                    </a>
                     </a>
                 </td>
             </tr>

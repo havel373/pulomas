@@ -22,14 +22,16 @@ class TenantSeeder extends Seeder
                 'nomor_hp_instansi' => '087888781238',
                 'nama_penanggungjawab' => "orang",
                 'nomor_hp_penanggungjawab' => '081888781238',
-                'industri' => json_encode([
-                    1 => 'kebun',
-                    2 => 'kelapa',
-                ]),
-                'status_tenant' => json_encode([
-                    1 => 'validasi',
-                    2 => 'menunggu konfirmasi',
-                ]),
+                'nomor_ktp_penanggungjawab' => '3135678123423091',
+                'nomor_npwp' => '3912387236127892',
+                'ktp_penanggungjawab' => '',
+                'npwp' => '',
+                'industri' => json_encode(
+                    ["1","2"]
+                ),
+                'status_tenant' => json_encode(
+                    ["2","3"]
+                ),
                 'alamat_penanggungjawab' => 'Jalan jalan no 123',
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => date('Y-m-d H:i:s'),
@@ -42,6 +44,10 @@ class TenantSeeder extends Seeder
                 'nomor_hp_instansi' => $d['nomor_hp_instansi'],
                 'nama_penanggungjawab' => $d['nama_penanggungjawab'],
                 'nomor_hp_penanggungjawab' => $d['nomor_hp_penanggungjawab'],
+                'nomor_ktp_penanggungjawab' => $d['nomor_ktp_penanggungjawab'],
+                'nomor_npwp' => $d['nomor_npwp'],
+                'ktp_penanggungjawab' => $d['ktp_penanggungjawab'],
+                'npwp' => $d['npwp'],
                 'industri' => $d['industri'],
                 'status_tenant' => $d['status_tenant'],
                 'alamat_penanggungjawab' => $d['alamat_penanggungjawab'],

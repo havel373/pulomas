@@ -25,7 +25,7 @@
                                 <label class="form-label" for="validationTooltip02">Nama Lantai<small
                                         class="text-danger"><i>*Required</i></small></label>
                                 <input type="text" class="form-control" id="validationTooltip02" placeholder=""
-                                    name="nama_lantai" value="{{ $data->nama_lantai }}" required>
+                                    name="nama_lantai" value="{{ $data->nama_lantai }}">
                                 <div class="invalid-tooltip">
                                     *required
                                 </div>
@@ -35,7 +35,7 @@
                                         class="text-danger"><i>*Required</i></small></label>
                                 <div class="input-group" id="validationTooltip01">
                                     <input type="text" class="form-control" name="harga_sewa"
-                                        value="{{ $data->harga_sewa }}" required>
+                                        value="{{ $data->harga_sewa }}" id="harga_sewa">
                                     <span class="input-group-text">m<sup>2</sup>/Bulan</i></span>
                                 </div>
                             </div>
@@ -44,7 +44,7 @@
                                         class="text-danger"><i>*Required</i></small></label>
                                 <div class="input-group" id="input-group1">
                                     <input type="text" class="form-control" name="service_charge"
-                                        value="{{ $data->service_charge }}" required>
+                                        value="{{ $data->service_charge }}" id="service_charge">
                                     <span class="input-group-text">m<sup>2</sup>/Bulan</i></span>
                                 </div>
                             </div>
@@ -53,7 +53,7 @@
                                         class="text-danger"><i>*Required</i></small></label>
                                 <div class="input-group" id="input-group1">
                                     <input type="text" class="form-control" name="service_charge_listrik_sendiri"
-                                        value="{{ $data->service_charge_listrik_sendiri }}" required>
+                                        value="{{ $data->service_charge_listrik_sendiri }}" id="service_charge_listrik_sendiri">
                                     <span class="input-group-text">m<sup>2</sup>/Bulan</i></span>
                                 </div>
                             </div>
@@ -72,4 +72,5 @@
         </div> <!-- end card-->
     </div> <!-- end col-->
 </div>
-<script></script>
+<script>
+</script>

@@ -6,6 +6,7 @@ use App\Models\Tenant;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 class UserTenantController extends Controller
@@ -62,7 +63,7 @@ class UserTenantController extends Controller
         }
 
         User::create([
-            'nama' => '',
+            'nama' => $request->nama_instansi,
             'email' => $request->email,
             'password' => bcrypt($request->password),
             'role' => 'tenant'
@@ -93,7 +94,7 @@ class UserTenantController extends Controller
      */
     public function show(Tenant $tenant)
     {
-        return view('pages.superadmin.tenant.show', compact('tenant'));
+        return view('pages.superadmin.tenant.show', ['data' => $tenant]);
     }
 
     /**
@@ -104,7 +105,7 @@ class UserTenantController extends Controller
      */
     public function edit(Tenant $tenant)
     {
-        return view('pages.superadmin.tenant.input', compact('tenant'));
+        return view('pages.superadmin.tenant.input', ['data' => $tenant]);
     }
 
     /**
@@ -117,14 +118,12 @@ class UserTenantController extends Controller
     public function update(Request $request, Tenant $tenant)
     {
         $validator = Validator::make($request->all(), [
-            'nama' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users,email,' . $tenant->user->id,
-            'password' => 'required|string|min:8',
-            'nama_instansi' => 'required|string|max:255',
-            'nomor_hp_instansi' => 'required|number|unique:tenants,nomor_hp_instansi,' . $tenant->id,
+            'nomor_hp_instansi' => 'required|numeric|unique:tenants,nomor_hp_instansi,' . $tenant->id,
             'nama_penanggungjawab' => 'required|string|max:255',
-            'nomor_hp_penanggungjawab' => 'required|number|unique:tenants,nomor_hp_penanggungjawab,' . $tenant->id,
-            'industri.*' => 'required|string|max:255',
+            'nomor_hp_penanggungjawab' => 'required|numeric|unique:tenants,nomor_hp_penanggungjawab,' . $tenant->id,
+            'nomor_ktp_penanggungjawab' => 'required|numeric|unique:tenants,nomor_ktp_penanggungjawab,' . $tenant->id,
+            'nomor_npwp' => 'required|numeric|unique:tenants,nomor_npwp,' . $tenant->id,
+            'industri.*' => 'required|max:255',
             'status_tenant.*' => 'required',
             'alamat_penanggungjawab' => 'required'
         ]);
@@ -136,17 +135,65 @@ class UserTenantController extends Controller
             ]);
         }
 
-        $tenant->user->update([
-            'nama' => $request->nama,
-            'email' => $request->email,
-            'password' => bcrypt($request->password)
-        ]);
+        if($request->password){
+            $validator = Validator::make($request->all(), [
+                'password' => 'required|string|min:8',
+            ]);
+            if ($validator->fails()) {
+                return response()->json([
+                    'alert' => 'error',
+                    'message' => $validator->errors()->first()
+                ]);
+            }
+            $tenant->user->update([
+                'password' => bcrypt($request->password)
+            ]);
+        }
 
+        if($request->ktp_penanggungjawab || $request->npwp){
+            if ($tenant->ktp_penanggungjawab != null){
+                Storage::delete($tenant->ktp_penanggungjawab);
+            } 
+            if ($tenant->npwp != null){
+                Storage::delete($tenant->npwp);
+            }
+            $validator = Validator::make($request->all(), [
+                'ktp_penanggungjawab' => 'required',
+                'npwp' => 'required',
+            ]);
+            if ($validator->fails()) {
+                return response()->json([
+                    'alert' => 'error',
+                    'message' => $validator->errors()->first()
+                ]);
+            }
+            $ktp = request()->file('ktp_penanggungjawab')->store('public/KTP_Penanggungjawab');
+            $npwp = request()->file('npwp')->store('public/NPWP');
+            $tenant->update([
+                'nama_instansi' => $request->nama_instansi,
+                'nomor_hp_instansi' => $request->nomor_hp_instansi,
+                'nama_penanggungjawab' => $request->nama_penanggungjawab,
+                'nomor_hp_penanggungjawab' => $request->nomor_hp_penanggungjawab,
+                'nomor_ktp_penanggungjawab' => $request->nomor_ktp_penanggungjawab,
+                'nomor_npwp' => $request->nomor_npwp,
+                'ktp_penanggungjawab' => $ktp,
+                'npwp' => $npwp,
+                'alamat_penanggungjawab' => $request->alamat_penanggungjawab,
+                'industri' => json_encode($request->industri),
+                'status_tenant' => json_encode($request->status_tenant)
+            ]);
+        }
+
+        $tenant->user->update([
+            'nama' => $request->nama_instansi,
+        ]);
         $tenant->update([
             'nama_instansi' => $request->nama_instansi,
             'nomor_hp_instansi' => $request->nomor_hp_instansi,
             'nama_penanggungjawab' => $request->nama_penanggungjawab,
             'nomor_hp_penanggungjawab' => $request->nomor_hp_penanggungjawab,
+            'nomor_ktp_penanggungjawab' => $request->nomor_ktp_penanggungjawab,
+            'nomor_npwp' => $request->nomor_npwp,
             'alamat_penanggungjawab' => $request->alamat_penanggungjawab,
             'industri' => json_encode($request->industri),
             'status_tenant' => json_encode($request->status_tenant)

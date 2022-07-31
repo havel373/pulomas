@@ -20,6 +20,10 @@ return new class extends Migration
             $table->string('nomor_hp_instansi')->unique();
             $table->string('nama_penanggungjawab');
             $table->string('nomor_hp_penanggungjawab')->unique();
+            $table->string('nomor_ktp_penanggungjawab',16)->unique()->nullable();
+            $table->string('nomor_npwp')->unique()->nullable();
+            $table->string('ktp_penanggungjawab')->nullable();
+            $table->string('npwp')->nullable();
             $table->json('industri');
             $table->json('status_tenant');
             $table->longtext('alamat_penanggungjawab');
