@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Superadmin;
 use App\Http\Controllers\Controller;
 use App\Models\Rekening;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class RekeningController extends Controller
 {
@@ -40,7 +41,23 @@ class RekeningController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'nomor_rekening' => 'required|numeric|unique:rekenings',
+            'atas_nama' => 'required|string|max:255',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'alert' => 'error',
+                'message' => $validator->errors()->first()
+            ]);
+        }
+
+        Rekening::create($request->all());
+        return response()->json([
+            'alert' => 'success',
+            'message' => 'Data berhasil ditambahkan'
+        ]);
     }
 
     /**
@@ -74,7 +91,23 @@ class RekeningController extends Controller
      */
     public function update(Request $request, Rekening $rekening)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'nomor_rekening' => 'required|numeric|unique:rekening,nomor_rekening,'.$rekening->id,
+            'atas_nama' => 'required|string|max:255',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'alert' => 'error',
+                'message' => $validator->errors()->first()
+            ]);
+        }
+
+        $rekening->update($request->all());
+        return response()->json([
+            'alert' => 'success',
+            'message' => 'Data berhasil diubah'
+        ]);
     }
 
     /**

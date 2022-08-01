@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
             MarketingSeeder::class,
             TeknikSeeder::class,
             TenantSeeder::class,
+            BankSeeder::class,
         ]);
     }
 }
