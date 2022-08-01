@@ -7,6 +7,7 @@ use App\Models\Gedung;
 use App\Models\Lantai;
 use App\Models\Ruang;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class RuangController extends Controller
 {
@@ -43,7 +44,62 @@ class RuangController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validation = Validator::make($request->all(), [
+            'id_gedung' => 'required',
+            'id_lantai' => 'required',
+            'kode_ruang' => 'required',
+            'nama_ruang' => 'required',
+            'status' => 'required',
+            'luas' => 'required',
+            'harga_bulan' => 'required',
+            'harga_hari' => 'required',
+            'overtime_dibawah_4jam' => 'required',
+            'total_overtime_dibawah_4jam' => 'required',
+            'overtime_diatas_4jam' => 'required',
+            'total_overtime_diatas_4jam' => 'required',
+            'fasilitas.*' => 'required',
+            'service_charge' => 'required',
+            'service_charge_sendiri' => 'required',
+            'foto_ruang' => 'required',
+            'deskripsi' => 'required',
+        ]);
+
+        if ($validation->fails()) {
+            return response()->json([
+                'alert' => 'error',
+                'message' => $validation->errors()->first(),
+            ]);
+        }
+
+        $file = $request->file('foto_ruang');
+        $filename = time() . '.' . $file->getClientOriginalExtension();
+        $file->move(public_path('images/ruang'), $filename);
+        $data = [
+            'id_gedung' => $request->id_gedung,
+            'id_lantai' => $request->id_lantai,
+            'kode_ruang' => $request->kode_ruang,
+            'nama_ruang' => $request->nama_ruang,
+            'status' => $request->status,
+            'luas' => $request->luas,
+            'harga_bulan' => $request->harga_bulan,
+            'harga_hari' => $request->harga_hari,
+            'overtime_dibawah_4jam' => $request->overtime_dibawah_4jam,
+            'total_overtime_dibawah_4jam' => $request->total_overtime_dibawah_4jam,
+            'overtime_diatas_4jam' => $request->overtime_diatas_4jam,
+            'total_overtime_diatas_4jam' => $request->total_overtime_diatas_4jam,
+            'fasilitas' => json_encode($request->fasilitas),
+            'service_charge' => $request->service_charge,
+            'service_charge_sendiri' => $request->service_charge_sendiri,
+            'foto_ruang' => $filename,
+            'deskripsi' => $request->deskripsi,
+        ];
+
+        Ruang::create($data);
+
+        return response()->json([
+            'alert' => 'success',
+            'message' => 'Berhasil menambah data',
+        ]);
     }
 
     /**
@@ -65,7 +121,8 @@ class RuangController extends Controller
      */
     public function edit(Ruang $ruang)
     {
-        //
+        $gedungs = Gedung::get();
+        return view('pages.superadmin.ruang.input', ['data' => $ruang, 'gedungs' => $gedungs]);
     }
 
     /**
@@ -77,7 +134,66 @@ class RuangController extends Controller
      */
     public function update(Request $request, Ruang $ruang)
     {
-        //
+        $validation = Validator::make($request->all(), [
+            'id_gedung' => 'required',
+            'id_lantai' => 'required',
+            'kode_ruang' => 'required',
+            'nama_ruang' => 'required',
+            'status' => 'required',
+            'luas' => 'required',
+            'harga_bulan' => 'required',
+            'harga_hari' => 'required',
+            'overtime_dibawah_4jam' => 'required',
+            'total_overtime_dibawah_4jam' => 'required',
+            'overtime_diatas_4jam' => 'required',
+            'total_overtime_diatas_4jam' => 'required',
+            'fasilitas.*' => 'required',
+            'service_charge' => 'required',
+            'service_charge_sendiri' => 'required',
+            'foto_ruang' => 'required',
+            'deskripsi' => 'required',
+        ]);
+
+        if ($validation->fails()) {
+            return response()->json([
+                'alert' => 'error',
+                'message' => $validation->errors()->first(),
+            ]);
+        }
+
+        if ($request->file('foto_ruang')) {
+            $file = $request->file('foto_ruang');
+            $filename = time() . '.' . $file->getClientOriginalExtension();
+            $file->move(public_path('images/ruang'), $filename);
+        } else {
+            $filename = $ruang->foto_ruang;
+        }
+        $data = [
+            'id_gedung' => $request->id_gedung,
+            'id_lantai' => $request->id_lantai,
+            'kode_ruang' => $request->kode_ruang,
+            'nama_ruang' => $request->nama_ruang,
+            'status' => $request->status,
+            'luas' => $request->luas,
+            'harga_bulan' => $request->harga_bulan,
+            'harga_hari' => $request->harga_hari,
+            'overtime_dibawah_4jam' => $request->overtime_dibawah_4jam,
+            'total_overtime_dibawah_4jam' => $request->total_overtime_dibawah_4jam,
+            'overtime_diatas_4jam' => $request->overtime_diatas_4jam,
+            'total_overtime_diatas_4jam' => $request->total_overtime_diatas_4jam,
+            'fasilitas' => json_encode($request->fasilitas),
+            'service_charge' => $request->service_charge,
+            'service_charge_sendiri' => $request->service_charge_sendiri,
+            'foto_ruang' => $filename,
+            'deskripsi' => $request->deskripsi,
+        ];
+
+        $ruang->update($data);
+
+        return response()->json([
+            'alert' => 'success',
+            'message' => 'Berhasil mengubah data',
+        ]);
     }
 
     /**
@@ -88,7 +204,12 @@ class RuangController extends Controller
      */
     public function destroy(Ruang $ruang)
     {
-        //
+        $ruang->delete();
+
+        return response()->json([
+            'alert' => 'success',
+            'message' => 'Berhasil menghapus data',
+        ]);
     }
 
     public function getLantai(Gedung $gedung)
