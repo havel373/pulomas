@@ -27,7 +27,7 @@
                             <label class="form-label" for="validationTooltip01">Harga<small
                                     class="text-danger"><i>*Required</i></small></label>
                             <div class="col-md-6 mb-3">
-                                <input type="text" class="form-control" id="validationTooltip02"
+                                <input type="text" class="form-control" name="satuan" id="validationTooltip02"
                                     placeholder="Satuan Additional Service" value="">
                             </div>
                             <div class="col-md-6 mb-3">

@@ -9,4 +9,9 @@ class Rekening extends Model
 {
     use HasFactory;
     public $table = 'rekening';
+
+    protected $fillable = [
+        'nomor_rekening',
+        'atas_nama',
+    ];
 }
