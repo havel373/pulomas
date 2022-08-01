@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Teknik;
 
 use App\Http\Controllers\Controller;
+use App\Models\KelolaDayaTenant;
 use App\Models\Tenant;
 use Illuminate\Http\Request;
 
@@ -44,9 +45,10 @@ class DataTenantController extends Controller
      * @param  \App\Models\Tenant  $tenant
      * @return \Illuminate\Http\Response
      */
-    public function show(Tenant $tenant)
+    public function show(Tenant $teknik_data_tenant)
     {
-        //
+        $daya = KelolaDayaTenant::get();
+        return view('pages.teknik.tenant.show', ['data' => $teknik_data_tenant, 'daya' => $daya]);
     }
 
     /**

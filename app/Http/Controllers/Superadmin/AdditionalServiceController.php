@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Models\AdditionalService;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 
 class AdditionalServiceController extends Controller
 {
@@ -63,18 +64,15 @@ class AdditionalServiceController extends Controller
             ]);
         }
 
-        $file = $request->file('foto');
-        $nama_file = time() . "_" . $file->getClientOriginalName();
-        $tujuan_upload = 'data_file';
-        $file->move($tujuan_upload, $nama_file);
+        $file = request()->file('foto')->store('AdditionalService');
         $data = [
             'nama' => $request->nama,
             'pic' => $request->pic,
             'satuan' => $request->satuan,
-            'harga' => $request->harga,
+            'harga' => Str::of($request->harga)->replace(',', '') ?: 0,
             'jangka' => $request->jangka,
             'jenis_pembayaran' => $request->jenis_pembayaran,
-            'foto' => $nama_file,
+            'foto' => $file,
             'deskripsi' => $request->deskripsi,
         ];
         AdditionalService::create($data);
@@ -106,7 +104,7 @@ class AdditionalServiceController extends Controller
     {
         $marketings = Marketing::get();
         $tekniks = Teknik::get();
-        return view('pages.superadmin.AdditionalService.edit', ['data' => $additional_service, 'marketings' => $marketings, 'tekniks' => $tekniks]);
+        return view('pages.superadmin.AdditionalService.input', ['data' => $additional_service, 'marketings' => $marketings, 'tekniks' => $tekniks]);
     }
 
     /**
@@ -125,7 +123,6 @@ class AdditionalServiceController extends Controller
             'harga' => 'required',
             'jangka' => 'required',
             'jenis_pembayaran' => 'required',
-            'foto' => 'required',
             'deskripsi' => 'required',
         ]);
 
@@ -136,21 +133,30 @@ class AdditionalServiceController extends Controller
             ]);
         }
 
-        $file = $request->file('foto');
-        $nama_file = time() . "_" . $file->getClientOriginalName();
-        $tujuan_upload = 'data_file';
-        $file->move($tujuan_upload, $nama_file);
+       if(request()->file('foto')){
+        $file = request()->file('foto')->store('AdditionalService');
         $data = [
             'nama' => $request->nama,
             'pic' => $request->pic,
             'satuan' => $request->satuan,
-            'harga' => $request->harga,
+            'harga' => Str::of($request->harga)->replace(',', '') ?: 0,
             'jangka' => $request->jangka,
             'jenis_pembayaran' => $request->jenis_pembayaran,
-            'foto' => $nama_file,
+            'foto' => $file,
             'deskripsi' => $request->deskripsi,
         ];
-        $additional_service->update($data);
+       }else{
+           $data = [
+               'nama' => $request->nama,
+               'pic' => $request->pic,
+               'satuan' => $request->satuan,
+               'harga' => Str::of($request->harga)->replace(',', '') ?: 0,
+               'jangka' => $request->jangka,
+               'jenis_pembayaran' => $request->jenis_pembayaran,
+               'deskripsi' => $request->deskripsi,
+           ];
+           $additional_service->update($data);
+       }
 
         return response()->json([
             'alert' => 'success',

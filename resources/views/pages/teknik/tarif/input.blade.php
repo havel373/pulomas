@@ -58,10 +58,10 @@
                                 <a href="javascript:;" onclick="load_list(1);" class="btn btn-info">Cancel</a>
                                 @if ($data->id)
                                     <button class="btn btn-primary" id="tombol_submit"
-                                        onclick="handle_save('#tombol_submit', '#form_submit', '{{ route('tarif.update', $data->id) }}', 'PATCH', 'Submit');">Submit</button>
+                                        onclick="handle_save('#tombol_submit', '#form_submit', '{{ route('tarif-listrik.update', $data->id) }}', 'PATCH', 'Submit');">Submit</button>
                                 @else
                                     <button class="btn btn-primary" id="tombol_submit"
-                                        onclick="handle_save('#tombol_submit', '#form_submit', '{{ route('tarif.store') }}', 'POST', 'Submit');">Submit</button>
+                                        onclick="handle_save('#tombol_submit', '#form_submit', '{{ route('tarif-listrik.store') }}', 'POST', 'Submit');">Submit</button>
                                 @endif
                             </form>
                         </div>

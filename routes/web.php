@@ -48,6 +48,7 @@ Route::prefix('auth')->name('auth.')->group(function () {
     Route::get('', [AuthController::class, 'index'])->name('index');
     Route::post('login', [AuthController::class, 'do_login'])->name('login');
     Route::get('logout', [AuthController::class, 'do_logout'])->name('logout');
+    Route::get('profile', [AuthController::class, 'profile'])->name('profile');
 });
 
 Route::get('/', function () {
@@ -91,6 +92,8 @@ Route::resource('/pembayaran', PembayaranController::class);
 
 // Marketing
 Route::resource('/data-tenant', MarketingDataTenantController::class);
+Route::get('/data-tenant-grade', [MarketingDataTenantController::class, 'createGrade'])->name('data-tenant.create.grade');
+Route::post('/data-tenant-grade', [MarketingDataTenantController::class, 'storeGrade'])->name('data-tenant.create.grade');
 Route::resource('/data-standmeter', DataStandmeterController::class);
 
 // Teknik

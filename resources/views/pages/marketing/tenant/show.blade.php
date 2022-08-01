@@ -76,7 +76,7 @@
                                             </div>
                                             <div class="col-md-12">
                                                 @foreach(json_decode($data->industri) as $item)
-                                                    <h5>{{$data->item}}</h5>
+                                                    <h5>{{$item}}</h5>
                                                 @endforeach
                                             </div>
                                         </div>
@@ -84,6 +84,7 @@
                                 </div>
                             </div>
                             <button class="btn btn-info mt-4" onclick="load_list(1);">Kembali</button>
+                            <button class="btn btn-primary mt-4" onclick="load_input('{{route('data-tenant.create.grade')}}');">Set Grade Tenant</button>
                             <div dir="ltr">
                                 <div id="revenue-chart" class="apex-charts mt-3" data-colors="#727cf5,#0acf97"></div>
                             </div>

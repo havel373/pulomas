@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\Keuangan;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class UserKeuanganController extends Controller
@@ -70,6 +71,7 @@ class UserKeuanganController extends Controller
             'status_pegawai' => $request->status_pegawai,
             'nomor_hp' => $request->nomor_hp,
             'status' => $request->status,
+            'created_by' => Auth::user()->id,
         ]);
 
         return response()->json([

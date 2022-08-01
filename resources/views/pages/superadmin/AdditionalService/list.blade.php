@@ -17,8 +17,10 @@
                 <td>{{ $data->satuan }}</td>
                 <td>{{ $data->harga }}</td>
                 <td>{{ $data->deskripsi }}</td>
-                <td>{{ $data->aset->alamat_gedung }}</td>
                 <td class="table-action text-center">
+                    <a href="javascript:void(0);"
+                    onclick="load_input('{{ route('additional-service.edit', $data->id) }}');"
+                    class="action-icon"> <i class="mdi mdi-pencil"></i></a>
                     <a href="javascript:void(0);"
                         onclick="handle_delete('{{ route('additional-service.destroy', $data->id) }}');"
                         class="action-icon"> <i class="mdi mdi-delete"></i></a>

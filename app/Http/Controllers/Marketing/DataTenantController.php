@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Marketing;
 
 use App\Http\Controllers\Controller;
+use App\Models\GradeTenant;
 use App\Models\Tenant;
 use Illuminate\Http\Request;
 
@@ -26,6 +27,12 @@ class DataTenantController extends Controller
     {
         return view('pages.marketing.tenant.input', ['data' => new Tenant]);
     }
+   
+    public function createGrade()
+    {
+        $grade = GradeTenant::get();
+        return view('pages.marketing.tenant.inputGrade', ['data' => new Tenant, 'grade' => $grade]);
+    }
 
     /**
      * Store a newly created resource in storage.
@@ -37,6 +44,14 @@ class DataTenantController extends Controller
     {
         //
     }
+    
+    public function storeGrade(Request $request)
+    {
+        return response()->json([
+            'alert' => 'success',
+            'message' => 'Data berhasil ditambahkan'
+        ]);
+    }
 
     /**
      * Display the specified resource.
@@ -46,7 +61,7 @@ class DataTenantController extends Controller
      */
     public function show(Tenant $dataTenant)
     {
-        //
+        return view('pages.marketing.tenant.show', ['data' => $dataTenant]);
     }
 
     /**

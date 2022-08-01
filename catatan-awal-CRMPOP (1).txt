@@ -45,7 +45,7 @@ user keuangan
 
 Akun (syarat : ga bole nambah apapun yang tertera diaplikasi cuman bisa melihat saja) :
 1.Tenant
-email : anwar.rifaldi50@gmail.com
+email : c
 pass : 123456
 
 2. Marketing

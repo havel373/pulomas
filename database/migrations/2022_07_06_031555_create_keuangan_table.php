@@ -20,8 +20,8 @@ return new class extends Migration
             $table->string('nomor_hp')->unique();
             $table->enum('status', ['aktiv', 'tidak aktiv']);
             $table->unsignedBigInteger('created_by');
-            $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('created_by')->references('id')->on('users');
+            $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('created_by')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
         });
     }

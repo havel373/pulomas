@@ -12,11 +12,11 @@
         </li>
 
 
-        <li class="notification-list">
+        {{-- <li class="notification-list">
             <a class="nav-link end-bar-toggle" href="javascript: void(0);">
                 <i class="dripicons-gear noti-icon"></i>
             </a>
-        </li>
+        </li> --}}
 
         <li class="dropdown notification-list">
             <a class="nav-link dropdown-toggle nav-user arrow-none me-0" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
@@ -34,6 +34,10 @@
                         <h6 class="text-overflow m-0">Welcome !</h6>
                     </div> -->
                 <!-- item-->
+                <a href="{{route('auth.profile')}}" class="dropdown-item notify-item">
+                    <i class="mdi mdi-account me-1"></i>
+                    <span>Edit Profile</span>
+                </a>
                 <a href="{{route('auth.logout')}}" class="dropdown-item notify-item">
                     <i class="mdi mdi-logout me-1"></i>
                     <span>Logout</span>

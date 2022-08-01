@@ -9,6 +9,7 @@ use App\Models\Lantai;
 use Illuminate\Http\Request;
 use App\Models\AdditionalService;
 use App\Http\Controllers\Controller;
+use App\Models\Marketing;
 use Illuminate\Support\Facades\Validator;
 
 class SewaController extends Controller
@@ -35,8 +36,9 @@ class SewaController extends Controller
     public function create()
     {
         $gedungs = Gedung::get();
+        $marketings = Marketing::get();
         $additionals = AdditionalService::get();
-        return view('pages.tenant.sewa.input', ['data' => new Sewa, 'gedungs' => $gedungs, 'additionals' => $additionals]);
+        return view('pages.tenant.sewa.input', ['data' => new Sewa, 'gedungs' => $gedungs, 'additionals' => $additionals, 'marketings' => $marketings]);
     }
 
     /**

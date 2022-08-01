@@ -7,6 +7,7 @@ use App\Models\Gedung;
 use App\Models\Lantai;
 use App\Models\Ruang;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 class RuangController extends Controller
@@ -51,7 +52,7 @@ class RuangController extends Controller
             'nama_ruang' => 'required',
             'status' => 'required',
             'luas' => 'required',
-            'harga_bulan' => 'required',
+            'harga' => 'required',
             'harga_hari' => 'required',
             'overtime_dibawah_4jam' => 'required',
             'total_overtime_dibawah_4jam' => 'required',
@@ -61,7 +62,7 @@ class RuangController extends Controller
             'service_charge' => 'required',
             'service_charge_sendiri' => 'required',
             'foto_ruang' => 'required',
-            'deskripsi' => 'required',
+            'deskripsi_ruang' => 'required',
         ]);
 
         if ($validation->fails()) {
@@ -71,9 +72,7 @@ class RuangController extends Controller
             ]);
         }
 
-        $file = $request->file('foto_ruang');
-        $filename = time() . '.' . $file->getClientOriginalExtension();
-        $file->move(public_path('images/ruang'), $filename);
+        $file = request()->file('foto_ruang')->store('FotoRuang');
         $data = [
             'id_gedung' => $request->id_gedung,
             'id_lantai' => $request->id_lantai,
@@ -81,7 +80,7 @@ class RuangController extends Controller
             'nama_ruang' => $request->nama_ruang,
             'status' => $request->status,
             'luas' => $request->luas,
-            'harga_bulan' => $request->harga_bulan,
+            'harga_bulan' => $request->harga,
             'harga_hari' => $request->harga_hari,
             'overtime_dibawah_4jam' => $request->overtime_dibawah_4jam,
             'total_overtime_dibawah_4jam' => $request->total_overtime_dibawah_4jam,
@@ -90,8 +89,8 @@ class RuangController extends Controller
             'fasilitas' => json_encode($request->fasilitas),
             'service_charge' => $request->service_charge,
             'service_charge_sendiri' => $request->service_charge_sendiri,
-            'foto_ruang' => $filename,
-            'deskripsi' => $request->deskripsi,
+            'foto_ruang' => $file,
+            'deskripsi' => $request->deskripsi_ruang,
         ];
 
         Ruang::create($data);
@@ -110,7 +109,8 @@ class RuangController extends Controller
      */
     public function show(Ruang $ruang)
     {
-        //
+        $gedungs = Gedung::get();
+        return view('pages.superadmin.ruang.show', ['data' => $ruang, 'gedungs' => $gedungs]);
     }
 
     /**
@@ -141,7 +141,7 @@ class RuangController extends Controller
             'nama_ruang' => 'required',
             'status' => 'required',
             'luas' => 'required',
-            'harga_bulan' => 'required',
+            'harga' => 'required',
             'harga_hari' => 'required',
             'overtime_dibawah_4jam' => 'required',
             'total_overtime_dibawah_4jam' => 'required',
@@ -150,8 +150,7 @@ class RuangController extends Controller
             'fasilitas.*' => 'required',
             'service_charge' => 'required',
             'service_charge_sendiri' => 'required',
-            'foto_ruang' => 'required',
-            'deskripsi' => 'required',
+            'deskripsi_ruang' => 'required',
         ]);
 
         if ($validation->fails()) {
@@ -161,10 +160,9 @@ class RuangController extends Controller
             ]);
         }
 
-        if ($request->file('foto_ruang')) {
-            $file = $request->file('foto_ruang');
-            $filename = time() . '.' . $file->getClientOriginalExtension();
-            $file->move(public_path('images/ruang'), $filename);
+        if (request()->file('foto_ruang')) {
+            Storage::delete($ruang->foto_ruang);
+            $filename = request()->file('foto_ruang')->store('FotoRuang');
         } else {
             $filename = $ruang->foto_ruang;
         }
@@ -175,7 +173,7 @@ class RuangController extends Controller
             'nama_ruang' => $request->nama_ruang,
             'status' => $request->status,
             'luas' => $request->luas,
-            'harga_bulan' => $request->harga_bulan,
+            'harga_bulan' => $request->harga,
             'harga_hari' => $request->harga_hari,
             'overtime_dibawah_4jam' => $request->overtime_dibawah_4jam,
             'total_overtime_dibawah_4jam' => $request->total_overtime_dibawah_4jam,
@@ -185,7 +183,7 @@ class RuangController extends Controller
             'service_charge' => $request->service_charge,
             'service_charge_sendiri' => $request->service_charge_sendiri,
             'foto_ruang' => $filename,
-            'deskripsi' => $request->deskripsi,
+            'deskripsi' => $request->deskripsi_ruang,
         ];
 
         $ruang->update($data);

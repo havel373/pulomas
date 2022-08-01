@@ -18,6 +18,10 @@
                         class="action-icon">
                         <i class="dripicons-document-edit"></i>
                     </a>
+                    <a href="javascript:;" onclick="handle_delete('{{ route('grade.destroy', $data->id) }}');"
+                        class="action-icon">
+                        <i class="dripicons-trash"></i>
+                    </a>
                 </td>
             </tr>
         @empty

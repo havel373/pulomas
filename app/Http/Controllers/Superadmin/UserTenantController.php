@@ -167,8 +167,8 @@ class UserTenantController extends Controller
                     'message' => $validator->errors()->first()
                 ]);
             }
-            $ktp = request()->file('ktp_penanggungjawab')->store('public/KTP_Penanggungjawab');
-            $npwp = request()->file('npwp')->store('public/NPWP');
+            $ktp = request()->file('ktp_penanggungjawab')->store('KTP_Penanggungjawab');
+            $npwp = request()->file('npwp')->store('NPWP');
             $tenant->update([
                 'nama_instansi' => $request->nama_instansi,
                 'nomor_hp_instansi' => $request->nomor_hp_instansi,

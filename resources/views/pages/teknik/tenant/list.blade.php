@@ -18,9 +18,9 @@
                 <td>{{ $data->nomor_hp_instansi }}</td>
                 <td>{{ $data->nama_penanggungjawab }}</td>
                 <td class="table-action text-center">
-                    <a href="javascript:;" onclick="load_input('{{ route('teknik.edit', $data->id) }}');"
+                    <a href="javascript:;" onclick="load_input('{{ route('teknik-data-tenant.show', $data->id) }}');"
                         class="action-icon">
-                        <i class="dripicons-document-edit"></i>
+                        <i class="dripicons-preview"></i>
                     </a>
                 </td>
             </tr>

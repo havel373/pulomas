@@ -8,4 +8,15 @@ use Illuminate\Database\Eloquent\Model;
 class AdditionalService extends Model
 {
     use HasFactory;
+    protected $fillable = [
+        'nama',
+        'pic',
+        'satuan',
+        'harga',
+        'jangka',
+        'jenis_pembayaran',
+        'foto',
+        'deskripsi',
+    ];
+
 }

@@ -27,7 +27,7 @@ return new class extends Migration
             $table->json('industri');
             $table->json('status_tenant');
             $table->longtext('alamat_penanggungjawab');
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
         });
     }

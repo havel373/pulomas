@@ -20,6 +20,9 @@
             <td>{{$data->luas}}</td>
             <td>{{$data->status}}</td>
             <td class="table-action text-center">
+                <a href="javascript:;" onclick="load_input('{{route('ruang.show', $data->id)}}');" class="action-icon">
+                    <i class="dripicons-preview"></i>
+                </a>
                 <a href="javascript:;" onclick="load_input('{{route('ruang.edit', $data->id)}}');" class="action-icon">
                     <i class="dripicons-document-edit"></i>
                 </a>

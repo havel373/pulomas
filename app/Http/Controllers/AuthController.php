@@ -58,6 +58,10 @@ class AuthController extends Controller
         }
     }
 
+    public function profile(){
+        return view('pages.auth.proifile');
+    }
+
     public function do_logout(){
         $user = Auth::user();
         Auth::logout($user);

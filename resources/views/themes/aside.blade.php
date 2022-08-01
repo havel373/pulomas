@@ -28,7 +28,7 @@
             <li class="side-nav-title side-nav-item">Navigasi</li>
 
             <li class="side-nav-item">
-                <a data-bs-toggle="collapse" href="#sidebarDashboards" aria-expanded="false" aria-controls="sidebarDashboards" class="side-nav-link">
+                <a href="{{route('dashboard')}}" class="side-nav-link">
                     <i class="uil-home-alt"></i>
                     <span class="badge bg-success float-end">4</span>
                     <span> Dashboards </span>
@@ -152,7 +152,7 @@
             <li class="side-nav-item">
                 <a href="{{route('teknik-data-tenant.index')}}" class="side-nav-link">
                     <i class="uil-folder-plus"></i>
-                    <span> Kelola Data Tenant </span>
+                    <span> Kelola Daya Tenant </span>
                 </a>
             </li>
         @endif
@@ -170,6 +170,13 @@
                 <a href="{{route('sewa.index')}}" class="side-nav-link">
                     <i class="uil-newspaper"></i>
                     <span> Sewa </span>
+                </a>
+            </li>
+           
+            <li class="side-nav-item">
+                <a href="{{route('pembayaran.index')}}" class="side-nav-link">
+                    <i class="uil-newspaper"></i>
+                    <span> Request Pembayaran </span>
                 </a>
             </li>
 

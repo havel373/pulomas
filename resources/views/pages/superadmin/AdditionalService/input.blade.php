@@ -27,46 +27,46 @@
                             <label class="form-label" for="validationTooltip01">Harga<small
                                     class="text-danger"><i>*Required</i></small></label>
                             <div class="col-md-6 mb-3">
-                                <input type="text" class="form-control" name="satuan" id="validationTooltip02"
-                                    placeholder="Satuan Additional Service" value="">
+                                <input type="text" class="form-control" name="satuan" id="validationTooltip022"
+                                    placeholder="Satuan Additional Service" value="{{$data->satuan}}">
                             </div>
                             <div class="col-md-6 mb-3">
                                 <div class="input-group" id="input-group1">
                                     <span class="input-group-text">Rp</span>
-                                    <input type="text" class="form-control" id="validationTooltip02" placeholder=""
-                                        value="0">
+                                    <input type="text" class="form-control" id="validationTooltip02312" placeholder=""
+                                        value="{{$data->id ? $data->harga : 0}}" name="harga">
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-6 mb-3">
                             <label class="form-label" for="validationTooltip01">Jenis Pembayaran<small
                                     class="text-danger"><i>*Required</i></small></label>
-                            <select class="form-control" name="gedung" id="gedung">
+                            <select class="form-control" name="jenis_pembayaran" id="jenis_pembayaran">
                                 <option value="">Pilih Status Jangka WaktuJ</option>
-                                <option value="debit">Debit</option>
-                                <option value="kredit">Kredit</option>
+                                <option value="debit" {{$data->jenis_pembayaran == 'debit' ? 'selected' : ''}}>Debit</option>
+                                <option value="kredit" {{$data->jenis_pembayaran == 'kredit' ? 'selected' : ''}}>Kredit</option>
                             </select>
                         </div>
                         <div class="col-md-6 mb-3">
                             <label class="form-label" for="validationTooltip01">Jangka Waktu<small
                                     class="text-danger"><i>*Required</i></small></label>
-                            <select class="form-control" name="gedung" id="gedung">
+                            <select class="form-control" name="jangka" id="jangka">
                                 <option value="">Pilih Status Jangka WaktuJ</option>
-                                <option value="langsung">1x Pembayaran</option>
-                                <option value="berjangka">Berjangka</option>
+                                <option value="langsung" {{$data->jangka == 'langsung' ? 'selected' : ''}}>1x Pembayaran</option>
+                                <option value="berjangka" {{$data->jangka == 'berjangka' ? 'selected' : ''}}>Berjangka</option>
                             </select>
                         </div>
                         <div class="col-md mb-3">
                             <label class="form-label" for="validationTooltip01">Foto Additional Service<small
                                     class="text-danger"><i>*Required</i></small></label>
                             <input type="file" class="form-control" id="validationTooltip02" placeholder=""
-                                value="">
+                                value="" name="foto">
                             <div class="invalid-tooltip">
                             </div>
                             <div class="col-md mb-3">
                                 <label class="form-label" for="validationTooltip01">Deskripsi<small
                                         class="text-danger"><i>*Required</i></small></label>
-                                <textarea name="" id="" class="form-control"></textarea>
+                                <textarea name="deskripsi" id="" class="form-control">{{$data->deskripsi}}</textarea>
                             </div>
                         </div>
                         <a href="javascript:;" onclick="load_list(1);" class="btn btn-info">Cancel</a>
@@ -83,4 +83,6 @@
         </div> <!-- end tab-content-->
     </div> <!-- end card-body-->
 </div> <!-- end card-->
-<script></script>
+<script>
+    ribuan('validationTooltip02312');
+</script>
