@@ -47,7 +47,7 @@ class UserKeuanganController extends Controller
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8',
             'status_pegawai' => 'required',
-            'nomor_hp' => 'required|numeric|unique:keuangans',
+            'nomor_hp' => 'required|numeric|unique:keuangan',
             'status' => 'required',
         ]);
 
@@ -112,9 +112,7 @@ class UserKeuanganController extends Controller
         $validator = Validator::make($request->all(), [
             'nama' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users,email,' . $keuangan->user->id,
-            'password' => 'required|string|min:8',
-            'status_pegawai' => 'required',
-            'nomor_hp' => 'required|numeric|unique:keuangans,nomor_hp,' . $keuangan->id,
+            'nomor_hp' => 'required|numeric|unique:keuangan,nomor_hp,' . $keuangan->id,
             'status' => 'required',
         ]);
 
@@ -128,11 +126,9 @@ class UserKeuanganController extends Controller
         $keuangan->user->update([
             'nama' => $request->nama,
             'email' => $request->email,
-            'password' => bcrypt($request->password),
         ]);
 
         $keuangan->update([
-            'status_pegawai' => $request->status_pegawai,
             'nomor_hp' => $request->nomor_hp,
             'status' => $request->status,
         ]);

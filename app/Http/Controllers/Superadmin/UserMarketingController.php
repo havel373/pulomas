@@ -112,10 +112,8 @@ class UserMarketingController extends Controller
     public function update(Request $request, Marketing $marketing)
     {
         $validator = Validator::make($request->all(), [
-            'nama_marketing' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users,email,' . $marketing->id,
-            'password' => 'required|string|min:8',
-            'status_pegawai' => 'required',
+            'nama' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users,email,' . $marketing->user->id,
             'nomor_hp' => 'required|numeric|unique:marketings,nomor_hp,' . $marketing->id,
             'status' => 'required',
         ]);
@@ -128,13 +126,11 @@ class UserMarketingController extends Controller
         }
 
         $marketing->user->update([
-            'name' => $request->nama_marketing,
+            'nama' => $request->nama,
             'email' => $request->email,
-            'password' => bcrypt($request->password),
         ]);
 
         $marketing->update([
-            'status_pegawai' => $request->status_pegawai,
             'nomor_hp' => $request->nomor_hp,
             'status' => $request->status,
         ]);

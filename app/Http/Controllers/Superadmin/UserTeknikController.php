@@ -47,7 +47,7 @@ class UserTeknikController extends Controller
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8',
             'status_pegawai' => 'required',
-            'nomor_hp' => 'required|numeric|unique:teknis',
+            'nomor_hp' => 'required|numeric|unique:teknik',
             'status' => 'required',
         ]);
 
@@ -59,7 +59,7 @@ class UserTeknikController extends Controller
         }
 
         User::create([
-            'name' => $request->nama,
+            'nama' => $request->nama,
             'email' => $request->email,
             'password' => bcrypt($request->password),
             'role' => 'teknik',
@@ -112,9 +112,7 @@ class UserTeknikController extends Controller
         $validator = Validator::make($request->all(), [
             'nama' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users,email,' . $teknik->user_id,
-            'password' => 'nullable|string|min:8',
-            'status_pegawai' => 'required',
-            'nomor_hp' => 'required|numeric|unique:teknis,nomor_hp,' . $teknik->id,
+            'nomor_hp' => 'required|numeric|unique:teknik,nomor_hp,' . $teknik->id,
             'status' => 'required',
         ]);
 
@@ -126,13 +124,11 @@ class UserTeknikController extends Controller
         }
 
         $teknik->user->update([
-            'name' => $request->nama,
+            'nama' => $request->nama,
             'email' => $request->email,
-            'password' => bcrypt($request->password),
         ]);
 
         $teknik->update([
-            'status_pegawai' => $request->status_pegawai,
             'nomor_hp' => $request->nomor_hp,
             'status' => $request->status,
         ]);

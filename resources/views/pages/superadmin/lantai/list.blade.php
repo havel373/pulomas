@@ -15,10 +15,10 @@
             <tr>
                 <td>{{ $collection->firstItem() + $i }}</td>
                 <td>{{ $data->gedung->nama_gedung }}</td>
-                <td>{{ $data->nama_lantain }}</td>
-                <td>Rp {{ $data->harga_sewa }}</td>
-                <td>Rp {{ $data->service_charge }}</td>
-                <td>Rp {{ $data->service_charge_listrik_sendiri }}</td>
+                <td>{{ $data->nama_lantai }}</td>
+                <td>Rp {{ number_format($data->harga_sewa) }} / m<sup>2</sup>/Bulan</td>
+                <td>Rp {{ number_format($data->service_charge) }} / m<sup>2</sup>/Bulan</td>
+                <td>Rp {{ number_format($data->service_charge_listrik_sendiri) }} / m<sup>2</sup>/Bulan</td>
                 <td class="table-action text-center">
                     <a href="javascript:;" onclick="load_input('{{ route('lantai.edit', $data->id) }}');"
                         class="action-icon">

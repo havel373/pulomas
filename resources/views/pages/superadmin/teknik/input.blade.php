@@ -5,6 +5,7 @@
                 <div class="card-body">
                     <h4 class="header-title">Create User Marketing</h4>
                     <form class="needs-validation" id="form_submit">
+                        @if(!$data->id)
                         <div class="col-md mb-3">
                             <label class="form-label" for="validationTooltip01">Status Pegawai<small
                                     class="text-danger"><i>*Required</i></small></label>
@@ -18,22 +19,25 @@
                                     Pegawai PMJ
                             </select>
                         </div>
+                        @endif
                         <div class="col-md mb-3">
                             <label class="form-label" for="validationTooltip01">Email<small
                                     class="text-danger"><i>*Required</i></small></label>
                             <input type="text" class="form-control" name="email" id="email"
                                 @if ($data->id) value="{{ $data->user->email }}" @endif>
                         </div>
+                        @if(!$data->id)
                         <div class="col-md mb-3">
                             <label class="form-label" for="validationTooltip01">Password<small
                                     class="text-danger"><i>*Required</i></small></label>
                             <input type="password" class="form-control" name="password" id="password">
                         </div>
+                        @endif
                         <div class="col-md mb-3">
                             <label class="form-label" for="validationTooltip01">Nama Pegawai Teknik<small
                                     class="text-danger"><i>*Required</i></small></label>
                             <input type="text" class="form-control" name="nama" id="nama"
-                                @if ($data->id) value="{{ $data->nama }}" @endif>
+                                @if ($data->id) value="{{ $data->user->nama }}" @endif>
                         </div>
                         <div class="col-md mb-3">
                             <label class="form-label" for="validationTooltip01">Nomor Handphone<small

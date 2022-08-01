@@ -26,7 +26,19 @@ class Tenant extends Model
         'nama_penanggungjawab',
         'nomor_hp_penanggungjawab',
         'industri',
+        'nomor_ktp_penanggungjawab',
+        'nomor_npwp',
+        'ktp_penanggungjawab',
+        'npwp',
         'status_tenant',
         'alamat_penanggungjawab',
     ];
+
+    public function ktp_penanggungjawab(){
+        return asset('storage/' . $this->ktp_penanggungjawab);
+    }
+    
+    public function npwp(){
+        return asset('storage/' . $this->npwp);
+    }
 }
