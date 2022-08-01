@@ -9,7 +9,7 @@
                     </ul> <!-- end nav-->
                     <div class="tab-content">
                         <div class="tab-pane show active" id="tooltips-validation-preview">
-                            <form class="needs-validation">
+                            <form class="needs-validation" id="form_submit">
                                 <div class="col-md mb-3">
                                     <label class="form-label" for="validationTooltip01">Kode Grade<small
                                             class="text-danger"><i>*Required</i></small></label>
