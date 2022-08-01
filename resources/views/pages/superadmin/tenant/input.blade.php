@@ -45,25 +45,25 @@
                                     class="text-danger"><i>*Required</i></small></label>
                             <select class="form-control" name="industri[]" id="industri" multiple="multiple">
                                 <option value="">-- Pilih Industri --</option>
-                                <option value="1" @if ($data->industri == 1) selected @endif>
+                                <option value="1" @if (in_array(1, $data->industri)) selected @endif>
                                     Pertanian</option>
-                                <option value="2" @if ($data->industri == 2) selected @endif>
+                                <option value="2" @if (in_array(2, $data->industri)) selected @endif>
                                     Perkebunan</option>
-                                <option value="3" @if ($data->industri == 3) selected @endif>
+                                <option value="3" @if (in_array(3, $data->industri)) selected @endif>
                                     Perikanan</option>
-                                <option value="4" @if ($data->industri == 4) selected @endif>
+                                <option value="4" @if (in_array(4, $data->industri)) selected @endif>
                                     Pertambangan</option>
-                                <option value="5" @if ($data->industri == 5) selected @endif>
+                                <option value="5" @if (in_array(5, $data->industri)) selected @endif>
                                     Perdagangan</option>
-                                <option value="6" @if ($data->industri == 6) selected @endif>
+                                <option value="6" @if (in_array(6, $data->industri)) selected @endif>
                                     Peternakan</option>
-                                <option value="7" @if ($data->industri == 7) selected @endif>
+                                <option value="7" @if (in_array(7, $data->industri)) selected @endif>
                                     Pariwisata</option>
-                                <option value="8" @if ($data->industri == 8) selected @endif>
+                                <option value="8" @if (in_array(8, $data->industri)) selected @endif>
                                     Pertanian</option>
-                                <option value="9" @if ($data->industri == 9) selected @endif>
+                                <option value="9" @if (in_array(9, $data->industri)) selected @endif>
                                     Perkebunan</option>
-                                <option value="10" @if ($data->industri == 10) selected @endif>
+                                <option value="10" @if (in_array(10, $data->industri)) selected @endif>
                                     Perikanan</option>
                             </select>
                         </div>
@@ -72,13 +72,13 @@
                                     class="text-danger"><i>*Required</i></small></label>
                             <select class="form-control" name="status_tenant[]" id="status_tenant" multiple>
                                 <option value="">-- Pilih Status Tenant --</option>
-                                <option value="1" @if ($data->status_tenant == 1) selected @endif>
+                                <option value="1" @if (in_array(1, $data->status_tenant)) selected @endif>
                                     Pegawai</option>
-                                <option value="2" @if ($data->status_tenant == 2) selected @endif>
+                                <option value="2" @if (in_array(2, $data->status_tenant)) selected @endif>
                                     Karyawan</option>
-                                <option value="3" @if ($data->status_tenant == 3) selected @endif>
+                                <option value="3" @if (in_array(3, $data->status_tenant)) selected @endif>
                                     Mahasiswa</option>
-                                <option value="4" @if ($data->status_tenant == 4) selected @endif>
+                                <option value="4" @if (in_array(4, $data->status_tenant)) selected @endif>
                                     Lainnya</option>
                             </select>
                         </div>

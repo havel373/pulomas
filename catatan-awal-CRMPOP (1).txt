@@ -16,7 +16,7 @@ Menu yang dibuat Superadmin :
 5. kelola User teknik
 6. kelola user keuangan
 7. kelola tenant
-8. kelola grade tenant 
+8. kelola grade tenant
 9. additional service
 10. overtime
 11. kelola rekening
@@ -27,7 +27,7 @@ tenant :
 -kelola sewa (mengajukan sewa, perpanjang sewa, pengajuan henti sewa)
 -melakukan pembayaran
 
-user marketing 
+user marketing
 -membuat kontrak penyewaan (crud)
 -kelola data tenant (CRUD)
 -melihat data standmeter
@@ -48,7 +48,7 @@ Akun (syarat : ga bole nambah apapun yang tertera diaplikasi cuman bisa melihat 
 email : anwar.rifaldi50@gmail.com
 pass : 123456
 
-2. Marketing 
+2. Marketing
 email : aditest@pulomasjaya.co.id
 pass : 123456
 
@@ -57,7 +57,7 @@ email : staftest@pulomasjaya.co.id
 pass : 123456
 
 4. Superadmin
-https://pmjsmart.pulomasjaya.co.id/login 
+https://pmjsmart.pulomasjaya.co.id/login
 (buka link diatas terlebih dahulu) kemudian setelah masuk pilih crm pop
 
 Email : pmjtesting@pulomasjaya.co.id

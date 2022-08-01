@@ -9,7 +9,20 @@ class Standmeter extends Model
 {
     use HasFactory;
 
-    public function customer(){
+    protected $fillable = [
+        'tenant_id',
+        'daya',
+        'foto_standmeter',
+        'standmeter_awal',
+        'standmeter_akhir',
+        'pemakaian',
+        'biaya_pemakaian',
+        'bpju',
+        'jumlah_tagihan',
+    ];
+
+    public function customer()
+    {
         return $this->belongsTo(Tenant::class, 'id', 'tenant_id');
     }
 }

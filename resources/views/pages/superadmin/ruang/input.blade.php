@@ -140,12 +140,12 @@
                                 <div class="row">
                                     <div class="col-md-6 mb-3" id="form-dinamic">
                                         @if ($data->id)
+                                            <label class="form-label">Fasilitas
+                                                <small class="text-danger">
+                                                    <i>*Required</i>
+                                                </small>
+                                            </label>
                                             @foreach ($data->fasilitas as $key => $value)
-                                                <label class="form-label">Fasilitas
-                                                    <small class="text-danger">
-                                                        <i>*Required</i>
-                                                    </small>
-                                                </label>
                                                 <div class="input-group">
                                                     <input type="text" class="form-control"
                                                         name="fasilitas[{{ $key }}]"

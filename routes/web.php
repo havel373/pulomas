@@ -83,6 +83,9 @@ Route::resource('/rekening', RekeningController::class);
 
 // Tenant
 Route::resource('/billing', BillingController::class);
+Route::get('sewa/getLantai', [SewaController::class, 'getLantai'])->name('sewa.getLantai');
+Route::get('sewa/getRuang', [SewaController::class, 'getRuang'])->name('sewa.getRuang');
+Route::get('sewa/getJangkaWaktu', [SewaController::class, 'getJangkaWaktu'])->name('sewa.getJangkaWaktu');
 Route::resource('/sewa', SewaController::class);
 Route::resource('/pembayaran', PembayaranController::class);
 

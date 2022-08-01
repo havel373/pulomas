@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Teknik;
 
-use App\Http\Controllers\Controller;
+use App\Models\Ruang;
 use App\Models\Standmeter;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Validator;
 
 class StandmeterController extends Controller
 {
@@ -15,7 +17,7 @@ class StandmeterController extends Controller
      */
     public function index(Request $request)
     {
-        if($request->ajax() ) {
+        if ($request->ajax()) {
             $collection = Standmeter::paginate(10);
             return view('pages.teknik.standmeter.list', compact('collection'));
         }
@@ -29,7 +31,8 @@ class StandmeterController extends Controller
      */
     public function create()
     {
-        return view('pages.teknik.standmeter.input', ['data' => new Standmeter]);
+        $ruangs = Ruang::all();
+        return view('pages.teknik.standmeter.input', ['data' => new Standmeter, 'ruangs' => $ruangs]);
     }
 
     /**
@@ -40,7 +43,31 @@ class StandmeterController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'tenant_id' => 'required',
+            'daya' => 'required',
+            'foto_standmeter' => 'required',
+            'standmeter_awal' => 'required',
+            'standmeter_akhir' => 'required',
+            'pemakaian' => 'required',
+            'biaya_pemakaian' => 'required',
+            'bpju' => 'required',
+            'jumlah_tagihan' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'alert' => 'danger',
+                'message' => $validator->errors()->first()
+            ]);
+        }
+
+        Standmeter::create($request->all());
+
+        return response()->json([
+            'alert' => 'success',
+            'message' => 'Data berhasil ditambahkan'
+        ]);
     }
 
     /**
@@ -62,7 +89,8 @@ class StandmeterController extends Controller
      */
     public function edit(Standmeter $standmeter)
     {
-        //
+        $ruangs = Ruang::all();
+        return view('pages.teknik.standmeter.input', ['data' => $standmeter, 'ruangs' => $ruangs]);
     }
 
     /**
@@ -74,7 +102,31 @@ class StandmeterController extends Controller
      */
     public function update(Request $request, Standmeter $standmeter)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'tenant_id' => 'required',
+            'daya' => 'required',
+            'foto_standmeter' => 'required',
+            'standmeter_awal' => 'required',
+            'standmeter_akhir' => 'required',
+            'pemakaian' => 'required',
+            'biaya_pemakaian' => 'required',
+            'bpju' => 'required',
+            'jumlah_tagihan' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'alert' => 'error',
+                'message' => $validator->errors()->first()
+            ]);
+        }
+
+        $standmeter->update($request->all());
+
+        return response()->json([
+            'alert' => 'success',
+            'message' => 'Data berhasil diubah'
+        ]);
     }
 
     /**
@@ -85,6 +137,11 @@ class StandmeterController extends Controller
      */
     public function destroy(Standmeter $standmeter)
     {
-        //
+        $standmeter->delete();
+
+        return response()->json([
+            'alert' => 'success',
+            'message' => 'Data berhasil dihapus'
+        ]);
     }
 }

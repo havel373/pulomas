@@ -15,8 +15,15 @@
                                         <small class="text-danger"><i>*Required</i></small>
                                     </label>
                                     <select name="ruang_sewa_tenant" id="ruang_sewa_tenant" class="form-control">
-                                        <option value="" {{ $data->ruang_sewa_tenant == '' ? 'selected' : '' }}>
-                                            -- Pilih Ruang Sewa Tenant --</option>
+                                        <option value="">
+                                            -- Pilih Ruang Sewa Tenant --
+                                        </option>
+                                        @foreach ($ruangs as $ruang)
+                                            <option value="{{ $ruang->id }}"
+                                                {{ $ruang->id == $data->ruang_sewa_tenant ? 'selected' : '' }}>
+                                                {{ $ruang->nama_ruang }}
+                                            </option>
+                                        @endforeach
                                     </select>
                                 </div>
                                 <div class="col-md mb-3">
