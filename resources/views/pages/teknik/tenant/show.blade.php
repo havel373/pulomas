@@ -93,7 +93,7 @@
                 '<option value="">Pilih Daya' +
                 '</option>' +
                 @foreach ($daya as $item)
-                    '<option value="{{ $item->id }}">{{ $item->jenis_tarif }} - {{ $item->kwh_minimum }} VA' +
+                    '<option value="{{ $item->id }}" data-price="{{ $item->tarif_dasar }}">{{ $item->jenis_tarif }} - {{ $item->kwh_minimum }} VA' +
                     '</option>' +
                 @endforeach
                 '</select>' +
