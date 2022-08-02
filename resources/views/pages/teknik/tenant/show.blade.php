@@ -101,7 +101,8 @@
                 '<div class="col-md-6">' +
                 '<div class="input-group">' +
                 '<span class="input-group-text">Rp</span>' +
-                '<input type="text" class="form-control" name="harga[' + i + ']" readonly>' +
+                '<input type="text" class="form-control" name="daya_terpasang[' + i +
+                ']" id="daya_terpasang[' + i + ']" value="" readonly>' +
                 '<button type="button" class="btn btn-danger" id="remove"><i class="uil-trash" style="color:white;"></i></button>' +
                 '</div>' +
                 '</div>' +
