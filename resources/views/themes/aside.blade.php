@@ -150,7 +150,7 @@
             </li>
 
             <li class="side-nav-item">
-                <a href="{{route('teknik-data-tenant.index')}}" class="side-nav-link">
+                <a href="{{route('daya-tenant.index')}}" class="side-nav-link">
                     <i class="uil-folder-plus"></i>
                     <span> Kelola Daya Tenant </span>
                 </a>

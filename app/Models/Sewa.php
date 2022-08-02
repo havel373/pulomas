@@ -11,10 +11,33 @@ class Sewa extends Model
 
     public $table = 'sewa';
     public function ruang(){
-        return $this->belongsTo(Ruang::class, 'id', 'ruang_id');
+        return $this->belongsTo(Ruang::class, 'ruang_id', 'id');
     }
 
-    public function market(){
-        return $this->belongsTo(Marketing::class, 'id', 'user_id');
+    public function marketing(){
+        return $this->belongsTo(Marketing::class, 'marketing_id', 'id');
     }
+    
+    public function AdditionalService(){
+        return $this->belongsTo(AdditionalService::class, 'marketing_id', 'id');
+    }
+
+    protected $fillable = [
+        'booking',
+        'kode_booking',
+        'gedung_id',
+        'lantai_id',
+        'ruang_id',
+        'jangka_waktu',
+        'tanggal_awal_sewa',
+        'tanggal_akhir_sewa',
+        'jenis_service_charge',
+        'ppn',
+        'luas_ruangan',
+        'marketing_id',
+        'keterangan',
+        'additional_service',
+        'total_harga',
+        'status',
+    ];
 }

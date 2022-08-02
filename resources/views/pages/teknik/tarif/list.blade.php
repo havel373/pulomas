@@ -16,11 +16,11 @@
         <tr>
             <td>{{$collection->firstItem() + $i}}</td>
             <td>{{$data->jenis_tarif}}</td>
-            <td>{{$data->daya}}</td>
+            <td>{{$data->daya}} VA</td>
             <td>{{$data->tarif}}</td>
-            <td>{{$data->tarif_dasar}}</td>
-            <td>{{$data->bpju}}</td>
-            <td>{{$data->kwh_minimum}}</td>
+            <td>Rp {{$data->tarif_dasar}}</td>
+            <td>{{$data->bpju}} %</td>
+            <td>{{$data->kwh_minimum}} KWH</td>
             <td class="table-action text-center">
                 <a href="javascript:;" onclick="load_input('{{route('tarif-listrik.edit', $data->id)}}');" class="action-icon">
                     <i class="dripicons-document-edit"></i>

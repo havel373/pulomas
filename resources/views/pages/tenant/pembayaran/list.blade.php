@@ -14,10 +14,10 @@
             <tr>
                 <td>{{ $collection->firstItem() + $i }}</td>
                 <td>{{ $data->tanggal_request }}</td>
-                <td>{{ $data->nominal }}</td>
+                <td>Rp {{ number_format($data->nominal) }}</td>
                 <td>{{ $data->keterangan }}</td>
                 <td>{{ $data->status }}</td>
-                <td>{{ $data->bukti_pembayaran }}</td>
+                <td><img src="{{ $data->image }}" class="img-responsive img-fluid"></td>
                 {{-- <td class="table-action text-center"> --}}
                 {{-- <a href="javascript:;" onclick="load_input('{{route('ruang.edit', $data->id)}}');" class="action-icon">
                     <i class="dripicons-document-edit"></i>

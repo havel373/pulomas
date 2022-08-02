@@ -9,7 +9,7 @@
                     </ul> <!-- end nav-->
                     <div class="tab-content">
                         <div class="tab-pane show active" id="tooltips-validation-preview">
-                            <form class="needs-validation">
+                            <form class="needs-validation" id="form_submit">
                                 <div class="row">
                                     <div class="col-md-12 mb-3">
                                         <img src="{{ asset('assets/images/denah.jpg') }}" alt=""
@@ -21,7 +21,8 @@
                                         <label class="form-label">Booking
                                             <small class="text-danger"><i>*Required</i></small>
                                         </label>
-                                        <select class="form-control" name="booking" id="booking">
+                                        <select class="form-control" name="booking" id="booking">                                            
+                                            <option value="">--- Booking ----</option>
                                             <option value="ya">Ya</option>
                                             <option value="tidak">Tidak</option>
                                         </select>
@@ -30,10 +31,7 @@
                                         <label class="form-label">Kode Booking
                                             <small class="text-danger"><i>*Required</i></small>
                                         </label>
-                                        <select class="form-control" name="kode_booking" id="kode_booking">
-                                            <option value="ya">Ya</option>
-                                            <option value="tidak">Tidak</option>
-                                        </select>
+                                        <input  class="form-control" type="text" name="kode_booking" id="kode_booking">
                                     </div>
                                     <div class="col-md-6 mb-3">
                                         <label class="form-label">Gedung
@@ -53,7 +51,7 @@
                                             <small class="text-danger"><i>*Required</i></small>
                                         </label>
                                         <select class="form-control" name="lantai_id" id="lantai_id">
-                                            <option value="">Pilih Lantai</option>
+                                            <option value="">Pilih Gedung Lebih Dulu</option>
                                         </select>
                                     </div>
                                     <div class="col-md-6 mb-3">
@@ -61,7 +59,7 @@
                                             <small class="text-danger"><i>*Required</i></small>
                                         </label>
                                         <select class="form-control" name="ruang" id="ruang">
-                                            <option value="">Pilih Ruang</option>
+                                            <option value="">Pilih Lantai Lebih Dulu</option>
                                         </select>
                                     </div>
                                 </div>
@@ -71,7 +69,7 @@
                                             <small class="text-danger"><i>*Required</i></small>
                                         </label>
                                         <select class="form-control" name="jangka_waktu" id="jangka_waktu">
-                                            <option value=""></option>
+                                            <option value="">Pilih Ruang Terlebih Dulu</option>
                                         </select>
                                     </div>
                                     <div class="col-md-6 mb-3">
@@ -79,7 +77,7 @@
                                             <small class="text-danger"><i>*Required</i></small>
                                         </label>
                                         <div class="input-group" id="input-group1">
-                                            <input type="text" class="form-control" value="1">
+                                            <input type="text" class="form-control" value="1" id="angka">
                                         </div>
                                     </div>
                                 </div>
@@ -110,7 +108,8 @@
                                         </label>
                                         <select class="form-control" name="jenis_service_charge"
                                             id="jenis_service_charge">
-                                            <option value=""></option>
+                                            <option value="">Service Charge + Listrik - Rp 0 / Bulan</option>
+                                            <option value="">Service Charge - Rp 0 / Bulan</option>
                                         </select>
                                     </div>
                                     <div class="col-md-6 mb-3">
@@ -129,7 +128,10 @@
                                             <small class="text-danger"><i>*Required</i></small>
                                         </label>
                                         <select class="form-control" name="luas_ruangan" id="luas_ruangan">
-                                            <option value=""></option>
+                                            <option value="">Pilih</option>
+                                            <option value="1">Ada Penambahan Luas Ruang</option>
+                                            <option value="2">Kurangi Luas</option>
+                                            <option value="3">Tidak Ada Penambahan atau Pengurangan</option>
                                         </select>
                                     </div>
                                     <div class="col-md-6 mb-3">
@@ -167,39 +169,35 @@
                                             data-bs-parent="#accordionExample" style="">
                                             <div class="card-body">
                                                 <div class="row">
-                                                    @foreach ($additionals as $item)
+                                                    @foreach ($additionals as $key => $item)
                                                         <div class="col-sm-3 row inputanService">
                                                             <div class="col-sm-12">
-                                                                <img src="data_file/{{ $item->foto }}"
+                                                                <img src="{{ $item->image }}"
                                                                     alt="image" class="img-fluid rounded-circle"
                                                                     width="75">
                                                             </div>
                                                             <div class="col-sm-12">
                                                                 <h4><input type="checkbox"
                                                                         class="checkbox checkbox-primary sewaService"
-                                                                        name="service[]" value="{{ $item->id }}"
-                                                                        data-harga="100000"> {{ $item->nama }}
+                                                                        name="additional_services[]" value="{{ $item->id }}"> {{ $item->nama }}
                                                                     <div class="input-group mt-2 totalService"
                                                                         style="">
                                                                         <input type="number"
                                                                             class="form-control col-sm-4 total_service"
-                                                                            name="total_service[]" placeholder="Total"
-                                                                            value="1" width="50"
-                                                                            data-harga="100000">
+                                                                            name="additional_services_qty[]" placeholder="Total"
+                                                                            value="" width="50" id="totalServiceInput{{$key+1}}">
                                                                         <div class="input-group-append">
                                                                             <div class="input-group-text">
-                                                                                Per Bulan </div>
+                                                                                {{$item->satuan}} </div>
                                                                         </div>
                                                                     </div>
                                                                 </h4>
                                                                 <p>Rp.
-                                                                    {{ number_format($item->harga) . '/' . $item->satuan }}/Per
+                                                                    {{ number_format($item->harga) . '/' . $item->satuan }} /Per
                                                                     Bulan</p>
                                                             </div>
-                                                            <input type="hidden" class="currenTotalService"
-                                                                value="100000">
-                                                            <input type="hidden" name="harga_service[]"
-                                                                value="100000">
+                                                            <input type="hidden" name="harga_service[]" class="harga_service"
+                                                                value="{{$item->harga}}">
                                                             <input type="hidden" name="id_service[]"
                                                                 value="{{ $item->id }}">
                                                         </div>
@@ -225,27 +223,32 @@
                                                 <tr>
                                                     <td>1</td>
                                                     <td>Pembayaran Sewa</td>
+                                                    <input type="hidden" name="sewa" id="sewainp">
                                                     <td id="sewa"></td>
                                                 </tr>
                                                 <tr>
                                                     <td>2</td>
                                                     <td>Service Charge</td>
+                                                    <input type="hidden" name="service" id="serviceinp">
                                                     <td id="service"></td>
                                                 </tr>
                                                 <tr>
                                                     <td>3</td>
                                                     <td>Deposit Sewa</td>
+                                                    <input type="hidden" name="deposit" id="depositinp">
                                                     <td id="deposit"></td>
                                                 </tr>
                                                 <tr>
                                                     <td>4</td>
                                                     <td>Additional Service</td>
+                                                    <input type="hidden" name="additional" id="additionalinp">
                                                     <td id="additional"></td>
                                                 </tr>
                                                 <tr>
                                                     <td>5</td>
                                                     <td>PPN 10%</td>
-                                                    <td id="ppn">Rp. 0</td>
+                                                    <input type="hidden" name="ppnjumlah" id="ppninp">
+                                                    <td id="ppnrow">Rp. 0</td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -262,17 +265,19 @@
                                             <div class="col-md-6">
                                                 Total + PPN 10% :
                                             </div>
-                                            <div class="col-md-6" id="totalppn">
+                                            <div class="col-md-6" id="totalppn" >
                                                 Rp. 0
                                             </div>
+                                            <input type="hidden" name="totalharga" id="totalppninp">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <h4 class="header-title text-center">Foto Ruangan</h4>
+                                        {{-- <img src="{{ $item->image }}" alt="image" class="img-fluid"> --}}
                                     </div>
                                 </div>
                                 <a href="javascript:;" onclick="load_list(1);" class="btn btn-info mt-3">Cancel</a>
-                                <button class="btn btn-primary mt-3" onclick="handle_save('');">Submit</button>
+                                <button class="btn btn-primary mt-3" id="btn_submit" onclick="handle_save('#btn_submit','#form_submit','{{route('sewa.store')}}','POST','Submit');">Submit</button>
                             </form>
                         </div>
                     </div> <!-- end preview-->
@@ -282,75 +287,128 @@
     </div> <!-- end col-->
 </div>
 <script>
+    $('#input_kode').hide();
     $('#booking').change(function() {
         if ($(this).val() == 'ya') {
-            $('#kode_booking').show();
+            $('#input_kode').show();
         } else {
-            $('#kode_booking').hide();
+            $('#input_kode').hide();
         }
     });
-
-    $('#gedung_id').change(function() {
-        var gedung_id = $('#gedung_id').val();
-        $.ajax({
-            url: '{{ route('sewa.getLantai') }}',
-            type: 'GET',
-            dataType: 'JSON',
-            success: function(data) {
-                $('#lantai_id').html('');
-                $('#lantai_id').append('<option value="">Pilih Lantai</option>');
-                $.each(data, function(i, item) {
-                    $('#lantai_id').append('<option value="' + item.id + '">' + item.nama +
-                        '</option>');
-                });
-            }
+        $("#gedung_id").change(function() {
+            $.ajax({
+                type: "POST",
+                url: "{{ route('lantai.get_list') }}",
+                data: {
+                    id: $("#gedung_id").val()
+                },
+                success: function(response) {
+                    $("#lantai_id").html(response);
+                    $("#lantai_id").change(function() {
+                        $.ajax({
+                            type: "POST",
+                            url: "{{ route('sewa.getRuang') }}",
+                            data: {
+                                id: $("#lantai_id").val()
+                            },
+                            success: function(response) {
+                                $('#ruang').html('');
+                                $('#ruang').append('<option value="">Pilih Ruang</option>');
+                                $.each(response, function(i, item) {
+                                    $('#ruang').append('<option value="' + item.id + '">' + item.nama_ruang +'</option>');
+                                    $("#ruang").change(function() {
+                                        $.ajax({
+                                            success: function(response) {
+                                                let bulan = 1;
+                                                const numberFormatter = Intl.NumberFormat('id-ID');
+                                                $('#jangka_waktu').html('');
+                                                $('#jangka_waktu').append(
+                                                    '<option value="">Pilih Jangka Waktu</option>' + 
+                                                    '<option value="'+item.harga_hari+'">1 Hari - Rp '+ thousand(item.harga_hari )+ ' </option>' + 
+                                                    '<option value="'+item.harga_hari * 7+'">1 Minggu - Rp '+ thousand(item.harga_hari * 7 )+ ' </option>'+
+                                                    '<option value="'+item.harga_bulan+'">1 Bulan - Rp '+ thousand(item.harga_bulan )+ ' </option>'+
+                                                    '<option value="'+item.harga_bulan * 2+'">2 Bulan - Rp '+ thousand(item.harga_bulan * 2 )+ ' </option>'+
+                                                    '<option value="'+item.harga_bulan * 3+'">3 Bulan - Rp '+ thousand(item.harga_bulan * 3 )+ ' </option>'+
+                                                    '<option value="'+item.harga_bulan * 4+'">4 Bulan - Rp '+ thousand(item.harga_bulan * 4 )+ ' </option>'+
+                                                    '<option value="'+item.harga_bulan * 5+'">5 Bulan - Rp '+ thousand(item.harga_bulan * 5 )+ ' </option>'+
+                                                    '<option value="'+item.harga_bulan * 6+'">6 Bulan - Rp '+ thousand(item.harga_bulan * 6 )+ ' </option>'+
+                                                    '<option value="'+item.harga_bulan * 7+'">7 Bulan - Rp '+ thousand(item.harga_bulan * 7 )+ ' </option>'+
+                                                    '<option value="'+item.harga_bulan * 8+'">8 Bulan - Rp '+ thousand(item.harga_bulan * 8 )+ ' </option>'+
+                                                    '<option value="'+item.harga_bulan * 9+'">9 Bulan - Rp '+ thousand(item.harga_bulan * 9 )+ ' </option>'+
+                                                    '<option value="'+item.harga_bulan * 10+'">10 Bulan - Rp '+ thousand(item.harga_bulan * 10 )+ ' </option>'+
+                                                    '<option value="'+item.harga_bulan * 11+'">11 Bulan - Rp '+ thousand(item.harga_bulan * 11 )+ ' </option>'+
+                                                    '<option value="'+item.harga_bulan * 12+'">1 Tahun - Rp '+ thousand(item.harga_bulan * 12 )+ ' </option>'
+                                                );
+                                                $("#jangka_waktu").change(function() {
+                                                    $.ajax({
+                                                        success: function(response) {
+                                                            $('#sewa').html('Rp '+thousand($('#jangka_waktu').val() * $('#angka').val()));
+                                                            $('#sewainp').val($('#jangka_waktu').val() * $('#angka').val());
+                                                            $('#deposit').html('Rp '+thousand($('#jangka_waktu').val() * $('#angka').val()));
+                                                            $('#depositinp').val($('#jangka_waktu').val() * $('#angka').val());
+                                                        }
+                                                    });
+                                                });
+                                                $("#angka").change(function() {
+                                                    $.ajax({
+                                                        success: function(response) {
+                                                            $('#sewa').html('Rp '+thousand($('#jangka_waktu').val() * $('#angka').val()));
+                                                            $('#sewainp').val($('#jangka_waktu').val() * $('#angka').val());
+                                                            $('#deposit').html('Rp '+thousand($('#jangka_waktu').val() * $('#angka').val()));
+                                                            $('#depositinp').val($('#jangka_waktu').val() * $('#angka').val());
+                                                        }
+                                                    });
+                                                });
+                                            }
+                                        });
+                                    });
+                                });
+                                $.each(response, function(i, item) {
+                                    $('#jenis_service_charge').html('');
+                                    $('#jenis_service_charge').append(
+                                        '<option value="">Pilih Service Charge</option>' + 
+                                        '<option value="1">Listrik Pulomas Office Park - Rp '+thousand(item.service_charge)+'</option>' + 
+                                        '<option value="2">Listrik Pulomas Office Park - Rp '+thousand(item.service_charge_sendiri)+'</option>'
+                                    );
+                                    $('#jenis_service_charge').change(function() {
+                                        if($('#jenis_service_charge').val() == '1'){
+                                            $('#service').html('Rp '+thousand(item.service_charge));
+                                            $('#serviceinp').val(item.service_charge);
+                                        }else{
+                                            $('#service').html('Rp '+thousand(item.service_charge_sendiri));
+                                            $('#serviceinp').val(item.service_charge_sendiri);
+                                        }
+                                    });
+                                });
+                            }
+                        });
+                    });
+                }
+            });
         });
-    });
 
-    $('#lantai_id').change(function() {
-        var lantai_id = $('#lantai_id').val();
-        $.ajax({
-            url: '{{ route('sewa.getRuang') }}',
-            type: 'GET',
-            dataType: 'JSON',
-            data: {
-                lantai_id: lantai_id
-            },
-            success: function(data) {
-                $('#ruang_id').html('');
-                $('#ruang_id').append('<option value="">Pilih Ruang</option>');
-                $.each(data, function(i, item) {
-                    $('#ruang_id').append('<option value="' + item.id + '">' + item.nama +
-                        '</option>');
-                });
-            }
+        $('.sewaService').click(function(){
+            $('#additionalinp').val($('.harga_service').val());
+            $('#additional').html('Rp '+thousand($('.harga_service').val()));
+            let sewainp = $('#sewainp').val();
+            let additionalinp = $('#additionalinp').val();
+            let serviceinp = $('#serviceinp').val();
+            let totalinp = parseFloat(sewainp) + parseFloat(additionalinp) + parseFloat(serviceinp);
+            $('#ppninp').val( (totalinp/10) );
+            $('#ppnrow').html(thousand('Rp ' +  $('#ppninp').val() ));
+            let grandtotal = parseFloat($('#ppninp').val()) + parseFloat(totalinp);
+            $('#total').html('Rp '+thousand(totalinp));
+            $('#totalppninp').val(grandtotal);
+            $('#totalppn').html('Rp '+thousand(grandtotal));
         });
-    });
-
-    $('#ruangan_id').change(function() {
-        var ruangan_id = $('#ruangan_id').val();
-        $.ajax({
-            url: '{{ route('sewa.getJangkaWaktu') }}',
-            type: 'GET',
-            dataType: 'JSON',
-            data: {
-                ruangan_id: ruangan_id
-            },
-            success: function(data) {
-                $('#jangka_waktu').append('<option value="">Pilih Jangka Waktu</option>');
-                $.each(data, function(i) {
-                    $('#jangka_waktu').append(data[i]);
-                });
-            }
+    $('#jangka_waktu').change(function() {
+        $('#tanggal_awal').change(function() {
+            var tanggal_awal = $('#tanggal_awal').val();
+            // tambahkan tanggal awal dan jangka waktu untuk tanggal akhir
+            var tanggal_akhir = new Date(tanggal_awal);
+            tanggal_akhir.setDate(tanggal_akhir.getDate() + parseInt($('#angka').val()));
+            $('#tanggal_akhir').val(tanggal_akhir.toISOString().substring(0, 10));
         });
-    });
-
-    $('#tanggal_awal').change(function() {
-        var tanggal_awal = $('#tanggal_awal').val();
-        // tambahkan tanggal awal dan jangka waktu untuk tanggal akhir
-        var tanggal_akhir = new Date(tanggal_awal);
-        tanggal_akhir.setDate(tanggal_akhir.getDate() + parseInt($('#jangka_waktu').val()));
-        $('#tanggal_akhir').val(tanggal_akhir.toISOString().substring(0, 10));
     });
 
     $('#sewa').html('Rp. 0');

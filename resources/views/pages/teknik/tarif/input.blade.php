@@ -9,7 +9,7 @@
                     </ul> <!-- end nav-->
                     <div class="tab-content">
                         <div class="tab-pane show active" id="tooltips-validation-preview">
-                            <form class="needs-validation">
+                            <form class="needs-validation" id="form_submit">
                                 <div class="col-md mb-3">
                                     <label class="form-label" for="validationTooltip01">Jenis Tarif Listrik<small
                                             class="text-danger"><i>*Required</i></small></label>
@@ -19,13 +19,16 @@
                                 <div class="col-md mb-3">
                                     <label class="form-label" for="validationTooltip01">Daya<small
                                             class="text-danger"><i>*Required</i></small></label>
-                                    <input type="text" class="form-control" placeholder="" name="daya"
-                                        value="{{ $data->daya }}" />
+                                    <div class="input-group" id="input-group1">
+                                        <input type="text" class="form-control" placeholder="" name="daya"
+                                            value="{{ $data->daya }}" id="daya" />
+                                            <span class="input-group-text">VA</span>
+                                    </div>
                                 </div>
                                 <div class="col-md mb-3">
                                     <label class="form-label" for="validationTooltip01">Tarif<small
                                             class="text-danger"><i>*Required</i></small></label>
-                                    <input type="text" class="form-control" placeholder="" name="tarif"
+                                    <input type="text" class="form-control" placeholder="" name="tarif" id="tarif"
                                         value="{{ $data->tarif }}" />
                                 </div>
                                 <div class="col-md mb-3">
@@ -33,7 +36,7 @@
                                             class="text-danger"><i>*Required</i></small></label>
                                     <div class="input-group" id="input-group1">
                                         <span class="input-group-text">Rp</span>
-                                        <input type="text" class="form-control" placeholder="" name="tarif_dasar"
+                                        <input type="text" class="form-control" placeholder="" name="tarif_dasar" id="tarif_dasar"
                                             value="{{ $data->tarif_dasar }}" />
                                     </div>
                                 </div>
@@ -41,7 +44,7 @@
                                     <label class="form-label" for="validationTooltip01">BPJU / Pajak
                                         Penerangan<small class="text-danger"><i>*Required</i></small></label>
                                     <div class="input-group" id="input-group1">
-                                        <input type="text" class="form-control" placeholder="" name="bpju"
+                                        <input type="text" class="form-control" placeholder="" name="bpju" id="bpju"
                                             value="{{ $data->bpju }}" />
                                         <span class="input-group-text">%</span>
                                     </div>
@@ -71,4 +74,8 @@
         </div> <!-- end card-->
     </div> <!-- end col-->
 </div>
-<script></script>
+<script>
+    number_only('daya');
+    ribuan('tarif_dasar');
+    number_only('bpju');
+</script>

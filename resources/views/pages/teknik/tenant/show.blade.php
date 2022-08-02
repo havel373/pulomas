@@ -44,8 +44,9 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <select name="daya" id="daya" class="form-control">
+                                            <option value="">Pilih Daya</option>
                                             @foreach ($daya as $item)
-                                                <option value="{{ $item->id }}">{{ $item->daya_terpasang }}</option>
+                                                <option value="{{ $item->id }}">{{ $item->jenis_tarif }} - {{$item->kwh_minimum}} VA</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -53,7 +54,7 @@
                                         <div class="input-group" id="input-group1">
                                             <span class="input-group-text">Rp</span>
                                             <input type="text" class="form-control" name="daya_terpasang"
-                                                id="daya_terpasang" value="">
+                                                id="daya_terpasang" value="" readonly>
                                             <span class="input-group-text">
                                                 <button type="button" id="tambah_form"
                                                     class="btn btn-primary btn-add-fasilitas">
@@ -67,7 +68,7 @@
                         </div>
                         <a href="javascript:;" onclick="load_list(1);" class="btn btn-info">Cancel</a>
                         <button class="btn btn-primary" id="tombol_submit"
-                            onclick="handle_upload('#tombol_submit', '#form_submit', '{{ route('teknik-data-tenant.update', $data->id) }}', 'PATCH', 'Submit');">Submit</button>
+                            onclick="handle_upload('#tombol_submit', '#form_submit', '{{ route('update-daya-tenant', $data->id) }}', 'PATCH', 'Submit');">Submit</button>
                     </form>
                 </div>
             </div> <!-- end preview-->
@@ -83,26 +84,45 @@
             ++i;
             $('#form-dinamic').append(
                 '<div class="row mt-3">' +
-                '<div class="col-md-6">' +
-                '<select class="form-control" name="daya[' + i + ']">' +
-                @foreach ($daya as $item)
-                    '<option value="{{ $item->id }}">{{ $item->daya_terpasang }}>' +
+                    '<div class="col-md-6">' +
+                    '<select class="form-control" name="daya[' + i + ']" id="daya[' + i + ']">' +
+                    '<option value="">Pilih Daya' +
                     '</option>' +
-                @endforeach
-                '</select>' +
-                '</div>' +
-                '<div class="col-md-6">' +
-                '<div class="input-group">' +
-                '<span class="input-group-text">Rp</span>' +
-                '<input type="text" class="form-control" name="fasilitas[' + i + ']">' +
-                '<button type="button" class="btn btn-danger" id="remove"><i class="uil-trash" style="color:white;"></i></button>' +
-                '</div>' +
-                '</div>' +
+                    @foreach ($daya as $item)
+                    '<option value="{{ $item->id }}">{{ $item->jenis_tarif }} - {{$item->kwh_minimum}} VA' +
+                    '</option>' +
+                    @endforeach
+                    '</select>' +
+                    '</div>' +
+                    '<div class="col-md-6">' +
+                        '<div class="input-group">' +
+                            '<span class="input-group-text">Rp</span>' +
+                            '<input type="text" class="form-control" name="harga[' + i + ']" readonly>' +
+                            '<button type="button" class="btn btn-danger" id="remove"><i class="uil-trash" style="color:white;"></i></button>' +
+                        '</div>' +
+                    '</div>' +
                 '</div>'
-            )
-        });
+                )
+                $('#daya').change(function() {
+                    alert('zzz');
+                });
+                $('#daya['+i+']').change(function() {
+                    $.ajax({
+                        success: function(response) {
+                          alert('tes');
+                        }
+                    });
+                });
+            });
+            $('#daya[1]').change(function() {
+                $.ajax({
+                    success: function(response) {
+                      alert('tes');
+                    }
+                });
+            });
         $('#form-dinamic').on('click', '#remove', function() {
-            $(this).parent().remove();
+            $(this).parent().parent().parent().remove();
         });
     });
 </script>

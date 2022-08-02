@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Teknik;
 
 use App\Http\Controllers\Controller;
 use App\Models\KelolaDayaTenant;
+use App\Models\Tarif;
 use App\Models\Tenant;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -46,10 +47,10 @@ class DayaTenantController extends Controller
      * @param  \App\Models\Tenant  $tenant
      * @return \Illuminate\Http\Response
      */
-    public function show(Tenant $teknik_data_tenant)
+    public function show(Tenant $daya_tenant)
     {
-        $daya = KelolaDayaTenant::get();
-        return view('pages.teknik.tenant.show', ['data' => $teknik_data_tenant, 'daya' => $daya]);
+        $daya = Tarif::get();
+        return view('pages.teknik.tenant.show', ['data' => $daya_tenant, 'daya' => $daya]);
     }
 
     /**

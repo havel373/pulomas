@@ -54,17 +54,17 @@ class SewaController extends Controller
             'kode_booking' => 'required_if:booking,ya',
             'gedung_id' => 'required',
             'lantai_id' => 'required',
-            'ruang_id' => 'required',
+            'ruang' => 'required',
             'jangka_waktu' => 'required',
-            'tanggal_awal_sewa' => 'required',
-            'tanggal_akhir_sewa' => 'required',
+            'tanggal_awal' => 'required',
+            'tanggal_akhir' => 'required',
             'jenis_service_charge' => 'required',
             'ppn' => 'required',
             'luas_ruangan' => 'required',
             'marketing_id' => 'required',
             'keterangan' => 'required',
-            'additional_services.*.id' => 'required',
-            'total_harga' => 'required',
+            'additional_services.*' => 'required',
+            'totalharga' => 'required',
         ]);
 
         if ($validator->fails()) {
@@ -73,23 +73,22 @@ class SewaController extends Controller
                 'message' => $validator->errors()->first(),
             ]);
         }
-
         $data = [
             'booking' => $request->booking,
             'kode_booking' => $request->kode_booking,
             'gedung_id' => $request->gedung_id,
             'lantai_id' => $request->lantai_id,
-            'ruang_id' => $request->ruang_id,
+            'ruang_id' => $request->ruang,
             'jangka_waktu' => $request->jangka_waktu,
-            'tanggal_awal_sewa' => $request->tanggal_awal_sewa,
-            'tanggal_akhir_sewa' => $request->tanggal_akhir_sewa,
+            'tanggal_awal_sewa' => $request->tanggal_awal,
+            'tanggal_akhir_sewa' => $request->tanggal_akhir,
             'jenis_service_charge' => $request->jenis_service_charge,
             'ppn' => $request->ppn,
             'luas_ruangan' => $request->luas_ruangan,
             'marketing_id' => $request->marketing_id,
             'keterangan' => $request->keterangan,
-            'additional_services' => json_encode($request->additional_services),
-            'total_harga' => $request->total_harga,
+            'additional_services' => json_encode(array_merge($request->additional_services, $request->additional_services_qty)),
+            'total_harga' => $request->totalharga,
             'status' => 'proses check',
         ];
 
@@ -139,17 +138,17 @@ class SewaController extends Controller
             'kode_booking' => 'required_if:booking,ya',
             'gedung_id' => 'required',
             'lantai_id' => 'required',
-            'ruang_id' => 'required',
+            'ruang' => 'required',
             'jangka_waktu' => 'required',
-            'tanggal_awal_sewa' => 'required',
-            'tanggal_akhir_sewa' => 'required',
+            'tanggal_awal' => 'required',
+            'tanggal_akhir' => 'required',
             'jenis_service_charge' => 'required',
             'ppn' => 'required',
             'luas_ruangan' => 'required',
             'marketing_id' => 'required',
             'keterangan' => 'required',
-            'additional_services.*.id' => 'required',
-            'total_harga' => 'required',
+            'additional_services.*' => 'required',
+            'totalharga' => 'required',
         ]);
 
         if ($validator->fails()) {
@@ -158,23 +157,23 @@ class SewaController extends Controller
                 'message' => $validator->errors()->first(),
             ]);
         }
-
+        $additional_services = [$request->additional_services . $request->additional_services_qty];
         $data = [
             'booking' => $request->booking,
             'kode_booking' => $request->kode_booking,
             'gedung_id' => $request->gedung_id,
             'lantai_id' => $request->lantai_id,
-            'ruang_id' => $request->ruang_id,
+            'ruang_id' => $request->ruang,
             'jangka_waktu' => $request->jangka_waktu,
-            'tanggal_awal_sewa' => $request->tanggal_awal_sewa,
-            'tanggal_akhir_sewa' => $request->tanggal_akhir_sewa,
+            'tanggal_awal_sewa' => $request->tanggal_awal,
+            'tanggal_akhir_sewa' => $request->tanggal_akhir,
             'jenis_service_charge' => $request->jenis_service_charge,
             'ppn' => $request->ppn,
             'luas_ruangan' => $request->luas_ruangan,
             'marketing_id' => $request->marketing_id,
             'keterangan' => $request->keterangan,
             'additional_services' => json_encode($request->additional_services),
-            'total_harga' => $request->total_harga,
+            'total_harga' => $request->totalharga,
             'status' => 'proses check',
         ];
 
@@ -210,8 +209,8 @@ class SewaController extends Controller
 
     public function getRuang(Request $request)
     {
-        $ruang = Ruang::where('lantai_id', $request->lantai_id)->get();
-        return response()->json($ruang);
+        $result = Ruang::where('id_lantai', $request->id)->get();
+        return response()->json($result);
     }
 
     public function getJangkaWaktu(Request $request)

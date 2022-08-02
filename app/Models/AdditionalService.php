@@ -18,5 +18,7 @@ class AdditionalService extends Model
         'foto',
         'deskripsi',
     ];
-
+    public function getImageAttribute(){
+        return asset('storage/' . $this->foto);
+    }
 }

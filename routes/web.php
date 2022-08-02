@@ -86,7 +86,7 @@ Route::resource('/rekening', RekeningController::class);
 // Tenant
 Route::resource('/billing', BillingController::class);
 Route::get('sewa/getLantai', [SewaController::class, 'getLantai'])->name('sewa.getLantai');
-Route::get('sewa/getRuang', [SewaController::class, 'getRuang'])->name('sewa.getRuang');
+Route::post('sewa/getRuang', [SewaController::class, 'getRuang'])->name('sewa.getRuang');
 Route::get('sewa/getJangkaWaktu', [SewaController::class, 'getJangkaWaktu'])->name('sewa.getJangkaWaktu');
 Route::resource('/sewa', SewaController::class);
 Route::resource('/pembayaran', PembayaranController::class);
@@ -101,6 +101,7 @@ Route::resource('/data-standmeter', DataStandmeterController::class);
 Route::resource('/standmeter', StandmeterController::class);
 Route::resource('/tarif-listrik', TarifListrikController::class);
 Route::resource('/daya-tenant', DayaTenantController::class);
+Route::get('/update-daya-tenant', [DayaTenantController::class, 'update'])->name('update-daya-tenant');
 
 Route::get('/kelolausermarketing', function () {
     return view('superadmin.kelolausermarketing');
