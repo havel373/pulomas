@@ -1,31 +1,32 @@
 
 <?php
 
-use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\WebController;
 //Superadmin
-use App\Http\Controllers\Superadmin\LantaiController;
-use App\Http\Controllers\Superadmin\GedungController;
-use App\Http\Controllers\Superadmin\RuangController;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\SuperAdminController;
+use App\Http\Controllers\Tenant\SewaController;
+use App\Http\Controllers\Tenant\BillingController;
+use App\Http\Controllers\Superadmin\RuangController;
+use App\Http\Controllers\Superadmin\GedungController;
+use App\Http\Controllers\Superadmin\LantaiController;
+use App\Http\Controllers\Teknik\DayaTenantController;
+use App\Http\Controllers\Teknik\StandmeterController;
+use App\Http\Controllers\Tenant\PembayaranController;
 use App\Http\Controllers\DashboardSuperAdminController;
-use App\Http\Controllers\Marketing\DataStandmeterController;
-use App\Http\Controllers\Marketing\DataTenantController as MarketingDataTenantController;
-use App\Http\Controllers\Superadmin\AdditionalServiceController;
-use App\Http\Controllers\Superadmin\GradeTenantController;
 use App\Http\Controllers\Superadmin\OvertimeController;
 use App\Http\Controllers\Superadmin\RekeningController;
-use App\Http\Controllers\Superadmin\UserKeuanganController;
-use App\Http\Controllers\Superadmin\UserMarketingController;
+use App\Http\Controllers\Teknik\TarifListrikController;
 use App\Http\Controllers\Superadmin\UserTeknikController;
 use App\Http\Controllers\Superadmin\UserTenantController;
-use App\Http\Controllers\Teknik\StandmeterController;
+use App\Http\Controllers\Superadmin\GradeTenantController;
+use App\Http\Controllers\Superadmin\UserKeuanganController;
+use App\Http\Controllers\Marketing\DataStandmeterController;
+use App\Http\Controllers\Superadmin\UserMarketingController;
+use App\Http\Controllers\Superadmin\AdditionalServiceController;
 use App\Http\Controllers\Teknik\DataTenantController as TeknikDataTenantController;
-use App\Http\Controllers\Teknik\TarifListrikController;
-use App\Http\Controllers\Tenant\BillingController;
-use App\Http\Controllers\Tenant\PembayaranController;
-use App\Http\Controllers\Tenant\SewaController;
-use App\Http\Controllers\WebController;
+use App\Http\Controllers\Marketing\DataTenantController as MarketingDataTenantController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -99,7 +100,7 @@ Route::resource('/data-standmeter', DataStandmeterController::class);
 // Teknik
 Route::resource('/standmeter', StandmeterController::class);
 Route::resource('/tarif-listrik', TarifListrikController::class);
-Route::resource('/teknik-data-tenant', TeknikDataTenantController::class);
+Route::resource('/daya-tenant', DayaTenantController::class);
 
 Route::get('/kelolausermarketing', function () {
     return view('superadmin.kelolausermarketing');

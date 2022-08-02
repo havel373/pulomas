@@ -6,12 +6,13 @@ use App\Http\Controllers\Controller;
 use App\Models\KelolaDayaTenant;
 use App\Models\Tenant;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
-class DataTenantController extends Controller
+class DayaTenantController extends Controller
 {
     public function index(Request $request)
     {
-        if($request->ajax() ) {
+        if ($request->ajax()) {
             $collection = Tenant::paginate(10);
             return view('pages.teknik.tenant.list', compact('collection'));
         }
@@ -59,7 +60,7 @@ class DataTenantController extends Controller
      */
     public function edit(Tenant $tenant)
     {
-        //
+        return view('pages.teknik.tenant.input', ['data' => $tenant]);
     }
 
     /**
@@ -71,7 +72,34 @@ class DataTenantController extends Controller
      */
     public function update(Request $request, Tenant $tenant)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'tarif_id' => 'required',
+            'daya_terpasang.*' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'alert' => 'error',
+                'message' => $validator->errors()->first()
+            ]);
+        }
+
+        $kelola_daya_tenant = KelolaDayaTenant::where('tenant_id', $tenant->id)->get();
+        if ($kelola_daya_tenant == null) {
+            $kelola_daya_tenant = new KelolaDayaTenant();
+        } else {
+            $kelola_daya_tenant = $kelola_daya_tenant;
+        }
+
+        $kelola_daya_tenant->tenant_id = $tenant->id;
+        $kelola_daya_tenant->tarif_id = $request->tarif_id;
+        $kelola_daya_tenant->daya_terpasang = json_encode($request->daya_terpasang);
+        $kelola_daya_tenant->save();
+
+        return response()->json([
+            'alert' => 'success',
+            'message' => 'Data berhasil ditambahkan'
+        ]);
     }
 
     /**
