@@ -47,4 +47,24 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Tenant::class, 'tenant_id', 'id');
     }
+
+    public function teknik()
+    {
+        return $this->hasOne(Teknik::class, 'user_id', 'id');
+    }
+
+    public function keuangan()
+    {
+        return $this->hasOne(Keuangan::class, 'user_id', 'id');
+    }
+
+    public function marketing()
+    {
+        return $this->hasOne(Marketing::class, 'user_id', 'id');
+    }
+
+    public function superadmin()
+    {
+        return $this->hasOne(Superadmin::class, 'user_id', 'id');
+    }
 }

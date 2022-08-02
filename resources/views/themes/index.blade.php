@@ -5,7 +5,8 @@
 <!-- Mirrored from coderthemes.com/hyper_2/saas/index.html by HTTrack Website Copier/3.x [XR&CO'2017], Sun, 19 Dec 2021 00:14:04 GMT -->
 @include('themes.head')
 
-<body class="loading" data-layout-config='{"leftSideBarTheme":"dark","layoutBoxed":false, "leftSidebarCondensed":false, "leftSidebarScrollable":false,"darkMode":false, "showRightSidebarOnStart": true}'>
+<body class="loading"
+    data-layout-config='{"leftSideBarTheme":"dark","layoutBoxed":false, "leftSidebarCondensed":false, "leftSidebarScrollable":false,"darkMode":false, "showRightSidebarOnStart": true}'>
     <!-- Begin page -->
     <div class="wrapper">
         <!-- ========== Left Sidebar Start ========== -->
@@ -18,7 +19,7 @@
 
         @include('themes.header')
         <!-- end Topbar -->
-        {{$slot}}
+        {{ $slot }}
 
     </div>
     <!-- end row -->

@@ -50,6 +50,7 @@ Route::prefix('auth')->name('auth.')->group(function () {
     Route::post('login', [AuthController::class, 'do_login'])->name('login');
     Route::get('logout', [AuthController::class, 'do_logout'])->name('logout');
     Route::get('profile', [AuthController::class, 'profile'])->name('profile');
+    Route::post('profile/update', [AuthController::class, 'update'])->name('profile.update');
 });
 
 Route::get('/', function () {

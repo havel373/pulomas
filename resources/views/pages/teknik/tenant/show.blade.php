@@ -43,18 +43,21 @@
                             <div id="form-dinamic">
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <select name="daya" id="daya" class="form-control">
+                                        <select name="daya[0]" id="daya[0]" class="form-control"
+                                            onchange="getPrice('daya[0]', 'daya_terpasang[0]')">
                                             <option value="">Pilih Daya</option>
                                             @foreach ($daya as $item)
-                                                <option value="{{ $item->id }}">{{ $item->jenis_tarif }} - {{$item->kwh_minimum}} VA</option>
+                                                <option value="{{ $item->id }}"
+                                                    data-price="{{ $item->tarif_dasar }}">{{ $item->jenis_tarif }} -
+                                                    {{ $item->kwh_minimum }} VA</option>
                                             @endforeach
                                         </select>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="input-group" id="input-group1">
                                             <span class="input-group-text">Rp</span>
-                                            <input type="text" class="form-control" name="daya_terpasang"
-                                                id="daya_terpasang" value="" readonly>
+                                            <input type="text" class="form-control" name="daya_terpasang[0]"
+                                                id="daya_terpasang[0]" value="" readonly>
                                             <span class="input-group-text">
                                                 <button type="button" id="tambah_form"
                                                     class="btn btn-primary btn-add-fasilitas">
@@ -84,45 +87,54 @@
             ++i;
             $('#form-dinamic').append(
                 '<div class="row mt-3">' +
-                    '<div class="col-md-6">' +
-                    '<select class="form-control" name="daya[' + i + ']" id="daya[' + i + ']">' +
-                    '<option value="">Pilih Daya' +
+                '<div class="col-md-6">' +
+                '<select class="form-control" name="daya[' + i + ']" id="daya[' + i +
+                ']" onchange="getPrice(\'daya[' + i + ']\', \'daya_terpasang[' + i + ']\')">' +
+                '<option value="">Pilih Daya' +
+                '</option>' +
+                @foreach ($daya as $item)
+                    '<option value="{{ $item->id }}">{{ $item->jenis_tarif }} - {{ $item->kwh_minimum }} VA' +
                     '</option>' +
-                    @foreach ($daya as $item)
-                    '<option value="{{ $item->id }}">{{ $item->jenis_tarif }} - {{$item->kwh_minimum}} VA' +
-                    '</option>' +
-                    @endforeach
-                    '</select>' +
-                    '</div>' +
-                    '<div class="col-md-6">' +
-                        '<div class="input-group">' +
-                            '<span class="input-group-text">Rp</span>' +
-                            '<input type="text" class="form-control" name="harga[' + i + ']" readonly>' +
-                            '<button type="button" class="btn btn-danger" id="remove"><i class="uil-trash" style="color:white;"></i></button>' +
-                        '</div>' +
-                    '</div>' +
+                @endforeach
+                '</select>' +
+                '</div>' +
+                '<div class="col-md-6">' +
+                '<div class="input-group">' +
+                '<span class="input-group-text">Rp</span>' +
+                '<input type="text" class="form-control" name="harga[' + i + ']" readonly>' +
+                '<button type="button" class="btn btn-danger" id="remove"><i class="uil-trash" style="color:white;"></i></button>' +
+                '</div>' +
+                '</div>' +
                 '</div>'
-                )
-                $('#daya').change(function() {
-                    alert('zzz');
-                });
-                $('#daya['+i+']').change(function() {
-                    $.ajax({
-                        success: function(response) {
-                          alert('tes');
-                        }
-                    });
-                });
+            )
+            $('#daya').change(function() {
+                alert('zzz');
             });
-            $('#daya[1]').change(function() {
+            $('#daya[' + i + ']').change(function() {
                 $.ajax({
                     success: function(response) {
-                      alert('tes');
+                        alert('tes');
                     }
                 });
             });
+        });
+        $('#daya[1]').change(function() {
+            $.ajax({
+                success: function(response) {
+                    alert('tes');
+                }
+            });
+        });
         $('#form-dinamic').on('click', '#remove', function() {
             $(this).parent().parent().parent().remove();
         });
     });
+
+    function getPrice(id, harga) {
+        // get data from selected option where id = id
+        var data = $('select[name="' + id + '"] option:selected').data('price');
+        // set value to input
+        data = data.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+        $('input[name="' + harga + '"]').val(data);
+    }
 </script>

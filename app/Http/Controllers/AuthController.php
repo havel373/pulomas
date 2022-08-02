@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Keuangan;
+use App\Models\Marketing;
+use App\Models\Teknik;
+use App\Models\Tenant;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -9,7 +13,8 @@ use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
 {
-    public function index(){
+    public function index()
+    {
         return view('pages.auth.login');
     }
 
@@ -27,7 +32,7 @@ class AuthController extends Controller
                     'alert' => 'error',
                     'message' => $errors->first('email'),
                 ]);
-            }else{
+            } else {
                 return response()->json([
                     'alert' => 'error',
                     'message' => $errors->first('password'),
@@ -43,14 +48,13 @@ class AuthController extends Controller
                     'message' => 'Selamat Datang Kembali ' . Auth::user()->nama,
                     'callback' => route('dashboard'),
                 ]);
-            }
-            else {
+            } else {
                 return response()->json([
                     'alert' => 'error',
                     'message' => 'Password salah!',
                 ]);
             }
-        }else{
+        } else {
             return response()->json([
                 'alert' => 'error',
                 'message' => 'email tidak ditemukan!',
@@ -58,11 +62,98 @@ class AuthController extends Controller
         }
     }
 
-    public function profile(){
-        return view('pages.auth.proifile');
+    public function profile()
+    {
+        $user = Auth::user();
+        if ($user->role == 'teknik') {
+            $data = $user->teknik;
+        } elseif ($user->role == 'marketing') {
+            $data = $user->marketing;
+        } elseif ($user->role == 'keuangan') {
+            $data = $user->keuangan;
+        } elseif ($user->role == 'tenant') {
+            $data = $user->tenant;
+        }
+        return view('pages.auth.profile', compact('user', 'data'));
     }
 
-    public function do_logout(){
+    public function update(Request $request)
+    {
+        $user = Auth::user();
+        if ($user->role == 'teknik' || $user->role == 'marketing' || $user->role == 'keuangan') {
+            $validator = Validator::make($request->all(), [
+                'nama' => 'required',
+                'nomor_hp' => 'required',
+                'email' => 'required|email|max:255',
+                'password' => 'min:8',
+            ]);
+        } elseif ($user->role == 'tenant') {
+            $validator = Validator::make($request->all(), [
+                'nama' => 'required',
+                'email' => 'required|email|max:255',
+                'password' => 'required|min:8',
+                'nama_instansi' => 'required',
+                'nomor_hp_instansi' => 'required',
+                'nama_penanggungjawab' => 'required',
+                'nomor_hp_penanggungjawab' => 'required',
+                'nomor_ktp_penanggungjawab' => 'required',
+                'nomor_npwp' => 'required',
+                'ktp_penanggungjawab' => 'required|mimes:jpeg,jpg,png',
+                'npwp_penanggungjawab' => 'required|mimes:jpeg,jpg,png',
+                'industri' => 'required',
+                'status_tenant' => 'required',
+                'alamat_penanggungjawab' => 'required',
+            ]);
+        } else {
+            $validator = Validator::make($request->all(), [
+                'nama' => 'required',
+                'email' => 'required|email|max:255',
+                'password' => 'required|min:8',
+            ]);
+        }
+
+        if ($validator->fails()) {
+            return response()->json([
+                'alert' => 'error',
+                'message' => $validator->errors()->first(),
+            ]);
+        }
+
+        $user = User::find($user->id);
+        if ($user->role == 'teknik') {
+            $user->update($request->except('_token', 'nomor_hp'));
+            $user->teknik->update($request->only('nomor_hp'));
+        } elseif ($user->role == 'marketing') {
+            $user->update($request->except('_token', 'nomor_hp'));
+            $user->marketing->update($request->only('nomor_hp'));
+        } elseif ($user->role == 'keuangan') {
+            $user->update($request->except('_token', 'nomor_hp'));
+            $user->keuangan->update($request->only('nomor_hp'));
+        } elseif ($user->role == 'tenant') {
+            $user->update($request->except('_token', 'nomor_hp'));
+            $user->tenant->update([
+                'nama_instansi' => $request->nama_instansi,
+                'nomor_hp_instansi' => $request->nomor_hp_instansi,
+                'nama_penanggungjawab' => $request->nama_penanggungjawab,
+                'nomor_hp_penanggungjawab' => $request->nomor_hp_penanggungjawab,
+                'nomor_ktp_penanggungjawab' => $request->nomor_ktp_penanggungjawab,
+                'nomor_npwp' => $request->nomor_npwp,
+                'ktp_penanggungjawab' => $request->ktp_penanggungjawab,
+                'npwp_penanggungjawab' => $request->npwp_penanggungjawab,
+                'industri' => json_encode($request->industri),
+                'status_tenant' => json_encode($request->status_tenant),
+                'alamat_penanggungjawab' => $request->alamat_penanggungjawab,
+            ]);
+        }
+
+        return response()->json([
+            'alert' => 'success',
+            'message' => 'Berhasil diperbarui!',
+        ]);
+    }
+
+    public function do_logout()
+    {
         $user = Auth::user();
         Auth::logout($user);
         return redirect()->route('auth.index');

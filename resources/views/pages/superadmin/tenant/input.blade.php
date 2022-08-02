@@ -16,12 +16,12 @@
                                 for="validationTooltip01">{{ $data->id ? 'Password Baru' : 'Password' }}<small
                                     class="text-danger"><i>*Required</i></small></label>
                             <input type="password" class="form-control" name="password" id="password">
-                            @if($data->id)
-                            <small>
-                                <i>
-                                    Kosongkan Jika Tidak Ingin Diubah
-                                </i>
-                            </small>
+                            @if ($data->id)
+                                <small>
+                                    <i>
+                                        Kosongkan Jika Tidak Ingin Diubah
+                                    </i>
+                                </small>
                             @endif
                         </div>
                         <div class="col-md mb-3">
