@@ -92,16 +92,9 @@ class DayaTenantController extends Controller
             $kelola_daya_tenant = $kelola_daya_tenant;
         }
 
-        $collection = [];
-        $i = 0;
-        foreach ($request->daya_terpasang as $key => $value) {
-            $collection[$i]['daya_terpasang'] = $key;
-            $i++;
-        }
-
         $kelola_daya_tenant->tenant_id = $tenant->id;
         $kelola_daya_tenant->tarif_id = $request->tarif_id;
-        $kelola_daya_tenant->daya_terpasang = json_encode($request->collection);
+        $kelola_daya_tenant->daya_terpasang = json_encode($request->daya_terpasang);
         $kelola_daya_tenant->save();
 
         return response()->json([
