@@ -18,7 +18,7 @@
         @forelse($collection as $i => $data)
         <tr>
             <td>{{$collection->firstItem() + $i}}</td>
-            <td>{{$data->customer->user->nama}}</td>
+            <td>Tenant</td>
             <td>{{$data->daya}}</td>
             <td>{{$data->standmeter_awal}}</td>
             <td>{{$data->standmeter_akhir}}</td>
@@ -26,10 +26,13 @@
             <td>{{$data->biaya_pemakaian}}</td>
             <td>{{$data->bpju}}</td>
             <td>{{$data->jumlah_tagihan}}</td>
-            <td>{{$data->created_athan}}</td>
+            <td>{{$data->created_at}}</td>
             <td class="table-action text-center">
-                <a href="javascript:;" onclick="load_input('{{route('data-standmeter.edit', $data->id)}}');" class="action-icon">
+                <a href="javascript:;" onclick="load_input('{{route('standmeter.edit', $data->id)}}');" class="action-icon">
                     <i class="dripicons-document-edit"></i>
+                </a>
+                <a href="javascript:;" onclick="handle_delete('{{route('standmeter.destroy', $data->id)}}');" class="action-icon">
+                    <i class="dripicons-trash"></i>
                 </a>
             </td>
         </tr>

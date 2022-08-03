@@ -100,9 +100,9 @@ Route::resource('/data-standmeter', DataStandmeterController::class);
 
 // Teknik
 Route::resource('/standmeter', StandmeterController::class);
+Route::get('/standmeter-getHarga', [StandmeterController::class, 'getHarga'])->name('standmeter.getHarga');
 Route::resource('/tarif-listrik', TarifListrikController::class);
 Route::resource('/daya-tenant', DayaTenantController::class);
-Route::get('/update-daya-tenant', [DayaTenantController::class, 'update'])->name('update-daya-tenant');
 
 Route::get('/kelolausermarketing', function () {
     return view('superadmin.kelolausermarketing');

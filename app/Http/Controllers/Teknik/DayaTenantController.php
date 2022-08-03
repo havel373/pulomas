@@ -38,7 +38,48 @@ class DayaTenantController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'daya_terpasang.*' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'alert' => 'error',
+                'message' => $validator->errors()->first()
+            ]);
+        }
+
+        $kelola_daya_tenant = KelolaDayaTenant::where('tenant_id', $request->tenant_id)->first();
+        if ($kelola_daya_tenant == null) {
+            $kelola_daya_tenant = new KelolaDayaTenant;
+            $collection = [];
+            $i = 0;
+            foreach ($request->daya_terpasang as $key => $value) {
+                $collection[$i]['daya_terpasang'] = $key;
+                $i++;
+            }
+            $kelola_daya_tenant->tenant_id = $request->tenant_id;
+            // $kelola_daya_tenant->tarif_id = $request->tarif_id;
+            $kelola_daya_tenant->daya_terpasang = json_encode($collection);
+            $kelola_daya_tenant->save();
+        } else {
+            $kelola_daya_tenant = $kelola_daya_tenant;
+            $collection = [];
+            $i = 0;
+            foreach ($request->daya_terpasang as $key => $value) {
+                $collection[$i]['daya_terpasang'] = $key;
+                $i++;
+            }
+            $kelola_daya_tenant->tenant_id = $request->tenant_id;
+            // $kelola_daya_tenant->tarif_id = $request->tarif_id;
+            $kelola_daya_tenant->daya_terpasang = json_encode($collection);
+            $kelola_daya_tenant->update();
+        }
+
+        return response()->json([
+            'alert' => 'success',
+            'message' => 'Data berhasil ditambahkan'
+        ]);
     }
 
     /**
@@ -71,10 +112,9 @@ class DayaTenantController extends Controller
      * @param  \App\Models\Tenant  $tenant
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Tenant $tenant)
+    public function update(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'tarif_id' => 'required',
             'daya_terpasang.*' => 'required',
         ]);
 
@@ -85,16 +125,23 @@ class DayaTenantController extends Controller
             ]);
         }
 
-        $kelola_daya_tenant = KelolaDayaTenant::where('tenant_id', $tenant->id)->get();
+        $kelola_daya_tenant = KelolaDayaTenant::where('tenant_id', $request->tenant_id)->get();
         if ($kelola_daya_tenant == null) {
             $kelola_daya_tenant = new KelolaDayaTenant();
         } else {
             $kelola_daya_tenant = $kelola_daya_tenant;
         }
 
-        $kelola_daya_tenant->tenant_id = $tenant->id;
-        $kelola_daya_tenant->tarif_id = $request->tarif_id;
-        $kelola_daya_tenant->daya_terpasang = json_encode($request->daya_terpasang);
+        $collection = [];
+        $i = 0;
+        foreach ($request->daya_terpasang as $key => $value) {
+            $collection[$i]['daya_terpasang'] = $key;
+            $i++;
+        }
+
+        $kelola_daya_tenant->tenant_id = $request->tenant_id;
+        // $kelola_daya_tenant->tarif_id = $request->tarif_id;
+        $kelola_daya_tenant->daya_terpasang = json_encode($request->collection);
         $kelola_daya_tenant->save();
 
         return response()->json([

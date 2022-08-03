@@ -14,13 +14,13 @@
                                     <label class="form-label" for="validationTooltip01">Ruang Sewa Tenant
                                         <small class="text-danger"><i>*Required</i></small>
                                     </label>
-                                    <select name="ruang_sewa_tenant" id="ruang_sewa_tenant" class="form-control">
+                                    <select name="id_gedung" id="ruang_sewa_tenant" class="form-control">
                                         <option value="">
                                             -- Pilih Ruang Sewa Tenant --
                                         </option>
                                         @foreach ($ruangs as $ruang)
                                             <option value="{{ $ruang->id }}"
-                                                {{ $ruang->id == $data->ruang_sewa_tenant ? 'selected' : '' }}>
+                                                {{ $ruang->id == $data->tenant_id ? 'selected' : '' }}>
                                                 {{ $ruang->nama_ruang }}
                                             </option>
                                         @endforeach
@@ -30,8 +30,10 @@
                                     <label class="form-label" for="validationTooltip01">Daya<small
                                             class="text-danger"><i>*Required</i></small></label>
                                     <select name="daya" id="daya" class="form-control">
-                                        <option value="" {{ $data->daya == '' ? 'selected' : '' }}>-- Pilih Daya
-                                            Tenant --</option>
+                                        <option value="">-- Pilih Daya Tenant --</option>
+                                        @foreach($tarif as $tr)
+                                            <option value="{{$tr->id}}" {{$tr->id == $data->daya ? 'selected' : '' }}>{{$tr->jenis_tarif}} - {{$tr->daya}} VA - Tarif Dasar : Rp {{number_format($tr->tarif_dasar)}} (Kwh Minimum : {{$tr->kwh_minimum}}), BPJU {{$tr->bpju}} %</option>
+                                        @endforeach
                                     </select>
                                 </div>
                                 <div class="col-md mb-3">
@@ -54,8 +56,8 @@
                                 <div class="col-md mb-3">
                                     <label class="form-label" for="validationTooltip01">Pemakaian Per KWH / LWBP<small
                                             class="text-danger"><i>*Required</i></small></label>
-                                    <input type="text" class="form-control" name="pemakaian_per_kwh_lwbp"
-                                        id="pemakaian_per_kwh_lwbp" value="{{ $data->pemakaian_per_kwh_lwbp }}"
+                                    <input type="text" class="form-control" name="pemakaian"
+                                        id="pemakaian_per_kwh_lwbp" value="{{ $data->pemakaian }}"
                                         readonly>
                                 </div>
                                 <div class="col-md mb-3">
@@ -72,8 +74,8 @@
                                             class="text-danger"><i>*Required</i></small></label>
                                     <div class="input-group" id="input-group1">
                                         <span class="input-group-text">Rp</span>
-                                        <input type="text" class="form-control" name="biaya_bpju_lain_lain"
-                                            id="biaya_bpju_lain_lain" value="{{ $data->biaya_bpju_lain_lain }}"
+                                        <input type="text" class="form-control" name="bpju"
+                                            id="biaya_bpju_lain_lain" value="{{ $data->bpju }}"
                                             readonly>
                                     </div>
                                 </div>
@@ -102,4 +104,53 @@
         </div> <!-- end card-->
     </div> <!-- end col-->
 </div>
-<script></script>
+<script>
+    $('#standmeter_akhir').keydown(function(){
+        $.ajax({
+                success: function(response) {
+                    let total = parseInt($('#standmeter_akhir').val()) -  parseInt($('#standmeter_awal').val());
+                    $('#pemakaian_per_kwh_lwbp').val(total);
+                }
+            });
+    });
+    $('#standmeter_awal').change(function(){
+        $.ajax({
+                success: function(response) {
+                    let total = parseInt($('#standmeter_akhir').val()) -  parseInt($('#standmeter_awal').val());
+                    $('#pemakaian_per_kwh_lwbp').val(total);
+                }
+            });
+    });
+    $('#standmeter_akhir').change(function(){
+        $.ajax({
+                success: function(response) {
+                    let total = parseInt($('#standmeter_akhir').val()) -  parseInt($('#standmeter_awal').val());
+                    $('#pemakaian_per_kwh_lwbp').val(total);
+                }
+            });
+    });
+
+    $('#standmeter_akhir').change(function(){
+        $.ajax({
+            type: "GET",
+            url: "{{ route('standmeter.getHarga') }}",
+            data: {
+                id: $("#daya").val()
+            },
+            success: function(response) {
+                let total = parseInt($('#standmeter_akhir').val()) -  parseInt($('#standmeter_awal').val());
+                $('#pemakaian_per_kwh_lwbp').val(total);
+                $.each(response, function(i, item) {
+                    $.ajax({
+                        success: function() {
+                            $('#biaya_pemakaian').val(thousand(parseInt(total) * parseInt(response.tarif_dasar)));
+                            $('#biaya_bpju_lain_lain').val( thousand(parseInt(total) * parseInt(response.tarif_dasar)  * 0.3) );
+                            $('#jumlah_tagihan').val( thousand(parseInt(total) * parseInt(response.tarif_dasar)  * 0.3 + parseInt(total) * parseInt(response.tarif_dasar) ) );
+                        }
+                    });
+                });
+            }
+        });
+    });
+
+</script>

@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('standmeters', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('tenant_id');
+            $table->unsignedBigInteger('tenant_id')->nullable();
             $table->string('daya');
             $table->string('foto_standmeter');
             $table->string('standmeter_awal');

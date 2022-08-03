@@ -6,6 +6,7 @@ use App\Models\Ruang;
 use App\Models\Standmeter;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Tarif;
 use Illuminate\Support\Facades\Validator;
 
 class StandmeterController extends Controller
@@ -31,8 +32,9 @@ class StandmeterController extends Controller
      */
     public function create()
     {
+        $tarif = Tarif::get();
         $ruangs = Ruang::all();
-        return view('pages.teknik.standmeter.input', ['data' => new Standmeter, 'ruangs' => $ruangs]);
+        return view('pages.teknik.standmeter.input', ['data' => new Standmeter, 'ruangs' => $ruangs, 'tarif' => $tarif]);
     }
 
     /**
@@ -44,7 +46,6 @@ class StandmeterController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'tenant_id' => 'required',
             'daya' => 'required',
             'foto_standmeter' => 'required',
             'standmeter_awal' => 'required',
@@ -61,8 +62,20 @@ class StandmeterController extends Controller
                 'message' => $validator->errors()->first()
             ]);
         }
-
-        Standmeter::create($request->all());
+        $file = request()->file('foto_standmeter')->store('foto_standmeter');
+        $standmeters = [
+            // 'tenant_id' => $request->id_gedung,
+            'daya' => $request->daya,
+            'standmeter_awal' => $request->standmeter_awal,
+            'standmeter_akhir' => $request->standmeter_akhir,
+            'pemakaian' => $request->pemakaian,
+            'biaya_pemakaian' => $request->biaya_pemakaian,
+            'bpju' => $request->harga,
+            'bpju' => $request->bpju,
+            'jumlah_tagihan' => $request->jumlah_tagihan,
+            'foto_standmeter' => $file,
+        ];
+        Standmeter::create($standmeters);
 
         return response()->json([
             'alert' => 'success',
@@ -89,8 +102,9 @@ class StandmeterController extends Controller
      */
     public function edit(Standmeter $standmeter)
     {
+        $tarif = Tarif::get();
         $ruangs = Ruang::all();
-        return view('pages.teknik.standmeter.input', ['data' => $standmeter, 'ruangs' => $ruangs]);
+        return view('pages.teknik.standmeter.input', ['data' => $standmeter, 'ruangs' => $ruangs, 'tarif' => $tarif]);
     }
 
     /**
@@ -103,9 +117,7 @@ class StandmeterController extends Controller
     public function update(Request $request, Standmeter $standmeter)
     {
         $validator = Validator::make($request->all(), [
-            'tenant_id' => 'required',
             'daya' => 'required',
-            'foto_standmeter' => 'required',
             'standmeter_awal' => 'required',
             'standmeter_akhir' => 'required',
             'pemakaian' => 'required',
@@ -120,8 +132,24 @@ class StandmeterController extends Controller
                 'message' => $validator->errors()->first()
             ]);
         }
-
-        $standmeter->update($request->all());
+        if(request()->file('foto_standmeter')){
+            $file = request()->file('foto_standmeter')->store('foto_standmeter');
+        }else{
+            $file = $standmeter->foto_standmeter;
+        }
+        $standmeters = [
+            // 'tenant_id' => $request->id_gedung,
+            'daya' => $request->daya,
+            'standmeter_awal' => $request->standmeter_awal,
+            'standmeter_akhir' => $request->standmeter_akhir,
+            'pemakaian' => $request->pemakaian,
+            'biaya_pemakaian' => $request->biaya_pemakaian,
+            'bpju' => $request->harga,
+            'bpju' => $request->bpju,
+            'jumlah_tagihan' => $request->jumlah_tagihan,
+            'foto_standmeter' => $file,
+        ];
+        $standmeter->update($standmeters);
 
         return response()->json([
             'alert' => 'success',
@@ -143,5 +171,11 @@ class StandmeterController extends Controller
             'alert' => 'success',
             'message' => 'Data berhasil dihapus'
         ]);
+    }
+   
+    public function getHarga(Request $request)
+    {
+        $tarif = Tarif::where('id', $request->id)->first();
+        return response()->json($tarif);
     }
 }

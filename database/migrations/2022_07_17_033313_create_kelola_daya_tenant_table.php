@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('kelola_daya_tenant', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('tenant_id');
-            $table->unsignedBigInteger('tarif_id');
+            $table->unsignedBigInteger('tarif_id')->nullable();
             $table->json('daya_terpasang');
             $table->foreign('tenant_id')->references('id')->on('tenants');
             $table->timestamps();

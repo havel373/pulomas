@@ -13,6 +13,7 @@
                             <input type="text" class="form-control" name="nama_instansi" id="nama"
                                 value="{{ $data->user ? $data->nama_instansi : '' }}" readonly>
                         </div>
+                        <input type="hidden" name="tenant_id" value="{{$data->id}}">
                         <div class="col-md mb-3">
                             <label class="form-label">Nama Penanggungjawab
                                 <small class="text-danger"><i>*Required</i>
@@ -44,7 +45,7 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <select name="daya[0]" id="daya[0]" class="form-control"
-                                            onchange="getPrice('daya[0]', 'daya_terpasang[0]')">
+                                            onchange="getPrice('daya[0]', 'daya_terpasang[1]')">
                                             <option value="">Pilih Daya</option>
                                             @foreach ($daya as $item)
                                                 <option value="{{ $item->id }}"
@@ -56,8 +57,8 @@
                                     <div class="col-md-6">
                                         <div class="input-group" id="input-group1">
                                             <span class="input-group-text">Rp</span>
-                                            <input type="text" class="form-control" name="daya_terpasang[0]"
-                                                id="daya_terpasang[0]" value="" readonly>
+                                            <input type="text" class="form-control" name="daya_terpasang[1]"
+                                                id="daya_terpasang[1]" value="" readonly>
                                             <span class="input-group-text">
                                                 <button type="button" id="tambah_form"
                                                     class="btn btn-primary btn-add-fasilitas">
@@ -71,7 +72,7 @@
                         </div>
                         <a href="javascript:;" onclick="load_list(1);" class="btn btn-info">Cancel</a>
                         <button class="btn btn-primary" id="tombol_submit"
-                            onclick="handle_upload('#tombol_submit', '#form_submit', '{{ route('update-daya-tenant', $data->id) }}', 'PATCH', 'Submit');">Submit</button>
+                            onclick="handle_upload('#tombol_submit', '#form_submit', '{{ route('daya-tenant.store') }}', 'POST', 'Submit');">Submit</button>
                     </form>
                 </div>
             </div> <!-- end preview-->
@@ -82,7 +83,7 @@
     $(document).ready(function() {
         // select 2 multiple
         number_only('daya_terpasang');
-        var i = 0;
+        var i = 1;
         $('#tambah_form').click(function() {
             ++i;
             $('#form-dinamic').append(

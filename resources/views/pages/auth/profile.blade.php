@@ -66,80 +66,9 @@
                                             id="nomor_hp_penanggungjawab" value="{{ $data->nomor_hp_penanggungjawab }}">
                                     </div>
                                     <div class="col-md mb-3">
-                                        <label class="form-label" for="validationTooltip01">Nomor KTP
-                                            Penanggungjawab<small class="text-danger"><i>*Required</i></small></label>
-                                        <input type="text" class="form-control" name="nomor_ktp_penanggungjawab"
-                                            id="nomor_ktp_penanggungjawab"
-                                            value="{{ $data->nomor_ktp_penanggungjawab }}">
-                                    </div>
-                                    <div class="col-md mb-3">
-                                        <label class="form-label" for="validationTooltip01">Nomor NPWP
-                                            <small class="text-danger"><i>*Required</i></small></label>
-                                        <input type="text" class="form-control" name="nomor_npwp" id="nomor_npwp"
-                                            value="{{ $data->nomor_npwp }}">
-                                    </div>
-                                    <div class="col-md mb-3">
-                                        <label class="form-label" for="validationTooltip01">Industri <small
-                                                class="text-danger"><i>*Required</i></small></label>
-                                        <select class="form-control" name="industri[]" id="industri"
-                                            multiple="multiple">
-                                            <option value="">-- Pilih Industri --</option>
-                                            <option value="1" @if (in_array(1, json_decode($data->industri))) selected @endif>
-                                                Pertanian</option>
-                                            <option value="2" @if (in_array(2, json_decode($data->industri))) selected @endif>
-                                                Perkebunan</option>
-                                            <option value="3" @if (in_array(3, json_decode($data->industri))) selected @endif>
-                                                Perikanan</option>
-                                            <option value="4" @if (in_array(4, json_decode($data->industri))) selected @endif>
-                                                Pertambangan</option>
-                                            <option value="5" @if (in_array(5, json_decode($data->industri))) selected @endif>
-                                                Perdagangan</option>
-                                            <option value="6" @if (in_array(6, json_decode($data->industri))) selected @endif>
-                                                Peternakan</option>
-                                            <option value="7" @if (in_array(7, json_decode($data->industri))) selected @endif>
-                                                Pariwisata</option>
-                                            <option value="8" @if (in_array(8, json_decode($data->industri))) selected @endif>
-                                                Alat angkutan lainnya</option>
-                                            <option value="9" @if (in_array(9, json_decode($data->industri))) selected @endif>
-                                                Barang-barang dari logam, dan peralatannya</option>
-                                            <option value="10" @if (in_array(10, json_decode($data->industri))) selected @endif>
-                                                Batu bara, minyak, dan gas bumi, dan bahan bakar dari nuklir
-                                            </option>
-                                        </select>
-                                    </div>
-                                    <div class="col-md mb-3">
-                                        <label class="form-label" for="validationTooltip01">Status Tenant<small
-                                                class="text-danger"><i>*Required</i></small></label>
-                                        <select class="form-control" name="status_tenant[]" id="status_tenant"
-                                            multiple>
-                                            <option value="">-- Pilih Status Tenant --</option>
-                                            <option value="1" @if (in_array(1, json_decode($data->status_tenant))) selected @endif>
-                                                Verifikasi Data</option>
-                                            <option value="2" @if (in_array(2, json_decode($data->status_tenant))) selected @endif>
-                                                Fraud Screening</option>
-                                            <option value="3" @if (in_array(3, json_decode($data->status_tenant))) selected @endif>
-                                                Grading / Scoring</option>
-                                            <option value="4" @if (in_array(4, json_decode($data->status_tenant))) selected @endif>
-                                                Prioritization</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-md mb-3">
                                         <label class="form-label" for="validationTooltip01">Alamat
                                             Penanggungjawab<small class="text-danger"><i>*Required</i></small></label>
                                         <textarea name="alamat_penanggungjawab" class="form-control">{{ $data->alamat_penanggungjawab }}</textarea>
-                                    </div>
-                                    <div class="col-md mb-3">
-                                        <label class="form-label" for="validationTooltip01">Scan KTP
-                                            Penanggungjawab
-                                            <small class="text-danger"><i>*Required</i></small></label>
-                                        <input type="file" class="form-control" name="ktp_penanggungjawab"
-                                            id="ktp_penanggungjawab" value="{{ $data->ktp_penanggungjawab }}">
-                                    </div>
-                                    <div class="col-md mb-3">
-                                        <label class="form-label" for="validationTooltip01">Scan NPWP
-                                            <small class="text-danger"><i>*Required</i></small></label>
-                                        <input type="file" class="form-control" name="npwp" id="npwp"
-                                            value="{{ $data->npwp }}">
                                     </div>
                                 @endif
                                 <button class="btn btn-primary" type="submit">Update

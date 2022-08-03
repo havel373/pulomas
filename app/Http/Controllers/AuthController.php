@@ -65,14 +65,17 @@ class AuthController extends Controller
     public function profile()
     {
         $user = Auth::user();
+        $test = User::where('id', Auth::user()->id)->first();
         if ($user->role == 'teknik') {
             $data = $user->teknik;
+        } elseif ($user->role == 'superadmin') {
+            $data = $user;
         } elseif ($user->role == 'marketing') {
             $data = $user->marketing;
         } elseif ($user->role == 'keuangan') {
             $data = $user->keuangan;
         } elseif ($user->role == 'tenant') {
-            $data = $user->tenant;
+            $data = $test->tenant;
         }
         return view('pages.auth.profile', compact('user', 'data'));
     }
@@ -85,30 +88,21 @@ class AuthController extends Controller
                 'nama' => 'required',
                 'nomor_hp' => 'required',
                 'email' => 'required|email|max:255',
-                'password' => 'min:8',
             ]);
         } elseif ($user->role == 'tenant') {
             $validator = Validator::make($request->all(), [
                 'nama' => 'required',
                 'email' => 'required|email|max:255',
-                'password' => 'required|min:8',
                 'nama_instansi' => 'required',
                 'nomor_hp_instansi' => 'required',
                 'nama_penanggungjawab' => 'required',
                 'nomor_hp_penanggungjawab' => 'required',
-                'nomor_ktp_penanggungjawab' => 'required',
-                'nomor_npwp' => 'required',
-                'ktp_penanggungjawab' => 'required|mimes:jpeg,jpg,png',
-                'npwp_penanggungjawab' => 'required|mimes:jpeg,jpg,png',
-                'industri' => 'required',
-                'status_tenant' => 'required',
                 'alamat_penanggungjawab' => 'required',
             ]);
         } else {
             $validator = Validator::make($request->all(), [
                 'nama' => 'required',
                 'email' => 'required|email|max:255',
-                'password' => 'required|min:8',
             ]);
         }
 
@@ -118,19 +112,50 @@ class AuthController extends Controller
                 'message' => $validator->errors()->first(),
             ]);
         }
-
+        if($request->password){
+            $validator = Validator::make($request->all(), [
+                'password' => 'required|min:8',
+            ]);
+            if ($validator->fails()) {
+                return response()->json([
+                    'alert' => 'error',
+                    'message' => $validator->errors()->first(),
+                ]);
+            }
+        }
         $user = User::find($user->id);
         if ($user->role == 'teknik') {
-            $user->update($request->except('_token', 'nomor_hp'));
+           if(!$request->password){
+                $user->update($request->except('_token', 'nomor_hp', 'password'));
+            }else{
+                $user->update($request->except('_token', 'nomor_hp'));
+            }
             $user->teknik->update($request->only('nomor_hp'));
         } elseif ($user->role == 'marketing') {
-            $user->update($request->except('_token', 'nomor_hp'));
+           if(!$request->password){
+                $user->update($request->except('_token', 'nomor_hp', 'password'));
+            }else{
+                $user->update($request->except('_token', 'nomor_hp'));
+            }
             $user->marketing->update($request->only('nomor_hp'));
         } elseif ($user->role == 'keuangan') {
-            $user->update($request->except('_token', 'nomor_hp'));
+           if(!$request->password){
+                $user->update($request->except('_token', 'nomor_hp', 'password'));
+            }else{
+                $user->update($request->except('_token', 'nomor_hp'));
+            }
             $user->keuangan->update($request->only('nomor_hp'));
         } elseif ($user->role == 'tenant') {
-            $user->update($request->except('_token', 'nomor_hp'));
+           if(!$request->password){
+                $user->update($request->except('_token', 'nomor_hp', 'password'));
+            }else{
+                $user->update($request->except('_token', 'nomor_hp'));
+            }
+            if(!$request->password){
+                $user->update($request->except('_token', 'nomor_hp', 'password'));
+            }else{
+                $user->update($request->except('_token', 'nomor_hp'));
+            }
             $user->tenant->update([
                 'nama_instansi' => $request->nama_instansi,
                 'nomor_hp_instansi' => $request->nomor_hp_instansi,
