@@ -82,9 +82,9 @@ class TarifListrikController extends Controller
      * @param  \App\Models\Tarif  $tarif
      * @return \Illuminate\Http\Response
      */
-    public function edit(Tarif $tarif)
+    public function edit(Tarif $tarifListrik)
     {
-        return view('pages.teknik.tarif.input', ['data' => $tarif]);
+        return view('pages.teknik.tarif.input', ['data' => $tarifListrik]);
     }
 
     /**
@@ -94,7 +94,7 @@ class TarifListrikController extends Controller
      * @param  \App\Models\Tarif  $tarif
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Tarif $tarif)
+    public function update(Request $request, Tarif $tarifListrik)
     {
         $validator = Validator::make($request->all(), [
             'jenis_tarif' => 'required',
@@ -112,7 +112,7 @@ class TarifListrikController extends Controller
             ]);
         }
 
-        $tarif->update($request->all());
+        $tarifListrik->update($request->all());
 
         return response()->json([
             'alert' => 'success',

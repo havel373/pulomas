@@ -75,7 +75,7 @@ class AuthController extends Controller
         } elseif ($user->role == 'keuangan') {
             $data = $user->keuangan;
         } elseif ($user->role == 'tenant') {
-            $data = $test->tenant;
+            $data = $user->tenant;
         }
         return view('pages.auth.profile', compact('user', 'data'));
     }
@@ -151,11 +151,6 @@ class AuthController extends Controller
             }else{
                 $user->update($request->except('_token', 'nomor_hp'));
             }
-            if(!$request->password){
-                $user->update($request->except('_token', 'nomor_hp', 'password'));
-            }else{
-                $user->update($request->except('_token', 'nomor_hp'));
-            }
             $user->tenant->update([
                 'nama_instansi' => $request->nama_instansi,
                 'nomor_hp_instansi' => $request->nomor_hp_instansi,
@@ -169,6 +164,12 @@ class AuthController extends Controller
                 'status_tenant' => json_encode($request->status_tenant),
                 'alamat_penanggungjawab' => $request->alamat_penanggungjawab,
             ]);
+        }else{
+            if(!$request->password){
+                $user->update($request->except('_token', 'nomor_hp', 'password'));
+            }else{
+                $user->update($request->except('_token', 'nomor_hp'));
+            }
         }
 
         return response()->json([

@@ -50,16 +50,16 @@ class User extends Authenticatable
 
     public function teknik()
     {
-        return $this->hasOne(Teknik::class, 'id', 'user_id');
+        return $this->hasOne(Teknik::class, 'user_id', 'id');
     }
 
     public function keuangan()
     {
-        return $this->hasOne(Keuangan::class, 'id', 'user_id');
+        return $this->hasOne(Keuangan::class, 'user_id', 'id');
     }
 
     public function marketing()
     {
-        return $this->hasOne(Marketing::class, 'id', 'user_id');
+        return $this->hasOne(Marketing::class, 'user_id', 'id');
     }
 }

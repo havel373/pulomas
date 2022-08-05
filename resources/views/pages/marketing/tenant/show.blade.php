@@ -75,9 +75,11 @@
                                                 <h3>Industri</h3>
                                             </div>
                                             <div class="col-md-12">
-                                                @foreach(json_decode($data->industri) as $item)
-                                                    <h5>{{$item}}</h5>
-                                                @endforeach
+                                                @if(json_decode($data->industri) != null)
+                                                    @foreach(json_decode($data->industri) as $item)
+                                                        <h5>{{$item}}</h5>
+                                                    @endforeach
+                                                @endif
                                             </div>
                                         </div>
                                     </div>

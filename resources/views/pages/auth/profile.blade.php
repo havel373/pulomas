@@ -37,38 +37,46 @@
                                         <label class="form-label">Nomor HP
                                             <small class="text-danger"><i>*Required</i></small>
                                         </label>
+                                        @if($user->role == 'marketing')
                                         <input type="text" name="nomor_hp" class="form-control" id="nomor_hp"
-                                            placeholder="Nomor HP" value="{{ $data->nomor_hp }}">
+                                            placeholder="Nomor HP" value="{{ $user->marketing->nomor_hp }}">
+                                        @elseif ($user->role == 'teknik')
+                                            <input type="text" name="nomor_hp" class="form-control" id="nomor_hp"
+                                                placeholder="Nomor HP" value="{{ $user->teknik->nomor_hp }}">
+                                        @elseif ($user->role == 'keuangan')
+                                            <input type="text" name="nomor_hp" class="form-control" id="nomor_hp"
+                                                placeholder="Nomor HP" value="{{ $user->keuangan->nomor_hp }}">
+                                        @endif
                                     </div>
                                 @elseif ($user->role == 'tenant')
                                     <div class="col-md mb-3">
                                         <label class="form-label" for="validationTooltip01">Nama Perusahaan /
                                             Instansi<small class="text-danger"><i>*Required</i></small></label>
                                         <input type="text" class="form-control" name="nama_instansi" id="nama"
-                                            value="{{ $data->user ? $data->nama_instansi : '' }}">
+                                            value="{{ $user->tenant ? $user->tenant->nama_instansi : '' }}">
                                     </div>
                                     <div class="col-md mb-3">
                                         <label class="form-label" for="validationTooltip01">Nomor Telepon
                                             Perusahaan<small class="text-danger"><i>*Required</i></small></label>
                                         <input type="text" class="form-control" name="nomor_hp_instansi"
-                                            id="nomor_hp_instansi" value="{{ $data->nomor_hp_instansi }}">
+                                            id="nomor_hp_instansi" value="{{ $user->tenant->nomor_hp_instansi }}">
                                     </div>
                                     <div class="col-md mb-3">
                                         <label class="form-label" for="validationTooltip01">Nama Penanggungjawab<small
                                                 class="text-danger"><i>*Required</i></small></label>
                                         <input type="text" class="form-control" name="nama_penanggungjawab"
-                                            id="nama_penanggungjawab" value="{{ $data->nama_penanggungjawab }}">
+                                            id="nama_penanggungjawab" value="{{ $user->tenant->nama_penanggungjawab }}">
                                     </div>
                                     <div class="col-md mb-3">
                                         <label class="form-label" for="validationTooltip01">Nomor Telepon
                                             Penanggungjawab<small class="text-danger"><i>*Required</i></small></label>
                                         <input type="text" class="form-control" name="nomor_hp_penanggungjawab"
-                                            id="nomor_hp_penanggungjawab" value="{{ $data->nomor_hp_penanggungjawab }}">
+                                            id="nomor_hp_penanggungjawab" value="{{ $user->tenant->nomor_hp_penanggungjawab }}">
                                     </div>
                                     <div class="col-md mb-3">
                                         <label class="form-label" for="validationTooltip01">Alamat
                                             Penanggungjawab<small class="text-danger"><i>*Required</i></small></label>
-                                        <textarea name="alamat_penanggungjawab" class="form-control">{{ $data->alamat_penanggungjawab }}</textarea>
+                                        <textarea name="alamat_penanggungjawab" class="form-control">{{ $user->tenant->alamat_penanggungjawab }}</textarea>
                                     </div>
                                 @endif
                                 <button class="btn btn-primary" type="submit">Update

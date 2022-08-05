@@ -13,7 +13,7 @@
                                     <label class="form-label" for="validationTooltip01">Nomor Rekening<small
                                             class="text-danger"><i>*Required</i></small></label>
                                     <input type="text" class="form-control" id="validationTooltip02" placeholder=""
-                                        value="{{ $data->nomor_rekening }}" required>
+                                        value="{{ $data->nomor_rekening }}" required name="nomor_rekening">
                                     <div class="invalid-tooltip">
                                         *required
                                     </div>
@@ -21,14 +21,14 @@
                                 <div class="col-md mb-3">
                                     <label class="form-label" for="validationTooltip01">Atas Nama<small
                                             class="text-danger"><i>*Required</i></small></label>
-                                    <input type="text" class="form-control" id="validationTooltip02" placeholder=""
+                                    <input type="text" class="form-control" id="validationTooltip02" placeholder="" name="atas_nama"
                                         value="{{ $data->atas_nama }}" required>
                                     <div class="invalid-tooltip">
                                         *required
                                     </div>
                                 </div>
                                 <a href="javascript:;" onclick="load_list(1);" class="btn btn-info">Cancel</a>
-                                <button class="btn btn-primary" id="button_submit" onclick="handle_save('#button_submit','form_submit','{{route('rekening.update', $data->id) }}', 'PATCH', 'Submit');">Submit</button>
+                                <button class="btn btn-primary" id="button_submit" onclick="handle_save('#button_submit','#form_submit','{{route('rekening.update', $data->id) }}', 'PATCH', 'Submit');">Submit</button>
                             </form>
                         </div>
                     </div> <!-- end preview-->

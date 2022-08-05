@@ -76,6 +76,5 @@
 </div>
 <script>
     number_only('daya');
-    ribuan('tarif_dasar');
     number_only('bpju');
 </script>

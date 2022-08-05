@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Marketing;
 
 use App\Http\Controllers\Controller;
+use App\Models\Ruang;
 use App\Models\Standmeter;
+use App\Models\Tarif;
 use Illuminate\Http\Request;
 
 class DataStandmeterController extends Controller
@@ -60,9 +62,11 @@ class DataStandmeterController extends Controller
      * @param  \App\Models\Standmeter  $standmeter
      * @return \Illuminate\Http\Response
      */
-    public function edit(Standmeter $standmeter)
+    public function edit(Standmeter $dataStandmeter)
     {
-        //
+        $tarif = Tarif::get();
+        $ruangs = Ruang::all();
+        return view('pages.marketing.standmeter.input', ['data' => $dataStandmeter, 'ruangs' => $ruangs, 'tarif' => $tarif]);
     }
 
     /**
