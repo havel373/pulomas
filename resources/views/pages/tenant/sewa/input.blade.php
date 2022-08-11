@@ -17,23 +17,7 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-md-6 mb-3">
-                                        <label class="form-label">Booking
-                                            <small class="text-danger"><i>*Required</i></small>
-                                        </label>
-                                        <select class="form-control" name="booking" id="booking">                                            
-                                            <option value="">--- Booking ----</option>
-                                            <option value="ya">Ya</option>
-                                            <option value="tidak">Tidak</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-md-6 mb-3" id="input_kode">
-                                        <label class="form-label">Kode Booking
-                                            <small class="text-danger"><i>*Required</i></small>
-                                        </label>
-                                        <input  class="form-control" type="text" name="kode_booking" id="kode_booking">
-                                    </div>
-                                    <div class="col-md-6 mb-3">
+                                    <div class="col-md-12 mb-3">
                                         <label class="form-label">Gedung
                                             <small class="text-danger"><i>*Required</i></small>
                                         </label>
@@ -123,18 +107,7 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-md-6 mb-3">
-                                        <label class="form-label">Luas Ruangan
-                                            <small class="text-danger"><i>*Required</i></small>
-                                        </label>
-                                        <select class="form-control" name="luas_ruangan" id="luas_ruangan">
-                                            <option value="">Pilih</option>
-                                            <option value="1">Ada Penambahan Luas Ruang</option>
-                                            <option value="2">Kurangi Luas</option>
-                                            <option value="3">Tidak Ada Penambahan atau Pengurangan</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-md-6 mb-3">
+                                    <div class="col-md-12 mb-3">
                                         <label class="form-label">Marketing
                                             <small class="text-danger"><i>*Required</i></small>
                                         </label>
@@ -172,32 +145,36 @@
                                                     @foreach ($additionals as $key => $item)
                                                         <div class="col-sm-3 row inputanService">
                                                             <div class="col-sm-12">
-                                                                <img src="{{ $item->image }}"
-                                                                    alt="image" class="img-fluid rounded-circle"
-                                                                    width="75">
+                                                                <img src="{{ $item->image }}" alt="image"
+                                                                    class="img-fluid rounded-circle" width="75">
                                                             </div>
                                                             <div class="col-sm-12">
                                                                 <h4><input type="checkbox"
                                                                         class="checkbox checkbox-primary sewaService"
-                                                                        name="additional_services[]" value="{{ $item->id }}"> {{ $item->nama }}
+                                                                        name="additional_services[]"
+                                                                        value="{{ $item->id }}">
+                                                                    {{ $item->nama }}
                                                                     <div class="input-group mt-2 totalService"
                                                                         style="">
                                                                         <input type="number"
                                                                             class="form-control col-sm-4 total_service"
-                                                                            name="additional_services_qty[]" placeholder="Total"
-                                                                            value="" width="50" id="totalServiceInput{{$key+1}}">
+                                                                            name="additional_services_qty[]"
+                                                                            placeholder="Total" value=""
+                                                                            width="50"
+                                                                            id="totalServiceInput{{ $key + 1 }}">
                                                                         <div class="input-group-append">
                                                                             <div class="input-group-text">
-                                                                                {{$item->satuan}} </div>
+                                                                                {{ $item->satuan }} </div>
                                                                         </div>
                                                                     </div>
                                                                 </h4>
                                                                 <p>Rp.
-                                                                    {{ number_format($item->harga) . '/' . $item->satuan }} /Per
+                                                                    {{ number_format($item->harga) . '/' . $item->satuan }}
+                                                                    /Per
                                                                     Bulan</p>
                                                             </div>
-                                                            <input type="hidden" name="harga_service[]" class="harga_service"
-                                                                value="{{$item->harga}}">
+                                                            <input type="hidden" name="harga_service[]"
+                                                                class="harga_service" value="{{ $item->harga }}">
                                                             <input type="hidden" name="id_service[]"
                                                                 value="{{ $item->id }}">
                                                         </div>
@@ -265,7 +242,7 @@
                                             <div class="col-md-6">
                                                 Total + PPN 10% :
                                             </div>
-                                            <div class="col-md-6" id="totalppn" >
+                                            <div class="col-md-6" id="totalppn">
                                                 Rp. 0
                                             </div>
                                             <input type="hidden" name="totalharga" id="totalppninp">
@@ -277,7 +254,8 @@
                                     </div>
                                 </div>
                                 <a href="javascript:;" onclick="load_list(1);" class="btn btn-info mt-3">Cancel</a>
-                                <button class="btn btn-primary mt-3" id="btn_submit" onclick="handle_save('#btn_submit','#form_submit','{{route('sewa.store')}}','POST','Submit');">Submit</button>
+                                <button class="btn btn-primary mt-3" id="btn_submit"
+                                    onclick="handle_save('#btn_submit','#form_submit','{{ route('sewa.store') }}','POST','Submit');">Submit</button>
                             </form>
                         </div>
                     </div> <!-- end preview-->
@@ -295,112 +273,367 @@
             $('#input_kode').hide();
         }
     });
-        $("#gedung_id").change(function() {
-            $.ajax({
-                type: "POST",
-                url: "{{ route('lantai.get_list') }}",
-                data: {
-                    id: $("#gedung_id").val()
-                },
-                success: function(response) {
-                    $("#lantai_id").html(response);
-                    $("#lantai_id").change(function() {
-                        $.ajax({
-                            type: "POST",
-                            url: "{{ route('sewa.getRuang') }}",
-                            data: {
-                                id: $("#lantai_id").val()
-                            },
-                            success: function(response) {
-                                $('#ruang').html('');
-                                $('#ruang').append('<option value="">Pilih Ruang</option>');
-                                $.each(response, function(i, item) {
-                                    $('#ruang').append('<option value="' + item.id + '">' + item.nama_ruang +'</option>');
-                                    $("#ruang").change(function() {
-                                        $.ajax({
-                                            success: function(response) {
-                                                let bulan = 1;
-                                                const numberFormatter = Intl.NumberFormat('id-ID');
-                                                $('#jangka_waktu').html('');
-                                                $('#jangka_waktu').append(
-                                                    '<option value="">Pilih Jangka Waktu</option>' + 
-                                                    '<option value="'+item.harga_hari+'">1 Hari - Rp '+ thousand(item.harga_hari )+ ' </option>' + 
-                                                    '<option value="'+item.harga_hari * 7+'">1 Minggu - Rp '+ thousand(item.harga_hari * 7 )+ ' </option>'+
-                                                    '<option value="'+item.harga_bulan+'">1 Bulan - Rp '+ thousand(item.harga_bulan )+ ' </option>'+
-                                                    '<option value="'+item.harga_bulan * 2+'">2 Bulan - Rp '+ thousand(item.harga_bulan * 2 )+ ' </option>'+
-                                                    '<option value="'+item.harga_bulan * 3+'">3 Bulan - Rp '+ thousand(item.harga_bulan * 3 )+ ' </option>'+
-                                                    '<option value="'+item.harga_bulan * 4+'">4 Bulan - Rp '+ thousand(item.harga_bulan * 4 )+ ' </option>'+
-                                                    '<option value="'+item.harga_bulan * 5+'">5 Bulan - Rp '+ thousand(item.harga_bulan * 5 )+ ' </option>'+
-                                                    '<option value="'+item.harga_bulan * 6+'">6 Bulan - Rp '+ thousand(item.harga_bulan * 6 )+ ' </option>'+
-                                                    '<option value="'+item.harga_bulan * 7+'">7 Bulan - Rp '+ thousand(item.harga_bulan * 7 )+ ' </option>'+
-                                                    '<option value="'+item.harga_bulan * 8+'">8 Bulan - Rp '+ thousand(item.harga_bulan * 8 )+ ' </option>'+
-                                                    '<option value="'+item.harga_bulan * 9+'">9 Bulan - Rp '+ thousand(item.harga_bulan * 9 )+ ' </option>'+
-                                                    '<option value="'+item.harga_bulan * 10+'">10 Bulan - Rp '+ thousand(item.harga_bulan * 10 )+ ' </option>'+
-                                                    '<option value="'+item.harga_bulan * 11+'">11 Bulan - Rp '+ thousand(item.harga_bulan * 11 )+ ' </option>'+
-                                                    '<option value="'+item.harga_bulan * 12+'">1 Tahun - Rp '+ thousand(item.harga_bulan * 12 )+ ' </option>'
+    $("#gedung_id").change(function() {
+        $.ajax({
+            type: "POST",
+            url: "{{ route('lantai.get_list') }}",
+            data: {
+                id: $("#gedung_id").val()
+            },
+            success: function(response) {
+                $("#lantai_id").html(response);
+                $("#lantai_id").change(function() {
+                    $.ajax({
+                        type: "POST",
+                        url: "{{ route('sewa.getRuang') }}",
+                        data: {
+                            id: $("#lantai_id").val()
+                        },
+                        success: function(response) {
+                            $('#ruang').html('');
+                            $('#ruang').append(
+                                '<option value="">Pilih Ruang</option>');
+                            $.each(response, function(i, item) {
+                                $('#ruang').append('<option value="' +
+                                    item.id + '">' + item
+                                    .nama_ruang + '</option>');
+                                $("#ruang").change(function() {
+                                    $.ajax({
+                                        success: function(
+                                            response
+                                        ) {
+                                            let bulan =
+                                                1;
+                                            const
+                                                numberFormatter =
+                                                Intl
+                                                .NumberFormat(
+                                                    'id-ID'
                                                 );
-                                                $("#jangka_waktu").change(function() {
-                                                    $.ajax({
-                                                        success: function(response) {
-                                                            $('#sewa').html('Rp '+thousand($('#jangka_waktu').val() * $('#angka').val()));
-                                                            $('#sewainp').val($('#jangka_waktu').val() * $('#angka').val());
-                                                            $('#deposit').html('Rp '+thousand($('#jangka_waktu').val() * $('#angka').val()));
-                                                            $('#depositinp').val($('#jangka_waktu').val() * $('#angka').val());
-                                                        }
-                                                    });
-                                                });
-                                                $("#angka").change(function() {
-                                                    $.ajax({
-                                                        success: function(response) {
-                                                            $('#sewa').html('Rp '+thousand($('#jangka_waktu').val() * $('#angka').val()));
-                                                            $('#sewainp').val($('#jangka_waktu').val() * $('#angka').val());
-                                                            $('#deposit').html('Rp '+thousand($('#jangka_waktu').val() * $('#angka').val()));
-                                                            $('#depositinp').val($('#jangka_waktu').val() * $('#angka').val());
-                                                        }
-                                                    });
-                                                });
-                                            }
-                                        });
-                                    });
-                                });
-                                $.each(response, function(i, item) {
-                                    $('#jenis_service_charge').html('');
-                                    $('#jenis_service_charge').append(
-                                        '<option value="">Pilih Service Charge</option>' + 
-                                        '<option value="1">Listrik Pulomas Office Park - Rp '+thousand(item.service_charge)+'</option>' + 
-                                        '<option value="2">Listrik Pulomas Office Park - Rp '+thousand(item.service_charge_sendiri)+'</option>'
-                                    );
-                                    $('#jenis_service_charge').change(function() {
-                                        if($('#jenis_service_charge').val() == '1'){
-                                            $('#service').html('Rp '+thousand(item.service_charge));
-                                            $('#serviceinp').val(item.service_charge);
-                                        }else{
-                                            $('#service').html('Rp '+thousand(item.service_charge_sendiri));
-                                            $('#serviceinp').val(item.service_charge_sendiri);
+                                            $('#jangka_waktu')
+                                                .html(
+                                                    ''
+                                                );
+                                            $('#jangka_waktu')
+                                                .append(
+                                                    ' </option>' +
+                                                    '<option value="' +
+                                                    item
+                                                    .harga_bulan +
+                                                    '">1 Bulan - Rp ' +
+                                                    thousand(
+                                                        item
+                                                        .harga_bulan
+                                                    ) +
+                                                    ' </option>' +
+                                                    '<option value="' +
+                                                    item
+                                                    .harga_bulan *
+                                                    2 +
+                                                    '">2 Bulan - Rp ' +
+                                                    thousand(
+                                                        item
+                                                        .harga_bulan *
+                                                        2
+                                                    ) +
+                                                    ' </option>' +
+                                                    '<option value="' +
+                                                    item
+                                                    .harga_bulan *
+                                                    3 +
+                                                    '">3 Bulan - Rp ' +
+                                                    thousand(
+                                                        item
+                                                        .harga_bulan *
+                                                        3
+                                                    ) +
+                                                    ' </option>' +
+                                                    '<option value="' +
+                                                    item
+                                                    .harga_bulan *
+                                                    4 +
+                                                    '">4 Bulan - Rp ' +
+                                                    thousand(
+                                                        item
+                                                        .harga_bulan *
+                                                        4
+                                                    ) +
+                                                    ' </option>' +
+                                                    '<option value="' +
+                                                    item
+                                                    .harga_bulan *
+                                                    5 +
+                                                    '">5 Bulan - Rp ' +
+                                                    thousand(
+                                                        item
+                                                        .harga_bulan *
+                                                        5
+                                                    ) +
+                                                    ' </option>' +
+                                                    '<option value="' +
+                                                    item
+                                                    .harga_bulan *
+                                                    6 +
+                                                    '">6 Bulan - Rp ' +
+                                                    thousand(
+                                                        item
+                                                        .harga_bulan *
+                                                        6
+                                                    ) +
+                                                    ' </option>' +
+                                                    '<option value="' +
+                                                    item
+                                                    .harga_bulan *
+                                                    7 +
+                                                    '">7 Bulan - Rp ' +
+                                                    thousand(
+                                                        item
+                                                        .harga_bulan *
+                                                        7
+                                                    ) +
+                                                    ' </option>' +
+                                                    '<option value="' +
+                                                    item
+                                                    .harga_bulan *
+                                                    8 +
+                                                    '">8 Bulan - Rp ' +
+                                                    thousand(
+                                                        item
+                                                        .harga_bulan *
+                                                        8
+                                                    ) +
+                                                    ' </option>' +
+                                                    '<option value="' +
+                                                    item
+                                                    .harga_bulan *
+                                                    9 +
+                                                    '">9 Bulan - Rp ' +
+                                                    thousand(
+                                                        item
+                                                        .harga_bulan *
+                                                        9
+                                                    ) +
+                                                    ' </option>' +
+                                                    '<option value="' +
+                                                    item
+                                                    .harga_bulan *
+                                                    10 +
+                                                    '">10 Bulan - Rp ' +
+                                                    thousand(
+                                                        item
+                                                        .harga_bulan *
+                                                        10
+                                                    ) +
+                                                    ' </option>' +
+                                                    '<option value="' +
+                                                    item
+                                                    .harga_bulan *
+                                                    11 +
+                                                    '">11 Bulan - Rp ' +
+                                                    thousand(
+                                                        item
+                                                        .harga_bulan *
+                                                        11
+                                                    ) +
+                                                    ' </option>' +
+                                                    '<option value="' +
+                                                    item
+                                                    .harga_bulan *
+                                                    12 +
+                                                    '">1 Tahun - Rp ' +
+                                                    thousand(
+                                                        item
+                                                        .harga_bulan *
+                                                        12
+                                                    ) +
+                                                    ' </option>'
+                                                );
+                                            $("#jangka_waktu")
+                                                .change(
+                                                    function() {
+                                                        $.ajax({
+                                                            success: function(
+                                                                response
+                                                            ) {
+                                                                $('#sewa')
+                                                                    .html(
+                                                                        'Rp ' +
+                                                                        thousand(
+                                                                            $(
+                                                                                '#jangka_waktu'
+                                                                            )
+                                                                            .val() *
+                                                                            $(
+                                                                                '#angka'
+                                                                            )
+                                                                            .val()
+                                                                        )
+                                                                    );
+                                                                $('#sewainp')
+                                                                    .val(
+                                                                        $(
+                                                                            '#jangka_waktu'
+                                                                        )
+                                                                        .val() *
+                                                                        $(
+                                                                            '#angka'
+                                                                        )
+                                                                        .val()
+                                                                    );
+                                                                $('#deposit')
+                                                                    .html(
+                                                                        'Rp ' +
+                                                                        thousand(
+                                                                            $(
+                                                                                '#jangka_waktu'
+                                                                            )
+                                                                            .val() *
+                                                                            $(
+                                                                                '#angka'
+                                                                            )
+                                                                            .val()
+                                                                        )
+                                                                    );
+                                                                $('#depositinp')
+                                                                    .val(
+                                                                        $(
+                                                                            '#jangka_waktu'
+                                                                        )
+                                                                        .val() *
+                                                                        $(
+                                                                            '#angka'
+                                                                        )
+                                                                        .val()
+                                                                    );
+                                                            }
+                                                        });
+                                                    }
+                                                );
+                                            $("#angka")
+                                                .change(
+                                                    function() {
+                                                        $.ajax({
+                                                            success: function(
+                                                                response
+                                                            ) {
+                                                                $('#sewa')
+                                                                    .html(
+                                                                        'Rp ' +
+                                                                        thousand(
+                                                                            $(
+                                                                                '#jangka_waktu'
+                                                                            )
+                                                                            .val() *
+                                                                            $(
+                                                                                '#angka'
+                                                                            )
+                                                                            .val()
+                                                                        )
+                                                                    );
+                                                                $('#sewainp')
+                                                                    .val(
+                                                                        $(
+                                                                            '#jangka_waktu'
+                                                                        )
+                                                                        .val() *
+                                                                        $(
+                                                                            '#angka'
+                                                                        )
+                                                                        .val()
+                                                                    );
+                                                                $('#deposit')
+                                                                    .html(
+                                                                        'Rp ' +
+                                                                        thousand(
+                                                                            $(
+                                                                                '#jangka_waktu'
+                                                                            )
+                                                                            .val() *
+                                                                            $(
+                                                                                '#angka'
+                                                                            )
+                                                                            .val()
+                                                                        )
+                                                                    );
+                                                                $('#depositinp')
+                                                                    .val(
+                                                                        $(
+                                                                            '#jangka_waktu'
+                                                                        )
+                                                                        .val() *
+                                                                        $(
+                                                                            '#angka'
+                                                                        )
+                                                                        .val()
+                                                                    );
+                                                            }
+                                                        });
+                                                    }
+                                                );
                                         }
                                     });
                                 });
-                            }
-                        });
+                            });
+                            $.each(response, function(i, item) {
+                                $('#jenis_service_charge').html('');
+                                $('#jenis_service_charge').append(
+                                    '<option value="">Pilih Service Charge</option>' +
+                                    '<option value="1">Listrik Pulomas Office Park - Rp ' +
+                                    thousand(item.service_charge) +
+                                    '</option>' +
+                                    '<option value="2">Listrik Pulomas Office Park - Rp ' +
+                                    thousand(item
+                                        .service_charge_sendiri) +
+                                    '</option>'
+                                );
+                                $('#jenis_service_charge').change(
+                                    function() {
+                                        if ($(
+                                                '#jenis_service_charge'
+                                            )
+                                            .val() == '1') {
+                                            $('#service').html(
+                                                'Rp ' +
+                                                thousand(item
+                                                    .service_charge
+                                                ));
+                                            $('#serviceinp').val(
+                                                item
+                                                .service_charge);
+                                        } else {
+                                            $('#service').html(
+                                                'Rp ' +
+                                                thousand(item
+                                                    .service_charge_sendiri
+                                                ));
+                                            $('#serviceinp').val(
+                                                item
+                                                .service_charge_sendiri
+                                            );
+                                        }
+                                    });
+                            });
+                        }
                     });
-                }
-            });
+                });
+            }
         });
+    });
 
-        $('.sewaService').click(function(){
-            $('#additionalinp').val($('.harga_service').val());
-            $('#additional').html('Rp '+thousand($('.harga_service').val()));
-            let sewainp = $('#sewainp').val();
-            let additionalinp = $('#additionalinp').val();
-            let serviceinp = $('#serviceinp').val();
-            let totalinp = parseFloat(sewainp) + parseFloat(additionalinp) + parseFloat(serviceinp);
-            $('#ppninp').val( (totalinp/10) );
-            $('#ppnrow').html(thousand('Rp ' +  $('#ppninp').val() ));
-            let grandtotal = parseFloat($('#ppninp').val()) + parseFloat(totalinp);
-            $('#total').html('Rp '+thousand(totalinp));
-            $('#totalppninp').val(grandtotal);
-            $('#totalppn').html('Rp '+thousand(grandtotal));
-        });
+    $('.sewaService').click(function() {
+        $('#additionalinp').val($('.harga_service').val());
+        $('#additional').html('Rp ' + thousand($('.harga_service').val()));
+        let sewainp = $('#sewainp').val();
+        let additionalinp = $('#additionalinp').val();
+        let serviceinp = $('#serviceinp').val();
+        let totalinp = parseFloat(sewainp) + parseFloat(additionalinp) + parseFloat(serviceinp);
+        $('#ppninp').val((totalinp / 10));
+        $('#ppnrow').html(thousand('Rp ' + $('#ppninp').val()));
+        let grandtotal = parseFloat($('#ppninp').val()) + parseFloat(totalinp);
+        $('#total').html('Rp ' + thousand(totalinp));
+        $('#totalppninp').val(grandtotal);
+        $('#totalppn').html('Rp ' + thousand(grandtotal));
+    });
     $('#jangka_waktu').change(function() {
         $('#tanggal_awal').change(function() {
             var tanggal_awal = $('#tanggal_awal').val();

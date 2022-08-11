@@ -68,4 +68,12 @@
         </div> <!-- end card-body-->
     </div> <!-- end card-->
 </div> <!-- end col-->
-<script></script>
+<script>
+    $('select[name="status"]').on('change', function() {
+        if (this.value == 'non aktiv') {
+            $('#tombol_submit').prop('disabled', true);
+        } else {
+            $('#tombol_submit').prop('disabled', false);
+        }
+    });
+</script>

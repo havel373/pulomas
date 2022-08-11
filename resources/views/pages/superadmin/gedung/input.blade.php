@@ -26,12 +26,14 @@
                         <div class="position-relative mb-3">
                             <label class="form-label" for="validationTooltip03">Kode Asset<small
                                     class="text-danger"><i>*Required</i></small></label>
-                            <input type="text" class="form-control" id="validationTooltip03" placeholder="" readonly>
+                            <input type="text" class="form-control" id="validationTooltip03" placeholder=""
+                                name="kode_asset" value="{{ $data->kode_asset }}">
                         </div>
                         <div class="mb-3">
                             <label for="example-textarea" class="form-label">Alamat Gedung<small
                                     class="text-danger"><i>*Required</i></small></label>
-                            <textarea class="form-control" id="example-textarea" rows="5" readonly></textarea>
+                            <textarea class="form-control" id="example-textarea" rows="5" name="alamat_gedung">{{ $data->alamat_gedung }}</textarea>.
+                            
                         </div>
                         <a href="javascript:;" onclick="load_list(1);" class="btn btn-info">Cancel</a>
                         @if ($data->id)
@@ -47,22 +49,3 @@
         </div> <!-- end col-->
     </div>
 </div>
-<script>
-    $(document).ready(function() {
-        $('#id_aset').on('change', function() {
-            var id = $(this).val();
-            $.ajax({
-                url: "{{ route('asset.get', ':id') }}".replace(':id', id),
-                method: "GET",
-                dataType: "json",
-                success: function(data) {
-                    $('#validationTooltip03').val(data.kode_aset);
-                    $('#example-textarea').val(data.alamat_gedung);
-                }
-            });
-        });
-        @if ($data->id)
-            $('#id_aset').trigger('change');
-        @endif
-    });
-</script>

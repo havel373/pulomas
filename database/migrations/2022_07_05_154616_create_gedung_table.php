@@ -18,6 +18,8 @@ return new class extends Migration
             $table->unsignedBigInteger('id_aset');
             $table->string('nama_gedung');
             $table->foreign('id_aset')->references('id')->on('asets');
+            $table->string('kode_aset');
+            $table->string('alamat_gedung');
             $table->timestamps();
         });
     }

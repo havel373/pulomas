@@ -3,10 +3,10 @@
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-body">
-                    @if($data->id)
-                    <h4 class="header-title">Update Ruang</h4>
+                    @if ($data->id)
+                        <h4 class="header-title">Update Ruang</h4>
                     @else
-                    <h4 class="header-title">Create Ruang</h4>
+                        <h4 class="header-title">Create Ruang</h4>
                     @endif
                     <ul class="nav nav-tabs nav-bordered mb-3">
                     </ul> <!-- end nav-->
@@ -65,7 +65,7 @@
                                                 class="text-danger"><i>*Required</i></small></label>
                                         <div class="input-group" id="input-group1">
                                             <input type="text" class="form-control" name="luas" id="luas"
-                                                value="{{ $data->luas }}" >
+                                                value="{{ $data->luas }}">
                                             <span class="input-group-text">m<sup>2</sup></span>
                                         </div>
                                     </div>
@@ -99,8 +99,8 @@
                                         <div class="input-group" id="input-group1">
                                             <span class="input-group-text">Rp</span>
                                             <input type="text" class="form-control" name="overtime_dibawah_4jam"
-                                                id="overtime_dibawah_4jam" value="{{ $data->overtime_dibawah_4jam }}"
-                                            >
+                                                id="overtime_dibawah_4jam"
+                                                value="{{ $data->overtime_dibawah_4jam }}">
                                         </div>
                                     </div>
                                     <div class="col-md-6 mb-3">
@@ -110,7 +110,7 @@
                                             <span class="input-group-text">Rp</span>
                                             <input type="text" class="form-control"
                                                 name="total_overtime_dibawah_4jam"
-                                                value="{{ $data->total_overtime_dibawah_4jam }}" readonly
+                                                value="{{ $data->total_overtime_dibawah_4jam }}"
                                                 id="total_overtime_dibawah_4jam">
                                             <span class="input-group-text">Jam / m<sup>2</sup></span>
                                         </div>
@@ -123,8 +123,7 @@
                                         <div class="input-group" id="input-group1">
                                             <span class="input-group-text">Rp</span>
                                             <input type="text" class="form-control" name="overtime_diatas_4jam"
-                                                id="overtime_diatas_4jam" value="{{ $data->overtime_diatas_4jam }}"
-                                            >
+                                                id="overtime_diatas_4jam" value="{{ $data->overtime_diatas_4jam }}">
                                         </div>
                                     </div>
                                     <div class="col-md-6 mb-3">
@@ -134,7 +133,7 @@
                                             <span class="input-group-text">Rp</span>
                                             <input type="text" class="form-control"
                                                 name="total_overtime_diatas_4jam"
-                                                value="{{ $data->total_overtime_diatas_4jam }}" readonly
+                                                value="{{ $data->total_overtime_diatas_4jam }}"
                                                 id="total_overtime_diatas_4jam">
                                             <span class="input-group-text">Jam / m<sup>2</sup></span>
                                         </div>
@@ -149,28 +148,28 @@
                                                 </small>
                                             </label>
                                             @foreach (json_decode($data->fasilitas) as $key => $value)
-                                                @if( $key == 0 )
-                                                <div class="input-group">
-                                                    <input type="text" class="form-control"
-                                                        name="fasilitas[{{ $key }}]"
-                                                        value="{{ $value }}">
-                                                    <button type="button" id="tambah_form"
-                                                        class="btn btn-primary btn-add-fasilitas">
-                                                        <i class="uil-plus" style="color:white;"></i>
-                                                    </button>
-                                                    <button type="button" class="btn btn-danger" id="remove">
-                                                        <i class="uil-trash" style="color:white;"></i>
-                                                    </button>
-                                                </div>
+                                                @if ($key == 0)
+                                                    <div class="input-group">
+                                                        <input type="text" class="form-control"
+                                                            name="fasilitas[{{ $key }}]"
+                                                            value="{{ $value }}">
+                                                        <button type="button" id="tambah_form"
+                                                            class="btn btn-primary btn-add-fasilitas">
+                                                            <i class="uil-plus" style="color:white;"></i>
+                                                        </button>
+                                                        <button type="button" class="btn btn-danger" id="remove">
+                                                            <i class="uil-trash" style="color:white;"></i>
+                                                        </button>
+                                                    </div>
                                                 @else
-                                                <div class="input-group">
-                                                    <input type="text" class="form-control"
-                                                        name="fasilitas[{{ $key }}]"
-                                                        value="{{ $value }}">
-                                                    <button type="button" class="btn btn-danger" id="remove">
-                                                        <i class="uil-trash" style="color:white;"></i>
-                                                    </button>
-                                                </div>
+                                                    <div class="input-group">
+                                                        <input type="text" class="form-control"
+                                                            name="fasilitas[{{ $key }}]"
+                                                            value="{{ $value }}">
+                                                        <button type="button" class="btn btn-danger" id="remove">
+                                                            <i class="uil-trash" style="color:white;"></i>
+                                                        </button>
+                                                    </div>
                                                 @endif
                                             @endforeach
                                         @else
@@ -215,7 +214,7 @@
                                             <span class="input-group-text">Rp</span>
                                             <input type="text" class="form-control" name="service_charge_sendiri"
                                                 id="service_charge_sendiri_input"
-                                                value="{{ $data->service_charge_sendiri }}" readonly>
+                                                value="{{ $data->service_charge_sendiri }}">
                                         </div>
                                     </div>
                                 </div>
@@ -247,81 +246,95 @@
                                         <tr>
                                             <td>1</td>
                                             <td>1 Hari</td>
-                                            <td id="hari">Rp <b> {{number_format($data->harga_hari)}}</b></td>
+                                            <td id="hari">Rp <b> {{ number_format($data->harga_hari) }}</b></td>
                                         </tr>
                                         <tr>
                                             <td>2</td>
                                             <td>1 Minggu</td>
-                                            <td id="minggu">Rp <b> {{number_format($data->harga_hari * 7)}}</b></td>
+                                            <td id="minggu">Rp <b> {{ number_format($data->harga_hari * 7) }}</b>
+                                            </td>
                                         </tr>
                                         <tr>
                                             <td>3</td>
                                             <td>1 Bulan</td>
-                                            <td id="1bulan">Rp <b> {{number_format($data->harga_bulan)}}</b></td>
+                                            <td id="1bulan">Rp <b> {{ number_format($data->harga_bulan) }}</b></td>
                                         </tr>
                                         <tr>
                                             <td>4</td>
                                             <td>2 Bulan</td>
-                                            <td id="2bulan">Rp <b> {{number_format($data->harga_bulan * 2)}}</b></td>
+                                            <td id="2bulan">Rp <b> {{ number_format($data->harga_bulan * 2) }}</b>
+                                            </td>
                                         </tr>
                                         <tr>
                                             <td>5</td>
                                             <td>3 Bulan</td>
-                                            <td id="3bulan">Rp <b> {{number_format($data->harga_bulan * 3)}}</b></td>
+                                            <td id="3bulan">Rp <b> {{ number_format($data->harga_bulan * 3) }}</b>
+                                            </td>
                                         </tr>
                                         <tr>
                                             <td>6</td>
                                             <td>4 Bulan</td>
-                                            <td id="4bulan">Rp <b> {{number_format($data->harga_bulan * 4)}}</b></td>
+                                            <td id="4bulan">Rp <b> {{ number_format($data->harga_bulan * 4) }}</b>
+                                            </td>
                                         </tr>
                                         <tr>
                                             <td>7</td>
                                             <td>5 Bulan</td>
-                                            <td id="5bulan">Rp <b> {{number_format($data->harga_bulan * 5)}}</b></td>
+                                            <td id="5bulan">Rp <b> {{ number_format($data->harga_bulan * 5) }}</b>
+                                            </td>
                                         </tr>
                                         <tr>
                                             <td>8</td>
                                             <td>6 Bulan</td>
-                                            <td id="6bulan">Rp <b> {{number_format($data->harga_bulan * 6)}}</b></td>
+                                            <td id="6bulan">Rp <b> {{ number_format($data->harga_bulan * 6) }}</b>
+                                            </td>
                                         </tr>
                                         <tr>
                                             <td>9</td>
                                             <td>7 Bulan</td>
-                                            <td id="7bulan">Rp <b> {{number_format($data->harga_bulan * 7)}}</b></td>
+                                            <td id="7bulan">Rp <b> {{ number_format($data->harga_bulan * 7) }}</b>
+                                            </td>
                                         </tr>
                                         <tr>
                                             <td>10</td>
                                             <td>8 Bulan</td>
-                                            <td id="8bulan">Rp <b> {{number_format($data->harga_bulan * 8)}}</b></td>
+                                            <td id="8bulan">Rp <b> {{ number_format($data->harga_bulan * 8) }}</b>
+                                            </td>
                                         </tr>
                                         <tr>
                                             <td>11</td>
                                             <td>9 Bulan</td>
-                                            <td id="9bulan">Rp <b> {{number_format($data->harga_bulan * 9)}}</b></td>
+                                            <td id="9bulan">Rp <b> {{ number_format($data->harga_bulan * 9) }}</b>
+                                            </td>
                                         </tr>
                                         <tr>
                                             <td>12</td>
                                             <td>10 Bulan</td>
-                                            <td id="10bulan">Rp <b> {{number_format($data->harga_bulan * 10)}}</b></td>
+                                            <td id="10bulan">Rp <b> {{ number_format($data->harga_bulan * 10) }}</b>
+                                            </td>
                                         </tr>
                                         <tr>
                                             <td>13</td>
                                             <td>11 Bulan</td>
-                                            <td id="11bulan">Rp <b> {{number_format($data->harga_bulan * 11)}}</b></td>
+                                            <td id="11bulan">Rp <b> {{ number_format($data->harga_bulan * 11) }}</b>
+                                            </td>
                                         </tr>
                                         <tr>
                                             <td>14</td>
                                             <td>1 Tahun </td>
-                                            <td id="tahun">Rp <b> {{number_format($data->harga_bulan * 12)}}</b></td>
+                                            <td id="tahun">Rp <b> {{ number_format($data->harga_bulan * 12) }}</b>
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
 
                                 <a href="javascript:;" onclick="load_list(1);" class="btn btn-info">Cancel</a>
-                                @if($data->id)
-                                <button class="btn btn-primary" id="button_submit" onclick="handle_upload('#button_submit','#form_submit','{{route('ruang.update', $data->id) }}', 'PATCH', 'Submit');">Submit</button>
+                                @if ($data->id)
+                                    <button class="btn btn-primary" id="button_submit"
+                                        onclick="handle_upload('#button_submit','#form_submit','{{ route('ruang.update', $data->id) }}', 'PATCH', 'Submit');">Submit</button>
                                 @else
-                                <button class="btn btn-primary" id="button_submit" onclick="handle_upload('#button_submit','#form_submit','{{route('ruang.store')}}','POST','Submit');">Submit</button>
+                                    <button class="btn btn-primary" id="button_submit"
+                                        onclick="handle_upload('#button_submit','#form_submit','{{ route('ruang.store') }}','POST','Submit');">Submit</button>
                                 @endif
                             </form>
                         </div>
@@ -343,108 +356,108 @@
         number_only('service_charge_input');
         number_only('service_charge_sendiri_input');
         $('#harga').change(function() {
-                                    $.ajax({
-                                        success: function(
-                                            response
-                                        ) {
-                                            $('#1bulan')
-                                                .html(
-                                                    $(
-                                                        '#harga'
-                                                    )
-                                                    .val()
-                                                );
-                                            $('#2bulan')
-                                                .html(
-                                                    $(
-                                                        '#harga'
-                                                    )
-                                                    .val() *
-                                                    2
-                                                );
-                                            $('#3bulan')
-                                                .html(
-                                                    $(
-                                                        '#harga'
-                                                    )
-                                                    .val() *
-                                                    3
-                                                );
-                                            $('#4bulan')
-                                                .html(
-                                                    $(
-                                                        '#harga'
-                                                    )
-                                                    .val() *
-                                                    4
-                                                );
-                                            $('#5bulan')
-                                                .html(
-                                                    $(
-                                                        '#harga'
-                                                    )
-                                                    .val() *
-                                                    5
-                                                );
-                                            $('#6bulan')
-                                                .html(
-                                                    $(
-                                                        '#harga'
-                                                    )
-                                                    .val() *
-                                                    6
-                                                );
-                                            $('#7bulan')
-                                                .html(
-                                                    $(
-                                                        '#harga'
-                                                    )
-                                                    .val() *
-                                                    7
-                                                );
-                                            $('#8bulan')
-                                                .html(
-                                                    $(
-                                                        '#harga'
-                                                    )
-                                                    .val() *
-                                                    8
-                                                );
-                                            $('#9bulan')
-                                                .html(
-                                                    $(
-                                                        '#harga'
-                                                    )
-                                                    .val() *
-                                                    9
-                                                );
-                                            $('#10bulan')
-                                                .html(
-                                                    $(
-                                                        '#harga'
-                                                    )
-                                                    .val() *
-                                                    10
-                                                );
-                                            $('#11bulan')
-                                                .html(
-                                                    $(
-                                                        '#harga'
-                                                    )
-                                                    .val() *
-                                                    11
-                                                );
-                                            $('#tahun')
-                                                .html(
-                                                    $(
-                                                        '#harga'
-                                                    )
-                                                    .val() *
-                                                    12
-                                                );
-                                        }
-                                    });
-                                });
+            $.ajax({
+                success: function(
+                    response
+                ) {
+                    $('#1bulan')
+                        .html(
+                            $(
+                                '#harga'
+                            )
+                            .val()
+                        );
+                    $('#2bulan')
+                        .html(
+                            $(
+                                '#harga'
+                            )
+                            .val() *
+                            2
+                        );
+                    $('#3bulan')
+                        .html(
+                            $(
+                                '#harga'
+                            )
+                            .val() *
+                            3
+                        );
+                    $('#4bulan')
+                        .html(
+                            $(
+                                '#harga'
+                            )
+                            .val() *
+                            4
+                        );
+                    $('#5bulan')
+                        .html(
+                            $(
+                                '#harga'
+                            )
+                            .val() *
+                            5
+                        );
+                    $('#6bulan')
+                        .html(
+                            $(
+                                '#harga'
+                            )
+                            .val() *
+                            6
+                        );
+                    $('#7bulan')
+                        .html(
+                            $(
+                                '#harga'
+                            )
+                            .val() *
+                            7
+                        );
+                    $('#8bulan')
+                        .html(
+                            $(
+                                '#harga'
+                            )
+                            .val() *
+                            8
+                        );
+                    $('#9bulan')
+                        .html(
+                            $(
+                                '#harga'
+                            )
+                            .val() *
+                            9
+                        );
+                    $('#10bulan')
+                        .html(
+                            $(
+                                '#harga'
+                            )
+                            .val() *
+                            10
+                        );
+                    $('#11bulan')
+                        .html(
+                            $(
+                                '#harga'
+                            )
+                            .val() *
+                            11
+                        );
+                    $('#tahun')
+                        .html(
+                            $(
+                                '#harga'
+                            )
+                            .val() *
+                            12
+                        );
+                }
+            });
+        });
         $("#id_gedung").change(function() {
             $.ajax({
                 type: "POST",
@@ -500,14 +513,6 @@
                                 id: $("#id_lantai").val()
                             },
                             success: function(response) {
-                                $("#service_charge_input").val($(
-                                        "#service_charge").text()
-                                    .replace(/\D/g, "") * $("#luas")
-                                    .val());
-                                $("#service_charge_sendiri_input").val(
-                                    $("#service_charge_sendiri")
-                                    .text().replace(/\D/g, "") * $(
-                                        "#luas").val());
                                 let harga = response;
                                 $('#harga').val($("#luas").val() *
                                     harga);
@@ -664,62 +669,6 @@
                                         }
                                     });
                                 });
-                                $('#overtime_dibawah_4jam').keydown(
-                                    function() {
-                                        $.ajax({
-                                            success: function(
-                                                response
-                                            ) {
-                                                $("#total_overtime_dibawah_4jam")
-                                                    .val(
-                                                        $(
-                                                            "#overtime_dibawah_4jam"
-                                                        )
-                                                        .val() *
-                                                        $(
-                                                            '#luas'
-                                                        )
-                                                        .val()
-                                                    );
-                                                $('#minggu')
-                                                    .html(
-                                                        $(
-                                                            "#harga_hari"
-                                                        )
-                                                        .val() *
-                                                        7
-                                                    );
-                                            }
-                                        });
-                                    });
-                                $('#overtime_diatas_4jam').keydown(
-                                    function() {
-                                        $.ajax({
-                                            success: function(
-                                                response
-                                            ) {
-                                                $("#total_overtime_diatas_4jam")
-                                                    .val(
-                                                        $(
-                                                            "#overtime_diatas_4jam"
-                                                        )
-                                                        .val() *
-                                                        $(
-                                                            '#luas'
-                                                        )
-                                                        .val()
-                                                    );
-                                                $('#minggu')
-                                                    .html(
-                                                        $(
-                                                            "#harga_hari"
-                                                        )
-                                                        .val() *
-                                                        7
-                                                    );
-                                            }
-                                        });
-                                    });
                             }
                         });
                     });

@@ -5,20 +5,20 @@
                 <div class="card-body">
                     <h4 class="header-title">Create User Marketing</h4>
                     <form class="needs-validation" id="form_submit">
-                        @if(!$data->id)
-                        <div class="col-md mb-3">
-                            <label class="form-label" for="validationTooltip01">Status Pegawai<small
-                                    class="text-danger"><i>*Required</i></small></label>
-                            <select class="form-control" name="status_pegawai" id="status_pegawai"
-                                placeholder="Pilih Status Pegawai">
-                                <option value="pegawai pmj"
-                                    {{ $data->status_pegawai == 'pegawai pmj' ? 'selected' : '' }}>Pegawai PMJ
-                                </option>
-                                <option value="bukan pegawai pmj"
-                                    {{ $data->status_pegawai == 'bukan pegawai pmj' ? 'selected' : '' }}>Bukan
-                                    Pegawai PMJ
-                            </select>
-                        </div>
+                        @if (!$data->id)
+                            <div class="col-md mb-3">
+                                <label class="form-label" for="validationTooltip01">Status Pegawai<small
+                                        class="text-danger"><i>*Required</i></small></label>
+                                <select class="form-control" name="status_pegawai" id="status_pegawai"
+                                    placeholder="Pilih Status Pegawai">
+                                    <option value="pegawai pmj"
+                                        {{ $data->status_pegawai == 'pegawai pmj' ? 'selected' : '' }}>Pegawai PMJ
+                                    </option>
+                                    <option value="bukan pegawai pmj"
+                                        {{ $data->status_pegawai == 'bukan pegawai pmj' ? 'selected' : '' }}>Bukan
+                                        Pegawai PMJ
+                                </select>
+                            </div>
                         @endif
                         <div class="col-md mb-3">
                             <label class="form-label" for="validationTooltip01">Email<small
@@ -26,12 +26,12 @@
                             <input type="text" class="form-control" name="email" id="email"
                                 @if ($data->id) value="{{ $data->user->email }}" @endif>
                         </div>
-                        @if(!$data->id)
-                        <div class="col-md mb-3">
-                            <label class="form-label" for="validationTooltip01">Password<small
-                                    class="text-danger"><i>*Required</i></small></label>
-                            <input type="password" class="form-control" name="password" id="password">
-                        </div>
+                        @if (!$data->id)
+                            <div class="col-md mb-3">
+                                <label class="form-label" for="validationTooltip01">Password<small
+                                        class="text-danger"><i>*Required</i></small></label>
+                                <input type="password" class="form-control" name="password" id="password">
+                            </div>
                         @endif
                         <div class="col-md mb-3">
                             <label class="form-label" for="validationTooltip01">Nama Pegawai Keuangan<small
@@ -68,4 +68,12 @@
         </div> <!-- end card-body-->
     </div> <!-- end card-->
 </div> <!-- end col-->
-<script></script>
+<script>
+    $('select[name="status"]').on('change', function() {
+        if (this.value == 'non aktiv') {
+            $('#tombol_submit').prop('disabled', true);
+        } else {
+            $('#tombol_submit').prop('disabled', false);
+        }
+    });
+</script>
