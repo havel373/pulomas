@@ -63,12 +63,12 @@
                     </a>
                 </li>
 
-                <li class="side-nav-item">
+                {{-- <li class="side-nav-item">
                     <a href="{{ route('teknik.index') }}" class="side-nav-link">
                         <i class="uil-rss"></i>
                         <span> Kelola User Teknik </span>
                     </a>
-                </li>
+                </li> --}}
 
                 <li class="side-nav-item">
                     <a href="{{ route('keuangan.index') }}" class="side-nav-link">
@@ -122,13 +122,28 @@
                         <span> Data Tenant </span>
                     </a>
                 </li>
+               
+                <li class="side-nav-item">
+                    <a href="{{ route('sewa.index') }}" class="side-nav-link">
+                        <i class="uil-newspaper"></i>
+                        <span> Kelola Sewa </span>
+                    </a>
+                </li>
 
                 <li class="side-nav-item">
+                    <a href="{{ route('data-tenant.index') }}" class="side-nav-link">
+                        <i class="uil-layer-group"></i>
+                        <span> Kelola Laporan </span>
+                    </a>
+                </li>
+
+
+                {{-- <li class="side-nav-item">
                     <a href="{{ route('data-standmeter.index') }}" class="side-nav-link">
                         <i class="uil-folder-plus"></i>
                         <span> Data Standmeter </span>
                     </a>
-                </li>
+                </li> --}}
             @endif
 
             @if (Auth::user()->role == 'teknik')

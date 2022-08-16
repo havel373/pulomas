@@ -19,7 +19,7 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             KeuanganSeeder::class,
             MarketingSeeder::class,
-            TeknikSeeder::class,
+            // TeknikSeeder::class,
             TenantSeeder::class,
             BankSeeder::class,
         ]);

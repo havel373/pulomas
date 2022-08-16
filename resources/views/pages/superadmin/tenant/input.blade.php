@@ -9,7 +9,7 @@
                             <label class="form-label" for="validationTooltip01">Email<small
                                     class="text-danger"><i>*Required</i></small></label>
                             <input type="text" class="form-control" name="email" id="email"
-                                value="{{ $data->user ? $data->user->email : '' }}" {{ $data->id ? 'disabled' : '' }}>
+                                value="{{ $data->user ? $data->user->email : '' }}">
                         </div>
                         <div class="col-md mb-3">
                             <label class="form-label"

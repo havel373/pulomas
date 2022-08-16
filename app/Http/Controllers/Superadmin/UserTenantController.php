@@ -118,6 +118,7 @@ class UserTenantController extends Controller
     public function update(Request $request, Tenant $tenant)
     {
         $validator = Validator::make($request->all(), [
+            'email' => 'required|string|email|max:255|unique:users,email,' . $tenant->id,
             'nomor_hp_instansi' => 'required|numeric|unique:tenants,nomor_hp_instansi,' . $tenant->id,
             'nama_penanggungjawab' => 'required|string|max:255',
             'nomor_hp_penanggungjawab' => 'required|numeric|unique:tenants,nomor_hp_penanggungjawab,' . $tenant->id,
@@ -186,6 +187,7 @@ class UserTenantController extends Controller
 
         $tenant->user->update([
             'nama' => $request->nama_instansi,
+            'email' => $request->email,
         ]);
         $tenant->update([
             'nama_instansi' => $request->nama_instansi,

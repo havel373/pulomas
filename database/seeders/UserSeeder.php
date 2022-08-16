@@ -33,14 +33,14 @@ class UserSeeder extends Seeder
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => date('Y-m-d H:i:s'),
             ],
-            [
-                'nama' => "Teknik",
-                'email' => "teknik@gmail.com",
-                'password' => 'password',
-                'role' => 'teknik',
-                'created_at' => date('Y-m-d H:i:s'),
-                'updated_at' => date('Y-m-d H:i:s'),
-            ],
+            // [
+            //     'nama' => "Teknik",
+            //     'email' => "teknik@gmail.com",
+            //     'password' => 'password',
+            //     'role' => 'teknik',
+            //     'created_at' => date('Y-m-d H:i:s'),
+            //     'updated_at' => date('Y-m-d H:i:s'),
+            // ],
             [
                 'nama' => "Keuangan",
                 'email' => "keuangan@gmail.com",

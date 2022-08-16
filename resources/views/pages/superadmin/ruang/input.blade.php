@@ -198,7 +198,7 @@
                                             <span class="input-group-text">Rp</span>
                                             <input type="text" class="form-control" name="service_charge"
                                                 id="service_charge_input" value="{{ $data->service_charge }}"
-                                                readonly>
+                                                >
                                         </div>
                                     </div>
                                 </div>

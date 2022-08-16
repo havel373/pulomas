@@ -50,7 +50,7 @@
                                     class="text-danger"><i>*Required</i></small></label>
                             <select class="form-control" name="status" placeholder="Pilih Status Pegawai">
                                 <option value="aktiv" {{ $data->status == 'aktiv' ? 'selected' : '' }}>Aktiv</option>
-                                <option value="non aktiv" {{ $data->status == 'non aktiv' ? 'selected' : '' }}>Non Aktiv
+                                <option value="tidak aktiv" {{ $data->status == 'tidak aktiv' ? 'selected' : '' }}>Tidak Aktiv
                                 </option>
                             </select>
                         </div>
@@ -69,11 +69,5 @@
     </div> <!-- end card-->
 </div> <!-- end col-->
 <script>
-    $('select[name="status"]').on('change', function() {
-        if (this.value == 'non aktiv') {
-            $('#tombol_submit').prop('disabled', true);
-        } else {
-            $('#tombol_submit').prop('disabled', false);
-        }
-    });
+  
 </script>

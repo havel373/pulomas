@@ -44,8 +44,10 @@ class GedungController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'id_aset' => 'required|integer',
+            'id_aset' => 'required',
             'nama_gedung' => 'required|string|max:255',
+            'kode_aset' => 'required|string|max:255',
+            'alamat_gedung' => 'required|string|max:255',
         ]);
 
         if ($validator->fails()) {

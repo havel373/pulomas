@@ -6,16 +6,10 @@
                     <h4 class="header-title">Create Gedung</h4>
                     <form class="needs-validation" id="form_submit">
                         <div class="position-relative mb-3">
-                            <label class="form-label" for="validationTooltip01">Pilih Asset<small
+                            <label class="form-label" for="validationTooltip01">Asset<small
                                     class="text-danger"><i>*Required</i></small></label>
-                            <select class="form-control" name="id_aset" id="id_aset">
-                                <option value="">Pilih Aset</option>
-                                @foreach ($assets as $asset)
-                                    <option value="{{ $asset->id }}"
-                                        {{ $data->id_aset == $asset->id ? 'selected' : '' }}>{{ $asset->nama_gedung }}
-                                    </option>
-                                @endforeach
-                            </select>
+                            <input type="text" class="form-control" name="id_aset" id="id_aset"
+                                    value="{{ $data->id_aset }}">
                         </div>
                         <div class="position-relative mb-3">
                             <label class="form-label" for="validationTooltip02">Nama Gedung<small
@@ -27,7 +21,7 @@
                             <label class="form-label" for="validationTooltip03">Kode Asset<small
                                     class="text-danger"><i>*Required</i></small></label>
                             <input type="text" class="form-control" id="validationTooltip03" placeholder=""
-                                name="kode_asset" value="{{ $data->kode_asset }}">
+                                name="kode_aset" value="{{ $data->kode_aset }}">
                         </div>
                         <div class="mb-3">
                             <label for="example-textarea" class="form-label">Alamat Gedung<small

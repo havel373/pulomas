@@ -69,6 +69,34 @@
                                             <div class="col-md-12">
                                                 <h5>{{ $data->alamat_penanggungjawab }}</h5>
                                             </div>
+                                            <div class="col-md-12">
+                                                <h3>Industri</h3>
+                                            </div>
+                                            <div class="col-md-12">
+                                                @foreach(json_decode($data->industri) as $item)
+                                                    @if($item == 1)
+                                                       <h5>- Pertanian</h5>
+                                                    @elseif($item == 2)
+                                                       <h5>- Perkebunan</h5>
+                                                    @elseif($item == 3)
+                                                       <h5>- Perikanan</h5>
+                                                    @elseif($item == 4)
+                                                       <h5>- Pertambangan</h5>
+                                                    @elseif($item == 5)
+                                                       <h5>- Perdagangan</h5>
+                                                    @elseif($item == 6)
+                                                       <h5>- Peternakan</h5>
+                                                    @elseif($item == 7)
+                                                       <h5>- Pariwisata</h5>
+                                                    @elseif($item == 8)
+                                                       <h5>- Alat angkutan lainnya</h5>
+                                                    @elseif($item == 9)
+                                                       <h5>- Barang-barang dari logam, dan peralatannya</h5>
+                                                    @elseif($item == 10)
+                                                       <h5>- Batu bara, minyak, dan gas bumi, dan bahan bakar dari nuklir</h5>
+                                                    @endif
+                                                @endforeach
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -103,15 +131,6 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            {{-- @forelse()
-                                                <tr>
-                                                    <td>{{}}</td>
-                                                    <td>{{}}</td>
-                                                    <td>{{}}</td>
-                                                    <td>{{}}</td>
-                                                </tr>
-                                            @empty
-                                            @endforelse --}}
                                         </tbody>
                                     </table>
                                 </div>

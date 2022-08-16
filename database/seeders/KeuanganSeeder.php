@@ -17,7 +17,7 @@ class KeuanganSeeder extends Seeder
     {
         $data = array(
             [
-                'user_id' => 4,
+                'user_id' => 3,
                 'status_pegawai' => "pegawai pmj",
                 'nomor_hp' => '087888781238',
                 'status' => 'aktiv',

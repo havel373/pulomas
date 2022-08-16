@@ -50,8 +50,6 @@ class SewaController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'booking' => 'required',
-            'kode_booking' => 'required_if:booking,ya',
             'gedung_id' => 'required',
             'lantai_id' => 'required',
             'ruang' => 'required',
@@ -60,7 +58,6 @@ class SewaController extends Controller
             'tanggal_akhir' => 'required',
             'jenis_service_charge' => 'required',
             'ppn' => 'required',
-            'luas_ruangan' => 'required',
             'marketing_id' => 'required',
             'keterangan' => 'required',
             'additional_services.*' => 'required',
@@ -134,8 +131,6 @@ class SewaController extends Controller
     public function update(Request $request, Sewa $sewa)
     {
         $validator = Validator::make($request->all(), [
-            'booking' => 'required',
-            'kode_booking' => 'required_if:booking,ya',
             'gedung_id' => 'required',
             'lantai_id' => 'required',
             'ruang' => 'required',
@@ -144,7 +139,6 @@ class SewaController extends Controller
             'tanggal_akhir' => 'required',
             'jenis_service_charge' => 'required',
             'ppn' => 'required',
-            'luas_ruangan' => 'required',
             'marketing_id' => 'required',
             'keterangan' => 'required',
             'additional_services.*' => 'required',

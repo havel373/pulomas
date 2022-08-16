@@ -27,6 +27,8 @@ use App\Http\Controllers\Superadmin\UserMarketingController;
 use App\Http\Controllers\Superadmin\AdditionalServiceController;
 use App\Http\Controllers\Teknik\DataTenantController as TeknikDataTenantController;
 use App\Http\Controllers\Marketing\DataTenantController as MarketingDataTenantController;
+use App\Http\Controllers\Marketing\KelolaSewaController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -82,8 +84,6 @@ Route::resource('/additional-service', AdditionalServiceController::class);
 Route::resource('/overtime', OvertimeController::class);
 Route::resource('/rekening', RekeningController::class);
 
-
-
 // Tenant
 Route::resource('/billing', BillingController::class);
 Route::get('sewa/getLantai', [SewaController::class, 'getLantai'])->name('sewa.getLantai');
@@ -97,12 +97,13 @@ Route::resource('/data-tenant', MarketingDataTenantController::class);
 Route::get('/data-tenant-grade', [MarketingDataTenantController::class, 'createGrade'])->name('data-tenant.create.grade');
 Route::post('/data-tenant-grade', [MarketingDataTenantController::class, 'storeGrade'])->name('data-tenant.create.grade');
 Route::resource('/data-standmeter', DataStandmeterController::class);
+Route::resource('/kelola-sewa', KelolaSewaController::class);
 
 // Teknik
-Route::resource('/standmeter', StandmeterController::class);
-Route::get('/standmeter-getHarga', [StandmeterController::class, 'getHarga'])->name('standmeter.getHarga');
-Route::resource('/tarif-listrik', TarifListrikController::class);
-Route::resource('/daya-tenant', DayaTenantController::class);
+// Route::resource('/standmeter', StandmeterController::class);
+// Route::get('/standmeter-getHarga', [StandmeterController::class, 'getHarga'])->name('standmeter.getHarga');
+// Route::resource('/tarif-listrik', TarifListrikController::class);
+// Route::resource('/daya-tenant', DayaTenantController::class);
 
 Route::get('/kelolausermarketing', function () {
     return view('superadmin.kelolausermarketing');

@@ -9,6 +9,7 @@ use App\Models\Tenant;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
@@ -42,7 +43,7 @@ class AuthController extends Controller
         $check = User::where("email", $request->email)->first();
         $user = $request->all();
         if ($check) {
-            if ($check->role != 'superadmin' || $check->role == 'tenant') {
+            if ($check->role == 'superadmin' || $check->role == 'tenant') {
                 if (Auth::attempt($user)) {
                     return response()->json([
                         'alert' => 'success',
@@ -56,24 +57,57 @@ class AuthController extends Controller
                     ]);
                 }
             } elseif ($check->role == 'teknik') {
-                if ($check->teknik->status == 'non-aktiv') {
+                if (Auth::attempt($user)) {
+                    return response()->json([
+                        'alert' => 'success',
+                        'message' => 'Selamat Datang Kembali ' . Auth::user()->nama,
+                        'callback' => route('dashboard'),
+                    ]);
+                } else if ($check->teknik->status == 'tidak aktiv') {
                     return response()->json([
                         'alert' => 'error',
                         'message' => 'akun anda nonaktif'
+                    ]);
+                } else {
+                    return response()->json([
+                        'alert' => 'error',
+                        'message' => 'Password salah!',
                     ]);
                 }
             } elseif ($check->role == 'marketing') {
-                if ($check->marketing->status == 'non-aktiv') {
+                if (Auth::attempt($user)) {
+                    return response()->json([
+                        'alert' => 'success',
+                        'message' => 'Selamat Datang Kembali ' . Auth::user()->nama,
+                        'callback' => route('dashboard'),
+                    ]);
+                } else if ($check->marketing->status == 'tidak aktiv') {
                     return response()->json([
                         'alert' => 'error',
                         'message' => 'akun anda nonaktif'
                     ]);
+                } else {
+                    return response()->json([
+                        'alert' => 'error',
+                        'message' => 'Password salah!',
+                    ]);
                 }
             } elseif ($check->role == 'keuangan') {
-                if ($check->keuangan->status == 'non-aktiv') {
+                if (Auth::attempt($user)) {
+                    return response()->json([
+                        'alert' => 'success',
+                        'message' => 'Selamat Datang Kembali ' . Auth::user()->nama,
+                        'callback' => route('dashboard'),
+                    ]);
+                } else if ($check->keuangan->status == 'tidak aktiv') {
                     return response()->json([
                         'alert' => 'error',
                         'message' => 'akun anda nonaktif'
+                    ]);
+                } else {
+                    return response()->json([
+                        'alert' => 'error',
+                        'message' => 'Password salah!',
                     ]);
                 }
             }
@@ -148,29 +182,45 @@ class AuthController extends Controller
         }
         $user = User::find($user->id);
         if ($user->role == 'teknik') {
-            if (!$request->password) {
-                $user->update($request->except('_token', 'nomor_hp', 'password'));
+            if ($request->password) {
+                $user->update([
+                    'nama' => $request->nama,
+                    'email' => $request->email,
+                    'password' => Hash::make($request->password),
+                ]);
             } else {
                 $user->update($request->except('_token', 'nomor_hp'));
             }
             $user->teknik->update($request->only('nomor_hp'));
         } elseif ($user->role == 'marketing') {
-            if (!$request->password) {
-                $user->update($request->except('_token', 'nomor_hp', 'password'));
+            if ($request->password) {
+                $user->update([
+                    'nama' => $request->nama,
+                    'email' => $request->email,
+                    'password' => Hash::make($request->password),
+                ]);
             } else {
                 $user->update($request->except('_token', 'nomor_hp'));
             }
             $user->marketing->update($request->only('nomor_hp'));
         } elseif ($user->role == 'keuangan') {
-            if (!$request->password) {
-                $user->update($request->except('_token', 'nomor_hp', 'password'));
+            if ($request->password) {
+                $user->update([
+                    'nama' => $request->nama,
+                    'email' => $request->email,
+                    'password' => Hash::make($request->password),
+                ]);
             } else {
                 $user->update($request->except('_token', 'nomor_hp'));
             }
             $user->keuangan->update($request->only('nomor_hp'));
         } elseif ($user->role == 'tenant') {
-            if (!$request->password) {
-                $user->update($request->except('_token', 'nomor_hp', 'password'));
+            if ($request->password) {
+                $user->update([
+                    'nama' => $request->nama,
+                    'email' => $request->email,
+                    'password' => Hash::make($request->password),
+                ]);
             } else {
                 $user->update($request->except('_token', 'nomor_hp'));
             }
@@ -188,8 +238,12 @@ class AuthController extends Controller
                 'alamat_penanggungjawab' => $request->alamat_penanggungjawab,
             ]);
         } else {
-            if (!$request->password) {
-                $user->update($request->except('_token', 'nomor_hp', 'password'));
+            if ($request->password) {
+                $user->update([
+                    'nama' => $request->nama,
+                    'email' => $request->email,
+                    'password' => Hash::make($request->password),
+                ]);
             } else {
                 $user->update($request->except('_token', 'nomor_hp'));
             }

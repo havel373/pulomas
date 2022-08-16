@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('gedung', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('id_aset');
+            $table->string('id_aset');
             $table->string('nama_gedung');
             $table->foreign('id_aset')->references('id')->on('asets');
             $table->string('kode_aset');

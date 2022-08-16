@@ -19,5 +19,5 @@ class Gedung extends Model
     {
         return $this->hasMany(Lantai::class, 'id_gedung');
     }
-    protected $fillable = ['id_aset', 'nama_gedung'];
+    protected $fillable = ['id_aset', 'nama_gedung','kode_aset','alamat_gedung'];
 }
